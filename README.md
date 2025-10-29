@@ -57,7 +57,7 @@ Every interaction and animation was built with **AI-assisted precision and human
 
 ## 🪄 Preview
 *(Screenshot / Demo Coming Soon)*  
-![Portfolio Preview](https://your-screenshot-link-here.png)
+![Portfolio Preview](https://github.com/19Dishank/portfolip-app/blob/main/src/ScreenShot.png)
 
 ---
 ## 👨‍💻 Author
