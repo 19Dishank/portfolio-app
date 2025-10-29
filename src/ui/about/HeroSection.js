@@ -4,16 +4,34 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
 import heroPhoto from "../../assets/hero-photo.jpg";
-
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
 export default function HeroSection() {
   return (
     <section className="hp-hero">
       {/* Left vertical social */}
       <div className="hp-left-social">
-        <a href="https://github.com/19Dishank" aria-label="GitHub" target="_blank" rel="noreferrer"><FaGithub /></a>
-        <a href="https://www.linkedin.com/in/dishank-patel-108718363/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><FaLinkedin /></a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let's%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!" target="_blank" rel="noreferrer" aria-label="Email"><FaEnvelope /></a>
+        <a
+          href={GITHUB_URL}
+          aria-label="GitHub"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaGithub />
+        </a>
+        <a
+          href={LINKEDIN_URL}
+          aria-label="LinkedIn"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaLinkedin />
+        </a>
+        <a href={EMAIL_URL} target="_blank" rel="noreferrer" aria-label="Email">
+          <FaEnvelope />
+        </a>
         <div className="hp-left-line" />
       </div>
 
@@ -31,40 +49,37 @@ export default function HeroSection() {
             Dishank <span className="hp-name-accent">Patel</span>
           </h1>
 
-          <h2 className="hp-role">
-            I build elegant UI &amp; fast web apps
-          </h2>
+          <h2 className="hp-role">I build elegant UI &amp; fast web apps</h2>
 
           <p className="hp-desc">
-            I’m currently pursuing my MCA and learning to design and build clean, responsive user interfaces that feel fast and enjoyable to use.
+            I’m currently pursuing my MCA and learning to design and build
+            clean, responsive user interfaces that feel fast and enjoyable to
+            use.
           </p>
 
           <div className="hp-cta-row">
-  <a
-    className="hp-cta"
-    
-    onClick={(e) => {
-      e.preventDefault();
-      const section = document.getElementById("projects");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
-    }}
-  >
-    See my work
-  </a>
+            <a
+              className="hp-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                const section = document.getElementById("projects");
+                if (section) section.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              See my work
+            </a>
 
-  <a
-    className="hp-cta ghost"
-   
-    onClick={(e) => {
-      e.preventDefault();
-      const section = document.getElementById("contact");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
-    }}
-  >
-    Contact me
-  </a>
-</div>
-
+            <a
+              className="hp-cta ghost"
+              onClick={(e) => {
+                e.preventDefault();
+                const section = document.getElementById("contact");
+                if (section) section.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Contact me
+            </a>
+          </div>
         </motion.div>
 
         {/* Right visual */}

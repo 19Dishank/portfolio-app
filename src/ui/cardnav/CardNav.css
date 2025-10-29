@@ -54,7 +54,10 @@
   width: 30px;
   height: 2px;
   background-color: currentColor;
-  transition: transform 0.25s ease, opacity 0.2s ease, margin 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    margin 0.3s ease;
   transform-origin: 50% 50%;
 }
 
@@ -209,11 +212,11 @@
 .nav-card a,
 .nav-card a:visited,
 .nav-card a:active {
-  color: inherit;             /* Inherit the color from parent (your white text) */
-  text-decoration: none;      /* Remove underline */
+  color: inherit; /* Inherit the color from parent (your white text) */
+  text-decoration: none; /* Remove underline */
 }
 
 .nav-card a:hover {
-  opacity: 0.8;               /* Subtle hover effect */
-  color: inherit;             /* Keep same color even on hover */
+  opacity: 0.8; /* Subtle hover effect */
+  color: inherit; /* Keep same color even on hover */
 }

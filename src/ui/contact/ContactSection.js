@@ -1,62 +1,79 @@
 import React from "react";
-import { MapPin, Mail, Code2, Monitor, Brain, Gamepad2, Award, Github, Linkedin } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Code2,
+  Monitor,
+  Brain,
+  Gamepad2,
+  Award,
+  Github,
+  Linkedin,
+} from "lucide-react";
 import "./ContactSection.css";
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
 export default function ContactSection() {
   return (
     <section className="contact-section" id="contact">
       <div className="contact-container">
-        
         {/* LEFT SIDE */}
         <div className="contact-left">
           <p className="contact-subtitle">Let’s Connect</p>
           <h2 className="contact-title">Contact</h2>
           <p className="contact-text">
-            Have a question or project in mind? Feel free to reach out — I’d love to collaborate.
+            Have a question or project in mind? Feel free to reach out — I’d
+            love to collaborate.
           </p>
 
           <div className="contact-info">
-  {/* Location */}
-  <div className="info-item">
-    <MapPin className="info-icon" />
-    <span>Surat, Gujarat, India</span>
-  </div>
+            {/* Location */}
+            <div className="info-item">
+              <MapPin className="info-icon" />
+              <span>Surat, Gujarat, India</span>
+            </div>
 
-  {/* Email */}
-  <div className="info-item">
-    <Mail className="info-icon" />
-    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let's%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!"  target="_blank" rel="noopener noreferrer" className="info-link">
-      <span>pateldishank19@gmail.com</span>
-    </a>
-  </div>
+            {/* Email */}
+            <div className="info-item">
+              <Mail className="info-icon" />
+              <a
+                href={EMAIL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="info-link"
+              >
+                <span>pateldishank19@gmail.com</span>
+              </a>
+            </div>
 
-  {/* GitHub */}
-  <div className="info-item">
-    <Github className="info-icon" />
-    <a
-      href="https://github.com/19Dishank"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="info-link"
-    >
-      <span>19Dishank</span>
-    </a>
-  </div>
+            {/* GitHub */}
+            <div className="info-item">
+              <Github className="info-icon" />
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="info-link"
+              >
+                <span>19Dishank</span>
+              </a>
+            </div>
 
-  {/* LinkedIn */}
-  <div className="info-item">
-    <Linkedin className="info-icon" />
-    <a
-      href="https://www.linkedin.com/in/dishank-patel-108718363/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="info-link"
-    >
-      <span>Dishank Patel</span>
-    </a>
-  </div>
-</div>
-
+            {/* LinkedIn */}
+            <div className="info-item">
+              <Linkedin className="info-icon" />
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="info-link"
+              >
+                <span>Dishank Patel</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* RIGHT SIDE */}
@@ -70,8 +87,12 @@ export default function ContactSection() {
                 <Award className="list-icon" /> Python Workshop — Shell
               </li>
               <li>
-                <Award className="list-icon" /> Prompt Engineering Workshop — Rizwan Malek 
-                <span className="org"> (Senior Developer, Narola Infotech)</span>
+                <Award className="list-icon" /> Prompt Engineering Workshop —
+                Rizwan Malek
+                <span className="org">
+                  {" "}
+                  (Senior Developer, Narola Infotech)
+                </span>
               </li>
             </ul>
           </div>
@@ -85,7 +106,8 @@ export default function ContactSection() {
                 <Code2 className="list-icon" /> Coding at midnight
               </li>
               <li>
-                <Monitor className="list-icon" /> Designing clean UI & animations
+                <Monitor className="list-icon" /> Designing clean UI &
+                animations
               </li>
               <li>
                 <Brain className="list-icon" /> Exploring AI tools & automation
@@ -96,7 +118,6 @@ export default function ContactSection() {
             </ul>
           </div>
         </div>
-
       </div>
     </section>
   );

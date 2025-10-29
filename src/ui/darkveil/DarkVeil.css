@@ -1,10 +1,10 @@
 .darkveil-canvas {
-  position: fixed;            /* cover viewport */
+  position: fixed; /* cover viewport */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.7); /* dark background */
-  pointer-events: none;       /* allow clicks to pass through */
-  z-index: -1;                /* behind everything */
+  pointer-events: none; /* allow clicks to pass through */
+  z-index: -1; /* behind everything */
 }

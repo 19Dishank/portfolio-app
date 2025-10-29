@@ -4,13 +4,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./App.css";
 import CardNav from "./ui/cardnav/CardNav";
 import InfiniteScroll from "./ui/skills/InfiniteScroll";
-import Squares from "./ui/squrebg/Squares";
 import ProjectsSection from "./ui/projectcard/ProjectsSection";
 import HeroSection from "./ui/about/HeroSection";
 import Footer from "./ui/footer/Footer";
-import './index.css';
+import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
-import Darkveli from "./ui/darkveil/DarkVeil"
+import Darkveli from "./ui/darkveil/DarkVeil";
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,51 +25,54 @@ function App() {
   const squaresRef = useRef(null);
 
   const items = [
-  {
-  label: "Resume",
-  bgColor: "#0D0716",
-  textColor: "#fff",
-  links: [
-    
-    { label: "View Resume", ariaLabel: "View Resume Online", href: "/resume.pdf" },
-  ],
-},
-  {
-    label: "Projects",
-    bgColor: "#170D27",
-    textColor: "#fff",
-    links: [],
-    href: "#projects", // smooth scroll to project section
-  },
-  {
-    label: "Contact",
-    bgColor: "#271E37",
-    textColor: "#fff",
-    links: [
-      {
-        label: "Email",
-        ariaLabel: "Email us",
-        href: "https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let's%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!",
-        target:"_blank",
-        rel:"noreferrer"
-      },
-      {
-        label: "GitHub",
-        ariaLabel: "View GitHub profile",
-        href: "https://github.com/19Dishank",
-        target:"_blank",
-        rel:"noreferrer"
-      },
-      {
-        label: "LinkedIn",
-        ariaLabel: "View LinkedIn profile",
-        href: "https://www.linkedin.com/in/dishank-patel-108718363/",
-        target:"_blank",
-        rel:"noreferrer"
-      },
-    ],
-  },
-];
+    {
+      label: "Resume",
+      bgColor: "#0D0716",
+      textColor: "#fff",
+      links: [
+        {
+          label: "View Resume",
+          ariaLabel: "View Resume Online",
+          href: "/resume.pdf",
+        },
+      ],
+    },
+    {
+      label: "Projects",
+      bgColor: "#170D27",
+      textColor: "#fff",
+      links: [],
+      href: "#projects", // smooth scroll to project section
+    },
+    {
+      label: "Contact",
+      bgColor: "#271E37",
+      textColor: "#fff",
+      links: [
+        {
+          label: "Email",
+          ariaLabel: "Email us",
+          href: EMAIL_URL,
+          target: "_blank",
+          rel: "noreferrer",
+        },
+        {
+          label: "GitHub",
+          ariaLabel: "View GitHub profile",
+          href: GITHUB_URL,
+          target: "_blank",
+          rel: "noreferrer",
+        },
+        {
+          label: "LinkedIn",
+          ariaLabel: "View LinkedIn profile",
+          href: LINKEDIN_URL,
+          target: "_blank",
+          rel: "noreferrer",
+        },
+      ],
+    },
+  ];
 
   const scrollItems = [
     { content: "💻 HTML" },
@@ -79,20 +84,20 @@ function App() {
     { content: "🖌️ UI/UX Design" },
     { content: "📱 Responsive Design" },
   ];
-  
+
   // ✅ Fade-in animation for home section
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         appRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: "power3.out" }
+        { opacity: 1, duration: 1.2, ease: "power3.out" },
       );
 
       gsap.fromTo(
         heroRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.2, delay: 0.8, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 1.2, delay: 0.8, ease: "power3.out" },
       );
     }, appRef);
 
@@ -120,21 +125,28 @@ function App() {
       });
 
       // Title animation
-      tl.from(titleRef.current, {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      }, "-=0.5");
+      tl.from(
+        titleRef.current,
+        {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.5",
+      );
 
       // InfiniteScroll animation, slide in like title
-      tl.from(scrollRef.current, {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      }, "-=0.7"); // slightly overlapping for smooth sequence
-
+      tl.from(
+        scrollRef.current,
+        {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.7",
+      ); // slightly overlapping for smooth sequence
     }, sectionRef);
 
     return () => ctx.revert();
@@ -169,11 +181,9 @@ function App() {
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            
           }}
         >
-         
-         <HeroSection/>
+          <HeroSection />
         </div>
 
         <div style={{ position: "relative", zIndex: 2 }}>
@@ -190,9 +200,7 @@ function App() {
             zIndex: 3,
             pointerEvents: "none",
           }}
-        >
-          
-        </div>
+        ></div>
       </section>
 
       {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + INFINITE SCROLL */}
@@ -220,12 +228,7 @@ function App() {
             zIndex: 1,
           }}
         >
-          <Darkveli 
-          speed={2}
-          scanlineIntensity={2}
-          hueShift={325}
-          
-          />
+          <Darkveli speed={2} scanlineIntensity={2} hueShift={325} />
           {/* <Squares
             speed={0.5}
             squareSize={40}
@@ -265,23 +268,23 @@ function App() {
 
         {/* InfiniteScroll Content */}
         <div
-  ref={scrollRef}
-  style={{
-    width: "100%",
-    height: "100vh", // reduce from 100% to 60% of viewport
-    position: "relative",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    marginTop: "1.5rem", // minimal spacing under title
-    zIndex: 2,
-    boxSizing: "border-box",
-  }}
->
+          ref={scrollRef}
+          style={{
+            width: "100%",
+            height: "100vh", // reduce from 100% to 60% of viewport
+            position: "relative",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            marginTop: "1.5rem", // minimal spacing under title
+            zIndex: 2,
+            boxSizing: "border-box",
+          }}
+        >
           <InfiniteScroll
             items={scrollItems}
             isTilted={true}
-             maxHeight="100vh"
+            maxHeight="100vh"
             tiltDirection="left"
             autoplay={true}
             autoplaySpeed={3}
@@ -292,7 +295,9 @@ function App() {
               width: "100%",
               height: "100%",
               display: "flex",
-              alignItems: "flex-start", marginTop: 0, paddingTop: 0,
+              alignItems: "flex-start",
+              marginTop: 0,
+              paddingTop: 0,
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
@@ -306,7 +311,7 @@ function App() {
         id="projects"
         style={{
           width: "100vw",
-          height: "100vh",        // full viewport height
+          height: "100vh", // full viewport height
           position: "relative",
           zIndex: 5,
           backgroundColor: "#000", // black background
@@ -347,14 +352,14 @@ function App() {
             Projects
           </div>
           <section>
-          <ProjectsSection speed={4} />
+            <ProjectsSection speed={4} />
           </section>
         </div>
       </section>
       <section id="contact">
-      <ContactSection/>
+        <ContactSection />
       </section>
-      <Footer/>
+      <Footer />
       {/* CSS for glow pulse */}
       <style>
         {`

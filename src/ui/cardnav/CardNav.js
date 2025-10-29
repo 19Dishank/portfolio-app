@@ -1,18 +1,18 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { GoArrowUpRight } from 'react-icons/go';
-import './CardNav.css';
+import { useLayoutEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { GoArrowUpRight } from "react-icons/go";
+import "./CardNav.css";
 
 const CardNav = ({
   logo,
-  logoAlt = 'Logo',
+  logoAlt = "Logo",
   items,
-  className = '',
-  ease = 'power3.out',
-  baseColor = '#fff',
+  className = "",
+  ease = "power3.out",
+  baseColor = "#fff",
   menuColor,
   buttonBgColor,
-  buttonTextColor
+  buttonTextColor,
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -24,19 +24,19 @@ const CardNav = ({
     const navEl = navRef.current;
     if (!navEl) return 260;
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     if (isMobile) {
-      const contentEl = navEl.querySelector('.card-nav-content');
+      const contentEl = navEl.querySelector(".card-nav-content");
       if (contentEl) {
         const wasVisible = contentEl.style.visibility;
         const wasPointerEvents = contentEl.style.pointerEvents;
         const wasPosition = contentEl.style.position;
         const wasHeight = contentEl.style.height;
 
-        contentEl.style.visibility = 'visible';
-        contentEl.style.pointerEvents = 'auto';
-        contentEl.style.position = 'static';
-        contentEl.style.height = 'auto';
+        contentEl.style.visibility = "visible";
+        contentEl.style.pointerEvents = "auto";
+        contentEl.style.position = "static";
+        contentEl.style.height = "auto";
         void contentEl.offsetHeight;
 
         const topBar = 60;
@@ -58,7 +58,7 @@ const CardNav = ({
     const navEl = navRef.current;
     if (!navEl) return null;
 
-    gsap.set(navEl, { height: 75, overflow: 'hidden' });
+    gsap.set(navEl, { height: 75, overflow: "hidden" });
     gsap.set(cardsRef.current, { y: 50, opacity: 0 });
 
     const tl = gsap.timeline({ paused: true });
@@ -66,10 +66,14 @@ const CardNav = ({
     tl.to(navEl, {
       height: calculateHeight,
       duration: 0.4,
-      ease
+      ease,
     });
 
-    tl.to(cardsRef.current, { y: 0, opacity: 1, duration: 0.4, ease, stagger: 0.08 }, '-=0.1');
+    tl.to(
+      cardsRef.current,
+      { y: 0, opacity: 1, duration: 0.4, ease, stagger: 0.08 },
+      "-=0.1",
+    );
 
     return tl;
   };
@@ -101,8 +105,8 @@ const CardNav = ({
         if (newTl) tlRef.current = newTl;
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isExpanded]);
 
   const toggleMenu = () => {
@@ -114,12 +118,12 @@ const CardNav = ({
       tl.play(0);
     } else {
       setIsHamburgerOpen(false);
-      tl.eventCallback('onReverseComplete', () => setIsExpanded(false));
+      tl.eventCallback("onReverseComplete", () => setIsExpanded(false));
       tl.reverse();
     }
   };
 
-  const setCardRef = i => el => {
+  const setCardRef = (i) => (el) => {
     if (el) cardsRef.current[i] = el;
   };
 
@@ -127,7 +131,7 @@ const CardNav = ({
     const nav = navRef.current;
     if (nav) {
       gsap.set(nav, { opacity: 0 });
-      gsap.to(nav, { opacity: 1, duration: 2, ease: 'power2.out' });
+      gsap.to(nav, { opacity: 1, duration: 2, ease: "power2.out" });
     }
   }, []);
 
@@ -138,67 +142,74 @@ const CardNav = ({
       window.history.replaceState(null, "", window.location.pathname); // 👈 removes #hash
     }
   };
-useLayoutEffect(() => {
-  if (!isExpanded) return;
+  useLayoutEffect(() => {
+    if (!isExpanded) return;
 
-  let inactivityTimer;
+    let inactivityTimer;
 
-  const closeMenu = () => {
-    setIsHamburgerOpen(false);
+    const closeMenu = () => {
+      setIsHamburgerOpen(false);
 
-    if (tlRef.current) {
-      tlRef.current.eventCallback('onReverseComplete', () => {
+      if (tlRef.current) {
+        tlRef.current.eventCallback("onReverseComplete", () => {
+          setIsExpanded(false);
+
+          // rebuild timeline after closing so it can reopen smoothly
+          tlRef.current.kill();
+          tlRef.current = createTimeline();
+        });
+        tlRef.current.reverse();
+      } else {
         setIsExpanded(false);
-
-        // rebuild timeline after closing so it can reopen smoothly
-        tlRef.current.kill();
         tlRef.current = createTimeline();
-      });
-      tlRef.current.reverse();
-    } else {
-      setIsExpanded(false);
-      tlRef.current = createTimeline();
-    }
-  };
+      }
+    };
 
-  const resetTimer = () => {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(closeMenu, 7000); // 7 seconds of inactivity
-  };
+    const resetTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(closeMenu, 7000); // 7 seconds of inactivity
+    };
 
-  const events = ["mousemove", "scroll", "keydown", "click", "touchstart"];
-  events.forEach(event => window.addEventListener(event, resetTimer));
+    const events = ["mousemove", "scroll", "keydown", "click", "touchstart"];
+    events.forEach((event) => window.addEventListener(event, resetTimer));
 
-  resetTimer();
+    resetTimer();
 
-  return () => {
-    clearTimeout(inactivityTimer);
-    events.forEach(event => window.removeEventListener(event, resetTimer));
-  };
-}, [isExpanded]);
+    return () => {
+      clearTimeout(inactivityTimer);
+      events.forEach((event) => window.removeEventListener(event, resetTimer));
+    };
+  }, [isExpanded]);
 
   return (
     <div className={`card-nav-container ${className}`}>
-      <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''}`} style={{ backgroundColor: baseColor }}>
+      <nav
+        ref={navRef}
+        className={`card-nav ${isExpanded ? "open" : ""}`}
+        style={{ backgroundColor: baseColor }}
+      >
         <div className="card-nav-top">
           <div
-            className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''}`}
+            className={`hamburger-menu ${isHamburgerOpen ? "open" : ""}`}
             onClick={toggleMenu}
             role="button"
-            aria-label={isExpanded ? 'Close menu' : 'Open menu'}
+            aria-label={isExpanded ? "Close menu" : "Open menu"}
             tabIndex={0}
-            style={{ color: menuColor || '#000' }}
+            style={{ color: menuColor || "#000" }}
           >
             <div className="hamburger-line" />
             <div className="hamburger-line" />
           </div>
 
-          <div className="logo-container" style={{
-            fontFamily: "sans-serif",
-            fontWeight: 700,
-            textTransform: 'uppercase'
-          }}>
-            <h2 style={{ color: 'black' }}>Portfolio</h2>
+          <div
+            className="logo-container"
+            style={{
+              fontFamily: "sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+            }}
+          >
+            <h2 style={{ color: "black" }}>Portfolio</h2>
           </div>
 
           <button
@@ -207,7 +218,7 @@ useLayoutEffect(() => {
             style={{
               backgroundColor: buttonBgColor,
               color: buttonTextColor,
-              fontFamily: "sans-serif"
+              fontFamily: "sans-serif",
             }}
             onClick={() => handleSmoothScroll("contact")}
           >
@@ -223,13 +234,15 @@ useLayoutEffect(() => {
               ref={setCardRef(idx)}
               style={{ backgroundColor: item.bgColor, color: item.textColor }}
               onClick={() => {
-                
                 if (item.label === "Projects") handleSmoothScroll("projects");
                 if (item.label === "Contact") handleSmoothScroll("contact");
               }}
             >
               <div className="nav-card-label">{item.label}</div>
-              <div className="nav-card-links" onClick={(e) => e.stopPropagation()}>
+              <div
+                className="nav-card-links"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {item.links?.map((lnk, i) => (
                   <a
                     key={`${lnk.label}-${i}`}
@@ -239,7 +252,10 @@ useLayoutEffect(() => {
                     rel="noopener noreferrer"
                     aria-label={lnk.ariaLabel}
                   >
-                    <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
+                    <GoArrowUpRight
+                      className="nav-card-link-icon"
+                      aria-hidden="true"
+                    />
                     {lnk.label}
                   </a>
                 ))}

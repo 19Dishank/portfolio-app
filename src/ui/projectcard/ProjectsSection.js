@@ -24,7 +24,7 @@ export default function ProjectsSection() {
       type: "Web Application",
       year: "2024",
       technologies: ["HTML", "CSS", "MYSQL", "PHP", "JavaScript", "Bootstrap"],
-      screenshots: [alpha2, alpha3,alpha4],
+      screenshots: [alpha2, alpha3, alpha4],
       liveLink: "#",
       codeLink: "https://github.com/19Dishank/alpha_array",
     },
@@ -35,7 +35,14 @@ export default function ProjectsSection() {
       image: job1,
       type: "Web Application",
       year: "2024",
-      technologies: ["HTML", "CSS", "PHP-LARAVEL", "MySQL", "JavaScript", "Bootstrap"],
+      technologies: [
+        "HTML",
+        "CSS",
+        "PHP-LARAVEL",
+        "MySQL",
+        "JavaScript",
+        "Bootstrap",
+      ],
       screenshots: [job2, job3],
       liveLink: "#",
       codeLink: "https://github.com/19Dishank/jobify-php",
@@ -44,15 +51,11 @@ export default function ProjectsSection() {
       title: "SafePassage - Secure Vault App",
       description:
         "SafePassage is an Android app that helps users securely store and manage their credentials and documents. It includes PIN- based access, a password manager, credit card storage, a document vault, a password generator, and a password strength monitor.Designed with an easy - to - use interface and strong security to ensure a private, seamless experience.",
-      image:
-        app1,
+      image: app1,
       type: "Mobile App",
       year: "2025",
       technologies: ["XML", "Firebase", "Kotlin"],
-      screenshots: [
-        app1,
-        app2,
-      ],
+      screenshots: [app1, app2],
       liveLink: "#",
       codeLink: "#",
     },
@@ -60,14 +63,12 @@ export default function ProjectsSection() {
       title: "Portfolio Web App",
       description:
         "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
-      image:
-        p1,
-      type: "Mobile App",
+      image: p1,
+      type: "Frontend Web-App",
       year: "2025",
       technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
       screenshots: [
         p2,
-        // p3,
         p4,
         p5,
       ],
@@ -96,7 +97,8 @@ export default function ProjectsSection() {
   }, [selectedProject]);
 
   const nextSlide = () => setIndex((prev) => (prev + 1) % projects.length);
-  const prevSlide = () => setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  const prevSlide = () =>
+    setIndex((prev) => (prev - 1 + projects.length) % projects.length);
 
   const visibleCount = isMobile ? 1 : 3;
   const visibleProjects = [];
@@ -107,45 +109,75 @@ export default function ProjectsSection() {
   // icons
   const IconClose = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M18 6L6 18M6 6L18 18"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
   const IconExternal = ({ size = 16 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M14 3H21V10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M21 21H3V3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M14 3H21V10"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10 14L21 3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M21 21H3V3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
   const IconCode = ({ size = 16 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M10 17L5 12L10 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M14 17L19 12L14 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M10 17L5 12L10 7"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M14 17L19 12L14 7"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
-useEffect(() => {
-  const images = document.querySelectorAll(".popup-zoom-image");
+  useEffect(() => {
+    const images = document.querySelectorAll(".popup-zoom-image");
 
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
-  };
+    const handleMove = (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
+    };
 
-  images.forEach((img) => {
-    img.addEventListener("mousemove", handleMove);
-    img.addEventListener("mouseleave", () => {
-      img.style.transformOrigin = "center center";
-    });
-  });
-
-  return () => {
     images.forEach((img) => {
-      img.removeEventListener("mousemove", handleMove);
+      img.addEventListener("mousemove", handleMove);
+      img.addEventListener("mouseleave", () => {
+        img.style.transformOrigin = "center center";
+      });
     });
-  };
-}, []);
+
+    return () => {
+      images.forEach((img) => {
+        img.removeEventListener("mousemove", handleMove);
+      });
+    };
+  }, []);
 
   return (
     <section
@@ -175,8 +207,12 @@ useEffect(() => {
         <button
           onClick={prevSlide}
           style={navBtn("left")}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
+          }
         >
           ❮
         </button>
@@ -248,7 +284,14 @@ useEffect(() => {
                   }}
                 >
                   <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        marginBottom: 10,
+                      }}
+                    >
                       <span
                         style={{
                           background: "rgba(0,191,166,0.12)",
@@ -261,11 +304,23 @@ useEffect(() => {
                       >
                         {project.type}
                       </span>
-                      <span style={{ color: "#9aa0a6", fontSize: 13 }}>{project.year}</span>
+                      <span style={{ color: "#9aa0a6", fontSize: 13 }}>
+                        {project.year}
+                      </span>
                     </div>
 
-                    <h3 style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}>{project.title}</h3>
-                    <p style={{ fontSize: 14, color: "#cfcfcf", lineHeight: 1.45 }}>
+                    <h3
+                      style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 14,
+                        color: "#cfcfcf",
+                        lineHeight: 1.45,
+                      }}
+                    >
                       {project.description.slice(0, 90)}...
                     </p>
                   </div>
@@ -291,8 +346,12 @@ useEffect(() => {
         <button
           onClick={nextSlide}
           style={navBtn("right")}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
+          }
         >
           ❯
         </button>
@@ -357,7 +416,12 @@ useEffect(() => {
                   borderRadius: 8,
                 }}
               >
-                <span style={{ display: "inline-block", transform: "translateY(1px)" }}>
+                <span
+                  style={{
+                    display: "inline-block",
+                    transform: "translateY(1px)",
+                  }}
+                >
                   <IconClose size={16} />
                 </span>
               </button>
@@ -389,7 +453,6 @@ useEffect(() => {
                   }
                 `}
               </style>
-             
 
               {/* Title Row */}
               <div
@@ -426,7 +489,10 @@ useEffect(() => {
                       selectedProject.category ||
                       "Project"}
                   </span>
-                  <span className="year" style={{ color: "#9aa0a6", fontSize: 13 }}>
+                  <span
+                    className="year"
+                    style={{ color: "#9aa0a6", fontSize: 13 }}
+                  >
                     {selectedProject.year}
                   </span>
                 </h2>
@@ -434,7 +500,9 @@ useEffect(() => {
 
               {/* Description */}
               <div style={{ marginBottom: 18 }}>
-                <h3 style={{ margin: "6px 0 8px", fontSize: 15, fontWeight: 700 }}>
+                <h3
+                  style={{ margin: "6px 0 8px", fontSize: 15, fontWeight: 700 }}
+                >
                   Description
                 </h3>
                 <p style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}>
@@ -445,7 +513,13 @@ useEffect(() => {
               {/* Technologies */}
               {selectedProject.technologies?.length > 0 && (
                 <div style={{ marginBottom: 18 }}>
-                  <h3 style={{ margin: "6px 0 8px", fontSize: 15, fontWeight: 700 }}>
+                  <h3
+                    style={{
+                      margin: "6px 0 8px",
+                      fontSize: 15,
+                      fontWeight: 700,
+                    }}
+                  >
                     Technologies
                   </h3>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -471,13 +545,20 @@ useEffect(() => {
               {/* Screenshots */}
               {selectedProject.screenshots && (
                 <div className="" style={{ marginBottom: 18 }}>
-                  <h3 style={{ margin: "6px 0 10px", fontSize: 15, fontWeight: 700 }}>
+                  <h3
+                    style={{
+                      margin: "6px 0 10px",
+                      fontSize: 15,
+                      fontWeight: 700,
+                    }}
+                  >
                     Screenshots
                   </h3>
                   <div
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                      gridTemplateColumns:
+                        "repeat(auto-fit, minmax(200px, 1fr))",
                       overflow: "visible",
                       gap: 12,
                     }}
@@ -514,7 +595,9 @@ useEffect(() => {
                 {selectedProject.liveLink && (
                   <a
                     href={
-                      selectedProject.liveLink !== "#" ? selectedProject.liveLink : undefined
+                      selectedProject.liveLink !== "#"
+                        ? selectedProject.liveLink
+                        : undefined
                     }
                     target="_blank"
                     rel="noreferrer"
@@ -539,7 +622,9 @@ useEffect(() => {
                       pointerEvents:
                         selectedProject.liveLink !== "#" ? "auto" : "none",
                       cursor:
-                        selectedProject.liveLink !== "#" ? "pointer" : "not-allowed",
+                        selectedProject.liveLink !== "#"
+                          ? "pointer"
+                          : "not-allowed",
                       transition: "0.3s",
                     }}
                   >
@@ -550,7 +635,9 @@ useEffect(() => {
                 {selectedProject.codeLink && (
                   <a
                     href={
-                      selectedProject.codeLink !== "#" ? selectedProject.codeLink : undefined
+                      selectedProject.codeLink !== "#"
+                        ? selectedProject.codeLink
+                        : undefined
                     }
                     target="_blank"
                     rel="noreferrer"
@@ -559,8 +646,7 @@ useEffect(() => {
                       alignItems: "center",
                       gap: 8,
                       background: "transparent",
-                      color:
-                        selectedProject.codeLink !== "#" ? "#ddd" : "#777",
+                      color: selectedProject.codeLink !== "#" ? "#ddd" : "#777",
                       padding: "10px 14px",
                       borderRadius: 8,
                       textDecoration: "none",
@@ -572,7 +658,9 @@ useEffect(() => {
                       pointerEvents:
                         selectedProject.codeLink !== "#" ? "auto" : "none",
                       cursor:
-                        selectedProject.codeLink !== "#" ? "pointer" : "not-allowed",
+                        selectedProject.codeLink !== "#"
+                          ? "pointer"
+                          : "not-allowed",
                       transition: "0.3s",
                     }}
                   >
@@ -584,11 +672,9 @@ useEffect(() => {
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }
-
 
 // reusable navigation button style
 const navBtn = (side) => ({
