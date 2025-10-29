@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="footer-icons">
           <a href="https://github.com/19Dishank" className="icon"><FaGithub /></a>
           <a href="https://www.linkedin.com/in/dishank-patel-108718363/" className="icon"><FaLinkedin /></a>
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com"  target="_blank" rel="noopener noreferrer" className="icon"><SiGmail /></a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let's%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!"  target="_blank" rel="noopener noreferrer" className="icon"><SiGmail /></a>
         </div>
 
         {/* <div className="footer-likes">

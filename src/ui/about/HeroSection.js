@@ -13,7 +13,7 @@ export default function HeroSection() {
       <div className="hp-left-social">
         <a href="https://github.com/19Dishank" aria-label="GitHub" target="_blank" rel="noreferrer"><FaGithub /></a>
         <a href="https://www.linkedin.com/in/dishank-patel-108718363/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><FaLinkedin /></a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com" target="_blank" rel="noreferrer" aria-label="Email"><FaEnvelope /></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let's%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!" target="_blank" rel="noreferrer" aria-label="Email"><FaEnvelope /></a>
         <div className="hp-left-line" />
       </div>
 
