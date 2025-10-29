@@ -1,0 +1,352 @@
+/* src/ui/HeroSection.css */
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;600&display=swap');
+
+:root{
+  --bg: #050507;
+  --panel: #0f0f12;
+  --muted: #B7B7C4;
+  --accent: linear-gradient(90deg, #b084f5 0%, #7ff0e3 100%);
+  --accent-solid: #b084f5;
+}
+/* Add these lines in your HeroSection.css */
+
+/* ✅ Make image black & white by default */
+.hp-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%);
+  transition: filter 0.6s ease;
+}
+
+/* ✅ On hover → original colors appear */
+.hp-photo-wrap:hover .hp-photo {
+  filter: grayscale(0%);
+}
+
+/* Section */
+.hp-hero {
+  min-height: 100vh;
+  background: var(--bg);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0 80px; /* No vertical padding → perfect centering */
+  font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Left vertical social bar */
+.hp-left-social {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  z-index: 20;
+}
+.hp-left-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #0b0b0b;
+  color: #bfc0cc;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+.hp-left-social a:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+.hp-left-line {
+  width: 2px;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* Inner container */
+.hp-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+/* Left text column */
+.hp-text {
+  flex: 1 1 58%;
+  max-width: 680px;
+}
+.hp-pre {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 12px;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+.hp-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 68px;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #fff;
+}
+.hp-name-accent {
+  display: inline-block;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-left: 6px;
+}
+.hp-role {
+  font-size: 24px;
+  color: #cfcfe0;
+  margin: 18px 0 20px 0;
+  font-weight: 600;
+}
+.hp-desc {
+  color: #aeb0bd;
+  font-size: 16px;
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+
+/* CTA row */
+.hp-cta-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+.hp-cta {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #7a61f5, #a17df9);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(120, 80, 255, 0.12);
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+.hp-cta:hover { transform: translateY(-4px); }
+.hp-cta.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #d6d6e6;
+  box-shadow: none;
+}
+
+/* Right visual column */
+.hp-visual {
+  flex: 0 0 360px;
+  height: 420px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Purple blurred background blob */
+.hp-visual-bg {
+  position: absolute;
+  right: -20%;
+  top: -12%;
+  width: 520px;
+  height: 520px;
+  filter: blur(62px);
+  background: radial-gradient(circle at 30% 30%, rgba(176,120,247,0.28), rgba(123,206,192,0.12) 40%, rgba(0,0,0,0) 70%);
+  transform: rotate(-12deg);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Photo container */
+.hp-photo-wrap {
+  width: 320px;
+  height: 320px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  z-index: 5;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hp-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating badges */
+.hp-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  background: linear-gradient(180deg, rgba(255,255,255,15%), rgba(255,255,255,15%));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 40px rgba(3,6,22,0.6);
+  color: #f5f5f8;
+  z-index: 9;
+}
+.hp-badge .b-left { color: var(--accent-solid); padding-right: 6px; }
+.hp-badge-1 { right: -12px; top: 30px; transform: translateY(-8%); }
+.hp-badge-2 { left: -24px; bottom: 35px; transform: translateY(6%); }
+
+/* ✅ Responsive */
+@media (max-width: 1100px) {
+  .hp-hero {
+    padding: 40px 60px; /* decreased overall padding */
+  }
+  .hp-name { font-size: 56px; }
+  .hp-inner { gap: 28px; }
+  .hp-visual { flex-basis: 300px; height: 360px; }
+  .hp-photo-wrap { width: 260px; height: 260px; }
+}
+
+/* ✅ Tablet and smaller laptops */
+@media (max-width: 800px) {
+  .hp-hero {
+    padding: 28px 28px 36px;
+    justify-content: center;
+  }
+  .hp-inner {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+  .hp-left-social { display: none; }
+  .hp-text { max-width: 600px; }
+  .hp-visual {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .hp-photo-wrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  /* ✅ make badges visible again */
+  .hp-badge-1, .hp-badge-2 {
+    display: flex;
+    position: absolute;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 10px;
+  }
+
+  .hp-badge-1 {
+    top: -10px;
+    right: -6px;
+    transform: scale(0.9);
+  }
+
+  .hp-badge-2 {
+    bottom: -10px;
+    left: -6px;
+    transform: scale(0.9);
+  }
+
+  .hp-name { font-size: 44px; }
+  .hp-role { font-size: 20px; }
+  .hp-desc { font-size: 15px; }
+  .hp-cta-row { justify-content: center; flex-wrap: wrap; }
+}
+
+/* ✅ Mobile view */
+@media (max-width: 720px) {
+  .hp-hero { padding: 80px 18px 10px; }
+  .hp-inner { gap: 16px; }
+  .hp-photo-wrap { width: 220px; height: 220px; }
+
+  .hp-badge-1 { top: 28px; right: -30px; transform: scale(0.85); }
+  .hp-badge-2 { bottom: 29px; left: -30px; transform: scale(0.85); }
+}
+
+/* ✅ Fix badge alignment on small screens */
+@media (max-width: 800px) {
+  .hp-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .hp-photo-wrap {
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Reposition badges closer to image */
+  .hp-badge-1 {
+    top: 28px;
+    right: -30px;
+    transform: scale(0.9);
+  }
+
+  .hp-badge-2 {
+    bottom: 29px;
+    left: -30px;
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .hp-badge-1,
+  .hp-badge-2 {
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 8px;
+  }
+
+  .hp-badge-1 {
+    top: 28px;
+    right: -30px;
+    transform: scale(0.85);
+  }
+
+  .hp-badge-2 {
+    bottom: 29px;
+    left: -30px;
+    transform: scale(0.85);
+  }
+}

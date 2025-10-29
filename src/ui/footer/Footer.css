@@ -1,0 +1,227 @@
+.footer {
+  background-color: #0d0d0d;
+  color: #fff;
+  padding: 40px 20px;
+  font-family: "Poppins", sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+/* Default (Desktop) - untouched design */
+.footer-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon {
+  color: #aaa;
+  font-size: 1.6rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.icon:hover {
+  color: #9b5cff;
+  transform: scale(1.2);
+}
+
+.footer-likes .like-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid #9b5cff;
+  color: #9b5cff;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer-likes .like-btn:hover {
+  background-color: #9b5cff;
+  color: #fff;
+}
+
+.heart-icon {
+  color: #9b5cff;
+  transition: color 0.3s ease;
+}
+
+.footer-built p {
+  margin: 3px 0;
+  color: #ccc;
+}
+
+.footer-built strong {
+  color: #fff;
+}
+
+.footer-spotify iframe {
+  border-radius: 12px;
+  width: 300px;
+  height: 152px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.footer-tech {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: #b3b3b3;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: transform 0.3s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-3px);
+}
+
+.tech-icon {
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tech-icon.react {
+  color: #61dafb;
+}
+
+.tech-icon.css {
+  color: #2965f1;
+}
+
+.tech-icon.vercel {
+  color: #ffffff;
+}
+.tech-icon.user {
+  color: #ffffff;
+  font-size: 0.5rem;
+}
+
+.tech-item:hover .tech-icon.react {
+  transform: rotate(10deg);
+  color: #33cfff;
+}
+
+.tech-item:hover .tech-icon.css {
+  transform: rotate(-10deg);
+  color: #1e4ef5;
+}
+
+.tech-item:hover .tech-icon.vercel {
+  transform: scale(1.2);
+  color: #9b5cff;
+}
+
+/* ------------------------ */
+/* ✅ Responsive Design Fix */
+/* ------------------------ */
+
+@media (max-width: 1024px) {
+  .footer-content {
+    padding: 1.5rem 2rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-spotify iframe {
+    width: 340px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-icons {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .footer-likes {
+    order: 2;
+  }
+
+  .footer-tech {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .footer-spotify {
+    order: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .footer-spotify iframe {
+    width: 92vw;          /* Bigger player */
+    max-width: 380px;     /* Prevent overflow */
+    height: 180px;        /* Taller player */
+    border-radius: 12px;
+    margin-bottom: 0;     /* Remove blank space */
+  }
+
+  .like-btn {
+    font-size: 15px;
+    padding: 8px 18px;
+  }
+
+  .footer-bottom {
+    font-size: 13px;
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-spotify iframe {
+    width: 95vw;
+    height: 170px;
+  }
+
+  .footer-content {
+    padding: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+  }
+}
