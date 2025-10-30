@@ -9,7 +9,8 @@ import HeroSection from "./ui/about/HeroSection";
 import Footer from "./ui/footer/Footer";
 import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
-import Darkveli from "./ui/darkveil/DarkVeil";
+import DarkVeil from "./ui/darkveil/DarkVeil";
+
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
 const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
@@ -228,7 +229,13 @@ function App() {
             zIndex: 1,
           }}
         >
-          <Darkveli speed={2} scanlineIntensity={2} hueShift={325} />
+          <div style={{ width: '100%', height: '700px', position: 'relative',backgroundColor:'black' }}>
+            <DarkVeil
+            hueShift={325}
+            speed={2}
+            //warpAmount={5}
+            />
+          </div>
           {/* <Squares
             speed={0.5}
             squareSize={40}
@@ -287,7 +294,7 @@ function App() {
             maxHeight="100vh"
             tiltDirection="left"
             autoplay={true}
-            autoplaySpeed={3}
+            autoplaySpeed={2.5}
             negativeMargin=""
             autoplayDirection="up"
             pauseOnHover={true}
