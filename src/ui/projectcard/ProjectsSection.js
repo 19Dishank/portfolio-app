@@ -14,6 +14,7 @@ import p2 from "../../assets/p2.png";
 import p4 from "../../assets/p4.png";
 import p5 from "../../assets/p5.png";
 
+
 export default function ProjectsSection() {
   const projects = [
     {
