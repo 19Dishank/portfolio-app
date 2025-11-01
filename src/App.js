@@ -11,6 +11,7 @@ import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
 import DarkVeil from "./ui/darkveil/DarkVeil";
 
+
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
 const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
@@ -152,7 +153,7 @@ function App() {
 
     return () => ctx.revert();
   }, []);
-
+  
   return (
     <div
       ref={appRef}
