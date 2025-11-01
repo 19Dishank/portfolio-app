@@ -36,7 +36,7 @@ It’s not just a showcase — it’s an **experience**.
 **Core:**
 
 - ⚛️ React.js
-- 💅 Tailwind CSS
+- 💅 CSS3
 - ⚙️ JavaScript (ES6+)
 
 **Enhancements:**
@@ -65,7 +65,7 @@ Every interaction and animation was built with **AI-assisted precision and human
 ## 🪄 Preview
 
 _(Screenshot / Demo Coming Soon)_  
-![Portfolio Preview](https://github.com/19Dishank/portfolip-app/blob/main/src/ScreenShot.png)
+![Portfolio Preview](https://github.com/19Dishank/portfolio-app/blob/main/src/ScreenShot.png)
 
 ---
 
@@ -83,7 +83,7 @@ _(Screenshot / Demo Coming Soon)_
 
 ```bash
 # Clone the repo (read-only)
-git clone https://github.com/19Dishank/portfolip-app
+git clone https://github.com/19Dishank/portfolio-app
 
 # Move into the folder
 cd portfolio
