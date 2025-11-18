@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import alpha1 from "../../assets/alpha1.png";
@@ -14,7 +14,6 @@ import p1 from "../../assets/p1.png";
 import p2 from "../../assets/p2.png";
 import p4 from "../../assets/p4.png";
 import p5 from "../../assets/p5.png";
-import dip1 from "../../assets/dip1.png";
 import dip2 from "../../assets/dip2.png";
 import dip3 from "../../assets/dip3.png";
 import dip4 from "../../assets/dip4.png";
@@ -26,7 +25,7 @@ import note4 from "../../assets/note4.png";
 
 
 
-export default function ProjectsSection() {
+const ProjectsSection = memo(function ProjectsSection() {
   const projects = [
     
     {
@@ -123,11 +122,21 @@ export default function ProjectsSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
+  // Optimized resize handler with debouncing
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth <= 768);
+      }, 150);
+    };
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {
@@ -138,9 +147,14 @@ export default function ProjectsSection() {
     }
   }, [selectedProject]);
 
-  const nextSlide = () => setIndex((prev) => (prev + 1) % projects.length);
-  const prevSlide = () =>
+  // Memoized callbacks for better performance
+  const nextSlide = useCallback(() => {
+    setIndex((prev) => (prev + 1) % projects.length);
+  }, [projects.length]);
+  
+  const prevSlide = useCallback(() => {
     setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  }, [projects.length]);
 
   const visibleCount = isMobile ? 1 : 3;
   const visibleProjects = [];
@@ -306,10 +320,12 @@ export default function ProjectsSection() {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover", // ✅ auto adjust
+                      objectFit: "cover",
                       display: "block",
                     }}
                   />
@@ -641,6 +657,8 @@ export default function ProjectsSection() {
                         src={src}
                         alt={`screenshot-${i}`}
                         className="popup-zoom-image"
+                        loading="lazy"
+                        decoding="async"
                         style={{
                           width: "100%",
                           height: 140,
@@ -752,7 +770,9 @@ export default function ProjectsSection() {
       )}
     </section>
   );
-}
+});
+
+export default ProjectsSection;
 
 // reusable navigation button style
 const navBtn = (side) => ({

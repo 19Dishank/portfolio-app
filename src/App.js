@@ -24,6 +24,7 @@ function App() {
   const titleRef = useRef(null);
   const scrollRef = useRef(null);
   const squaresRef = useRef(null);
+  const projectsTitleRef = useRef(null);
 
   const items = [
     {
@@ -86,46 +87,100 @@ function App() {
     { name: "Prompt Engineering", category: "AI / LLM Skills", icon: "🤖" },
   ];
 
-  // ✅ Fade-in animation for home section
+  // ✅ Fade-in animation for home section - Optimized
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      // Use will-change for better performance
+      if (appRef.current) {
+        appRef.current.style.willChange = "opacity";
+      }
+      
       gsap.fromTo(
         appRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: "power3.out" },
+        { 
+          opacity: 1, 
+          duration: 1.2, 
+          ease: "power3.out",
+          force3D: true,
+          onComplete: () => {
+            if (appRef.current) {
+              appRef.current.style.willChange = "auto";
+            }
+          }
+        },
       );
 
       gsap.fromTo(
         heroRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.2, delay: 0.8, ease: "power3.out" },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1.2, 
+          delay: 0.8, 
+          ease: "power3.out",
+          force3D: true
+        },
       );
     }, appRef);
 
     return () => ctx.revert();
   }, []);
 
-  // ✅ Scroll-triggered animation for Skills section
+  // ✅ Scroll-triggered animation for Skills section - Optimized
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      // Optimize ScrollTrigger performance
+      ScrollTrigger.config({
+        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+        ignoreMobileResize: true,
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
           end: "bottom 20%",
           toggleActions: "play none none reverse",
+          markers: false,
+          refreshPriority: -1,
         },
       });
 
-      // Squares background animation
+      // Projects section title animation
+      if (projectsTitleRef.current) {
+        gsap.fromTo(
+          projectsTitleRef.current,
+          {
+            opacity: 0,
+            y: 50,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            force3D: true,
+            scrollTrigger: {
+              trigger: projectsTitleRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // Squares background animation - Optimized
       tl.from(squaresRef.current, {
         opacity: 0,
         scale: 0.95,
         duration: 1,
         ease: "power3.out",
+        force3D: true,
       });
 
-      // Title animation
+      // Title animation - Optimized
       tl.from(
         titleRef.current,
         {
@@ -133,11 +188,12 @@ function App() {
           opacity: 0,
           duration: 1,
           ease: "power3.out",
+          force3D: true,
         },
         "-=0.5",
       );
 
-      // InfiniteScroll animation, slide in like title
+      // Tech Stack section animation - Optimized
       tl.from(
         scrollRef.current,
         {
@@ -145,6 +201,7 @@ function App() {
           opacity: 0,
           duration: 1,
           ease: "power3.out",
+          force3D: true,
         },
         "-=0.7",
       ); // slightly overlapping for smooth sequence
@@ -188,7 +245,15 @@ function App() {
         </div>
 
         <div style={{ position: "relative", zIndex: 2 }}>
-          <CardNav logoAlt="Portfolio Logo" items={items} ease="power3.out" />
+          <CardNav 
+            logoAlt="Portfolio Logo" 
+            items={items} 
+            ease="power3.out"
+            baseColor="#fff"
+            menuColor="#000"
+            buttonBgColor="#111"
+            buttonTextColor="#fff"
+          />
         </div>
 
         <div
@@ -313,7 +378,7 @@ function App() {
         >
           {/* Centered Title */}
           <div
-            ref={titleRef}
+            ref={projectsTitleRef}
             style={{
               position: "relative",
               zIndex: 2,

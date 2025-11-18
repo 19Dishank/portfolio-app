@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import "./TechStackCompact.css";
 
-export default function TechStackCompact({ skills = [] }) {
+const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
   return (
     <div className="tech-compact-wrapper">
       <div className="tech-compact-grid">
@@ -23,5 +23,7 @@ export default function TechStackCompact({ skills = [] }) {
       </div>
     </div>
   );
-}
+});
+
+export default TechStackCompact;
 

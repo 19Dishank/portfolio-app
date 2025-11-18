@@ -32,6 +32,11 @@
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.6s ease-out var(--delay, 0s) both;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .tech-compact-item::before {

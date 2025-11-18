@@ -85,6 +85,7 @@ const CardNav = ({
       tl?.kill();
       tlRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ease, items]);
 
   useLayoutEffect(() => {
@@ -107,6 +108,7 @@ const CardNav = ({
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpanded]);
 
   const toggleMenu = () => {
@@ -130,8 +132,8 @@ const CardNav = ({
   useLayoutEffect(() => {
     const nav = navRef.current;
     if (nav) {
-      gsap.set(nav, { opacity: 0 });
-      gsap.to(nav, { opacity: 1, duration: 2, ease: "power2.out" });
+      // Ensure navbar is visible immediately
+      gsap.set(nav, { opacity: 1, height: 75 });
     }
   }, []);
 
@@ -179,6 +181,7 @@ const CardNav = ({
       clearTimeout(inactivityTimer);
       events.forEach((event) => window.removeEventListener(event, resetTimer));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpanded]);
 
   return (

@@ -1,4 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import "./Footer.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
@@ -10,25 +12,89 @@ const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
 const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
 export default function Footer() {
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const iconVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-icons">
-          <a href={GITHUB_URL} className="icon">
+    <motion.footer
+      ref={ref}
+      className="footer"
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={containerVariants}
+    >
+      <motion.div className="footer-content" variants={itemVariants}>
+        <motion.div className="footer-icons" variants={itemVariants}>
+          <motion.a
+            href={GITHUB_URL}
+            className="icon"
+            variants={iconVariants}
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
             <FaGithub />
-          </a>
-          <a href={LINKEDIN_URL} className="icon">
+          </motion.a>
+          <motion.a
+            href={LINKEDIN_URL}
+            className="icon"
+            variants={iconVariants}
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
             <FaLinkedin />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href={EMAIL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="icon"
+            variants={iconVariants}
+            whileHover={{ scale: 1.15, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <SiGmail />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
         {/* <div className="footer-likes">
           <button className="like-btn">
@@ -36,32 +102,52 @@ export default function Footer() {
           </button>
         </div> */}
 
-        <div className="footer-tech">
-          <div className="tech-item">
+        <motion.div className="footer-tech" variants={itemVariants}>
+          <motion.div
+            className="tech-item"
+            variants={iconVariants}
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <span>Built with</span>
             <FaReact className="tech-icon react" />
             <span>React</span>
-          </div>
+          </motion.div>
 
-          <div className="tech-item">
+          <motion.div
+            className="tech-item"
+            variants={iconVariants}
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <span>Styled with</span>
             <FaCss3Alt className="tech-icon css" />
             <span>CSS3</span>
-          </div>
-          <div className="tech-item">
+          </motion.div>
+          <motion.div
+            className="tech-item"
+            variants={iconVariants}
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <span>Build by</span>
             <User className=" user" />
             <span>Dishank</span>
-          </div>
-          <div className="tech-item">
+          </motion.div>
+          <motion.div
+            className="tech-item"
+            variants={iconVariants}
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <span>Deployed on</span>
             <SiVercel className="tech-icon vercel" />
             <span>Vercel</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="footer-spotify">
-          <iframe
+        <motion.div className="footer-spotify" variants={itemVariants}>
+          <motion.iframe
             src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
             width="280"
             height="152"
@@ -69,13 +155,27 @@ export default function Footer() {
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
             title="Spotify Player"
-          ></iframe>
-        </div>
-      </div>
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          ></motion.iframe>
+        </motion.div>
+      </motion.div>
 
-      <div className="footer-bottom">
-        <p>Copyright © 2025 Dishank Patel. All rights reserved.</p>
-      </div>
-    </footer>
+      <motion.div
+        className="footer-bottom"
+        variants={itemVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          Copyright © 2025 Dishank Patel. All rights reserved.
+        </motion.p>
+      </motion.div>
+    </motion.footer>
   );
 }

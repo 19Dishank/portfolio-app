@@ -12,7 +12,8 @@
 
 .card-nav {
   display: block;
-  height: 10px;
+  height: 75px;
+  min-height: 75px;
   padding: 0;
   background-color: white;
   border: 0.5px solid rgba(255, 255, 255, 0.1);
@@ -21,6 +22,7 @@
   position: relative;
   overflow: hidden;
   will-change: height;
+  opacity: 1;
 }
 
 .card-nav-top {
@@ -28,11 +30,11 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.45rem 0.55rem 1.1rem;
+  padding: 0 0.5rem;
   z-index: 2;
 }
 
@@ -44,6 +46,8 @@
   justify-content: center;
   cursor: pointer;
   gap: 6px;
+  min-width: 40px;
+  flex-shrink: 0;
 }
 
 .hamburger-menu:hover .hamburger-line {
@@ -72,10 +76,18 @@
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: auto;
+}
+
+.logo-container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
 }
 
 .logo {
@@ -87,11 +99,14 @@
   color: white;
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
-  padding: 0 1rem;
-  height: 100%;
+  padding: 0.5rem 1.2rem;
+  height: auto;
+  min-height: 62px;
   font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .card-nav-cta-button:hover {

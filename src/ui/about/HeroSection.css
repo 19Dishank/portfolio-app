@@ -148,7 +148,8 @@
   gap: 14px;
   margin-top: 6px;
 }
-.hp-cta {
+.hp-cta,
+button.hp-cta {
   display: inline-block;
   padding: 12px 18px;
   border-radius: 12px;
@@ -161,6 +162,10 @@
     transform 0.18s ease,
     box-shadow 0.18s ease,
     opacity 0.18s ease;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
 }
 .hp-cta:hover {
   transform: translateY(-4px);

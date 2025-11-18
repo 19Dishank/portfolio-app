@@ -1,5 +1,5 @@
 // src/ui/HeroSection.jsx
-import React from "react";
+import React, { memo } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
@@ -8,7 +8,7 @@ const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
 const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
-export default function HeroSection() {
+const HeroSection = memo(function HeroSection() {
   return (
     <section className="hp-hero">
       {/* Left vertical social */}
@@ -41,7 +41,11 @@ export default function HeroSection() {
           className="hp-text"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ 
+            duration: 0.8, 
+            ease: "easeOut",
+            layout: { duration: 0.3 }
+          }}
         >
           <p className="hp-pre">Hi, my name is</p>
 
@@ -58,27 +62,25 @@ export default function HeroSection() {
           </p>
 
           <div className="hp-cta-row">
-            <a
+            <button
               className="hp-cta"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 const section = document.getElementById("projects");
                 if (section) section.scrollIntoView({ behavior: "smooth" });
               }}
             >
               See my work
-            </a>
+            </button>
 
-            <a
+            <button
               className="hp-cta ghost"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 const section = document.getElementById("contact");
                 if (section) section.scrollIntoView({ behavior: "smooth" });
               }}
             >
               Contact me
-            </a>
+            </button>
           </div>
         </motion.div>
 
@@ -87,12 +89,21 @@ export default function HeroSection() {
           className="hp-visual"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: "circOut" }}
+          transition={{ 
+            duration: 0.9, 
+            ease: "circOut",
+            layout: { duration: 0.3 }
+          }}
         >
           <div className="hp-visual-bg" />
           <div className="hp-photo-wrap">
-            {/* Replace this src if you store the image elsewhere */}
-            <img src={heroPhoto} alt="hero" className="hp-photo" />
+            <img 
+              src={heroPhoto} 
+              alt="hero" 
+              className="hp-photo"
+              loading="eager"
+              decoding="async"
+            />
           </div>
 
           {/* floating badge 1 */}
@@ -120,4 +131,6 @@ export default function HeroSection() {
       </div>
     </section>
   );
-}
+});
+
+export default HeroSection;

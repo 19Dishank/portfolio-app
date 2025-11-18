@@ -1,11 +1,9 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import {
   MapPin,
   Mail,
-  Code2,
-  Monitor,
-  Brain,
-  Gamepad2,
   Award,
   Github,
   Linkedin,
@@ -20,27 +18,108 @@ const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
 const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
 
 export default function ContactSection() {
-  return (
-    <section className="contact-section" id="contact">
-      <div className="contact-container">
-        {/* LEFT SIDE */}
-        <div className="contact-left">
-          <p className="contact-subtitle">Let’s Connect</p>
-          <h2 className="contact-title">Contact</h2>
-          <p className="contact-text">
-            Have a question or project in mind? Feel free to reach out — I’d
-            love to collaborate.
-          </p>
+  const { ref, inView } = useInView({
+    threshold: 0.15,
+    triggerOnce: true,
+  });
 
-          <div className="contact-info">
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const listItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <motion.section
+      ref={ref}
+      className="contact-section"
+      id="contact"
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={containerVariants}
+    >
+      <motion.div className="contact-container" variants={itemVariants}>
+        {/* LEFT SIDE */}
+        <motion.div className="contact-left" variants={itemVariants}>
+          <motion.p
+            className="contact-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Let's Connect
+          </motion.p>
+          <motion.h2
+            className="contact-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Contact
+          </motion.h2>
+          <motion.p
+            className="contact-text"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Have a question or project in mind? Feel free to reach out — I'd
+            love to collaborate.
+          </motion.p>
+
+          <motion.div
+            className="contact-info"
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+          >
             {/* Location */}
-            <div className="info-item">
+            <motion.div
+              className="info-item"
+              variants={listItemVariants}
+              whileHover={{ x: 5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <MapPin className="info-icon" />
               <span>Surat, Gujarat, India</span>
-            </div>
+            </motion.div>
 
             {/* Email */}
-            <div className="info-item">
+            <motion.div
+              className="info-item"
+              variants={listItemVariants}
+              whileHover={{ x: 5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <Mail className="info-icon" />
               <a
                 href={EMAIL_URL}
@@ -50,10 +129,15 @@ export default function ContactSection() {
               >
                 <span>pateldishank19@gmail.com</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* GitHub */}
-            <div className="info-item">
+            <motion.div
+              className="info-item"
+              variants={listItemVariants}
+              whileHover={{ x: 5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <Github className="info-icon" />
               <a
                 href={GITHUB_URL}
@@ -63,10 +147,15 @@ export default function ContactSection() {
               >
                 <span>19Dishank</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* LinkedIn */}
-            <div className="info-item">
+            <motion.div
+              className="info-item"
+              variants={listItemVariants}
+              whileHover={{ x: 5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <Linkedin className="info-icon" />
               <a
                 href={LINKEDIN_URL}
@@ -76,68 +165,120 @@ export default function ContactSection() {
               >
                 <span>Dishank Patel</span>
               </a>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* RIGHT SIDE */}
-        <div className="contact-right">
-          <div className="certifications">
-            <h3 className="section-heading">
+        <motion.div className="contact-right" variants={itemVariants}>
+          <motion.div
+            className="certifications"
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.h3
+              className="section-heading"
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
               <Award className="section-icon" /> Certifications
-            </h3>
-            <ul>
-              <li>
+            </motion.h3>
+            <motion.ul
+              variants={containerVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+            >
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <Award className="list-icon" /> Python Workshop — Shell
-              </li>
-              <li>
+              </motion.li>
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <Award className="list-icon" /> Prompt Engineering Workshop —
                 Rizwan Malek
                 <span className="org">
                   {" "}
                   (Senior Developer, Narola Infotech)
                 </span>
-              </li>
-            </ul>
-          </div>
+              </motion.li>
+            </motion.ul>
+          </motion.div>
 
-          <div className="hobbies">
-            <h3 className="section-heading">
+          <motion.div
+            className="hobbies"
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <motion.h3
+              className="section-heading"
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               <GraduationCap className="section-icon" /> Education
-            </h3>
-            <ul>
-              <li>
+            </motion.h3>
+            <motion.ul
+              variants={containerVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+            >
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <School className="list-icon" /> SSC
                 <span className="org">
                   {" "}
                   (Sanskar Bharti Vidyalaya, 2019)
                 </span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <BookOpen className="list-icon" /> HSC
                 <span className="org">
                   {" "}
                   (Sanskar Bharti Vidyalaya, 2021)
                 </span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <GraduationCap className="list-icon" /> Bachelor of computer application
                 <span className="org">
                   {" "}
                   (Veer Narmad South Gujarat University, 2024)
                 </span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li
+                variants={listItemVariants}
+                whileHover={{ x: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <University className="list-icon" /> Master of computer application
                 <span className="org">
                   {" "}
                   (Sarvajanik University, 2026)
                 </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+              </motion.li>
+            </motion.ul>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }
