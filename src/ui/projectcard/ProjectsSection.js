@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import alpha1 from "../../assets/alpha1.png";
 import alpha2 from "../../assets/alpha2.png";
@@ -13,10 +14,66 @@ import p1 from "../../assets/p1.png";
 import p2 from "../../assets/p2.png";
 import p4 from "../../assets/p4.png";
 import p5 from "../../assets/p5.png";
+import dip1 from "../../assets/dip1.png";
+import dip2 from "../../assets/dip2.png";
+import dip3 from "../../assets/dip3.png";
+import dip4 from "../../assets/dip4.png";
+import dip5 from "../../assets/dip5.png"; 
+import note1 from "../../assets/note1.png";
+import note2 from "../../assets/note2.png";
+import note3 from "../../assets/note3.png";
+import note4 from "../../assets/note4.png";
+
 
 
 export default function ProjectsSection() {
   const projects = [
+    
+    {
+      title: "Portfolio Web App",
+      description:
+        "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
+      image: p1,
+      type: "Frontend Web-App",
+      year: "2025",
+      technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
+      screenshots: [
+        p2,
+        p4,
+        p5,
+      ],
+      liveLink: "https://dishank-portfolio.vercel.app",
+      codeLink: "https://github.com/19Dishank/portfolio-app",
+    },
+    {
+      title: "DipThinq – AI Conversation Platform",
+      description:
+        "A modern AI chat platform built with React + Tailwind. Supports multiple AI agents (Creative, Code Assistant,Deep Thinker) and integrates multiple AI models via OpenRouter. Includes dark/light mode and fully responsive UI.",
+      image: dip2,
+      type: "Frontend Web-App",
+      year: "2025",
+      technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)", "OpenRouter API"],
+      screenshots: [
+        dip3,
+        dip4,
+        dip5,
+       
+      ],
+      liveLink: "https://dipthinq.vercel.app",
+      codeLink: "https://github.com/19Dishank/dipthinq",
+    },
+    {
+      title: "AI Notes App – Smart Notes with AI",
+      description:
+        "A modern AI notes app built with React + Tailwind. It allows you to create, edit, and delete notes. It also allows you to search for notes and delete notes. It also allows you to create notes with AI. It also allows you to create notes with AI. It also allows you to create notes with AI.",
+      image: note1,
+      type: "Frontend Web-App",
+      year: "2025",
+      technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
+      screenshots: [ note2, note3, note4],
+      liveLink: "https://ai-notes-react.vercel.app",
+      codeLink: "https://github.com/19Dishank/ai-notes-react",
+    },
     {
       title: "AlphaArray - Online Study Platform",
       description:
@@ -57,22 +114,6 @@ export default function ProjectsSection() {
       year: "2025",
       technologies: ["XML", "Firebase", "Kotlin"],
       screenshots: [app1, app2],
-      liveLink: "#",
-      codeLink: "#",
-    },
-    {
-      title: "Portfolio Web App",
-      description:
-        "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
-      image: p1,
-      type: "Frontend Web-App",
-      year: "2025",
-      technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
-      screenshots: [
-        p2,
-        p4,
-        p5,
-      ],
       liveLink: "#",
       codeLink: "#",
     },
@@ -358,29 +399,38 @@ export default function ProjectsSection() {
         </button>
       </div>
 
-      {/* Popup Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 9999,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "rgba(0,0,0,0.72)",
-              backdropFilter: "blur(6px)",
-              padding: 16,
-            }}
-            onClick={() => setSelectedProject(null)}
-            aria-modal="true"
-            role="dialog"
-          >
+      {/* Popup Modal - Rendered via Portal to body */}
+      {createPortal(
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 99999,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "rgba(0,0,0,0.85)",
+                backdropFilter: "blur(8px)",
+                padding: "20px",
+                overflow: "auto",
+              }}
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setSelectedProject(null);
+                }
+              }}
+              aria-modal="true"
+              role="dialog"
+            >
             <motion.div
               onClick={(e) => e.stopPropagation()}
               initial={{ y: 40, opacity: 0, scale: 0.98 }}
@@ -390,43 +440,64 @@ export default function ProjectsSection() {
               style={{
                 width: "100%",
                 maxWidth: 920,
-                borderRadius: 12,
+                borderRadius: 16,
                 background: "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
-                border: "1px solid rgba(255,255,255,0.04)",
-                boxShadow: "0 10px 50px rgba(0,0,0,0.7)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
                 color: "#fff",
-                padding: 20,
-                maxHeight: "90vh",
-                overflowY: "auto",
                 position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                maxHeight: "90vh",
+                margin: "auto",
               }}
             >
-              {/* Close */}
+              {/* Close Button - Fixed Position */}
               <button
-                onClick={() => setSelectedProject(null)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedProject(null);
+                }}
                 aria-label="Close"
                 style={{
                   position: "absolute",
-                  right: 12,
-                  top: 12,
+                  right: 16,
+                  top: 16,
                   border: "none",
-                  background: "transparent",
-                  color: "#d0d0d0",
+                  background: "rgba(255,255,255,0.1)",
+                  color: "#fff",
                   cursor: "pointer",
-                  padding: 8,
-                  borderRadius: 8,
+                  padding: "10px",
+                  borderRadius: "50%",
+                  width: "36px",
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 10,
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+                  e.currentTarget.style.transform = "rotate(90deg)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                  e.currentTarget.style.transform = "rotate(0deg)";
                 }}
               >
-                <span
-                  style={{
-                    display: "inline-block",
-                    transform: "translateY(1px)",
-                  }}
-                >
-                  <IconClose size={16} />
-                </span>
+                <IconClose size={18} />
               </button>
 
+              {/* Scrollable Content */}
+              <div
+                style={{
+                  padding: "24px",
+                  overflowY: "auto",
+                  flex: 1,
+                  minHeight: 0,
+                }}
+              >
               <style>
                 {`
                   /* 📱 Mobile-only styling for project title layout */
@@ -582,15 +653,19 @@ export default function ProjectsSection() {
                   </div>
                 </div>
               )}
+              </div>
 
-              {/* Actions */}
+              {/* Actions - Always visible at bottom */}
               <div
                 style={{
                   display: "flex",
                   gap: 12,
                   justifyContent: "flex-start",
                   flexWrap: "wrap",
-                  marginTop: 6,
+                  padding: "20px 24px",
+                  borderTop: "1px solid rgba(255,255,255,0.05)",
+                  background: "rgba(0,0,0,0.4)",
+                  flexShrink: 0,
                 }}
               >
                 {selectedProject.liveLink && (
@@ -672,7 +747,9 @@ export default function ProjectsSection() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </section>
   );
 }

@@ -9,6 +9,10 @@ import {
   Award,
   Github,
   Linkedin,
+  GraduationCap,
+  BookOpen,
+  School,
+  University,
 } from "lucide-react";
 import "./ContactSection.css";
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
@@ -99,21 +103,36 @@ export default function ContactSection() {
 
           <div className="hobbies">
             <h3 className="section-heading">
-              <Brain className="section-icon" /> What I Like
+              <GraduationCap className="section-icon" /> Education
             </h3>
             <ul>
               <li>
-                <Code2 className="list-icon" /> Coding at midnight
+                <School className="list-icon" /> SSC
+                <span className="org">
+                  {" "}
+                  (Sanskar Bharti Vidyalaya, 2019)
+                </span>
               </li>
               <li>
-                <Monitor className="list-icon" /> Designing clean UI &
-                animations
+                <BookOpen className="list-icon" /> HSC
+                <span className="org">
+                  {" "}
+                  (Sanskar Bharti Vidyalaya, 2021)
+                </span>
               </li>
               <li>
-                <Brain className="list-icon" /> Exploring AI tools & automation
+                <GraduationCap className="list-icon" /> Bachelor of computer application
+                <span className="org">
+                  {" "}
+                  (Veer Narmad South Gujarat University, 2024)
+                </span>
               </li>
               <li>
-                <Gamepad2 className="list-icon" /> Gaming & Video Editing
+                <University className="list-icon" /> Master of computer application
+                <span className="org">
+                  {" "}
+                  (Sarvajanik University, 2026)
+                </span>
               </li>
             </ul>
           </div>

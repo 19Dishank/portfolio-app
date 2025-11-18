@@ -3,13 +3,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./App.css";
 import CardNav from "./ui/cardnav/CardNav";
-import InfiniteScroll from "./ui/skills/InfiniteScroll";
 import ProjectsSection from "./ui/projectcard/ProjectsSection";
 import HeroSection from "./ui/about/HeroSection";
 import Footer from "./ui/footer/Footer";
 import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
-import DarkVeil from "./ui/darkveil/DarkVeil";
+import TechStackCompact from "./ui/skills/TechStackCompact";
 
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
@@ -76,15 +75,15 @@ function App() {
     },
   ];
 
-  const scrollItems = [
-    { content: "💻 HTML" },
-    { content: "🎨 CSS" },
-    { content: "⚡ JavaScript" },
-    { content: "🚀 Bootstrap" },
-    { content: "⚛️ ReactJS" },
-    { content: "🤖 Prompt Engineering" },
-    { content: "🖌️ UI/UX Design" },
-    { content: "📱 Responsive Design" },
+  const techSkills = [
+    { name: "React.js", category: "Frontend", icon: "⚛️" },
+    { name: "JavaScript", category: "Language", icon: "⚡" },
+    { name: "HTML & CSS", category: "Markup", icon: "🎨" },
+    { name: "Bootstrap", category: "Framework", icon: "🚀" },
+    { name: "Framer Motion", category: "Animation", icon: "🎬" },
+    { name: "UI/UX Design", category: "Design", icon: "🖌️" },
+    { name: "Responsive Design", category: "Design", icon: "📱" },
+    { name: "Prompt Engineering", category: "AI / LLM Skills", icon: "🤖" },
   ];
 
   // ✅ Fade-in animation for home section
@@ -205,20 +204,20 @@ function App() {
         ></div>
       </section>
 
-      {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + INFINITE SCROLL */}
+      {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + TECH STACK */}
       <section
         id="cardswap"
         ref={sectionRef}
         style={{
           width: "100vw",
-          height: "100vh",
+          minHeight: "100vh",
           position: "relative",
           zIndex: 5,
           backgroundColor: "#000",
           overflow: "hidden",
         }}
       >
-        {/* Squares Background */}
+        {/* Subtle Gradient Background */}
         <div
           ref={squaresRef}
           style={{
@@ -228,22 +227,24 @@ function App() {
             top: 0,
             left: 0,
             zIndex: 1,
+            overflow: "hidden",
+            background:
+              "linear-gradient(180deg, rgba(8,4,20,0.9) 0%, rgba(3,2,6,0.95) 100%)",
           }}
         >
-          <div style={{ width: '100%', height: '700px', position: 'relative',backgroundColor:'black' }}>
-            <DarkVeil
-            hueShift={325}
-            speed={2}
-            //warpAmount={5}
-            />
-          </div>
-          {/* <Squares
-            speed={0.5}
-            squareSize={40}
-            direction="up"
-            borderColor="#271E37"
-            hoverFillColor="#222"
-          /> */}
+          <div
+            style={{
+              position: "absolute",
+              width: "70%",
+              height: "70%",
+              top: "15%",
+              left: "15%",
+              background:
+                "radial-gradient(circle, rgba(130,70,255,0.35) 0%, rgba(0,0,0,0) 60%)",
+              filter: "blur(45px)",
+              opacity: 0.8,
+            }}
+          />
         </div>
 
         {/* Centered Title */}
@@ -274,44 +275,22 @@ function App() {
           Tech Stack
         </div>
 
-        {/* InfiniteScroll Content */}
+        {/* Tech Stack Content */}
         <div
           ref={scrollRef}
           style={{
             width: "100%",
-            height: "100vh", // reduce from 100% to 60% of viewport
             position: "relative",
             display: "flex",
-            alignItems: "flex-start",
+            alignItems: "center",
             justifyContent: "center",
-            marginTop: "1.5rem", // minimal spacing under title
+            marginTop: "1.5rem",
             zIndex: 2,
             boxSizing: "border-box",
+            paddingBottom: "4rem",
           }}
         >
-          <InfiniteScroll
-            items={scrollItems}
-            isTilted={true}
-            maxHeight="100vh"
-            tiltDirection="left"
-            autoplay={true}
-            autoplaySpeed={2.5}
-            negativeMargin=""
-            autoplayDirection="up"
-            pauseOnHover={true}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "flex-start",
-              marginTop: 0,
-              paddingTop: 0,
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-            }}
-          />
+          <TechStackCompact skills={techSkills} />
         </div>
       </section>
       {/* 🟢 PROJECTS SECTION WITH CHROMAGRID */}
