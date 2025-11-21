@@ -9,6 +9,7 @@ import Footer from "./ui/footer/Footer";
 import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
@@ -412,6 +413,7 @@ function App() {
         <ContactSection />
       </section>
       <Footer />
+      <SpeedInsights />
       {/* CSS for glow pulse */}
       <style>
         {`
