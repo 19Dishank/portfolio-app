@@ -49,7 +49,7 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
             }, idx * 80); // Staggered delay per card
           }
         });
-      }, 1200); // Wait 1.2s for fade-up animation to complete
+      }, 800); // Wait 1.2s for fade-up animation to complete
 
       return () => clearTimeout(timer);
     }
