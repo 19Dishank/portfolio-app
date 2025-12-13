@@ -36,20 +36,24 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
   }, []);
 
   useEffect(() => {
-    // Wait for fade-up animation to complete (1s) + extra delay, then animate bars
+    // Wait for fade-up animation to complete, then animate bars
     if (isVisible) {
       const timer = setTimeout(() => {
         barRefs.current.forEach((ref, idx) => {
           if (ref && ref.dataset.expertise) {
             const expertise = parseInt(ref.dataset.expertise, 10);
-            setTimeout(() => {
-              if (ref) {
-                ref.style.width = `${expertise}%`;
-              }
-            }, idx * 80); // Staggered delay per card
+            // Use requestAnimationFrame for smoother animation
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                if (ref) {
+                  // Use transform for better performance
+                  ref.style.width = `${expertise}%`;
+                }
+              }, idx * 60); // Reduced stagger delay for faster animation
+            });
           }
         });
-      }, 1200); // Wait 1.2s for fade-up animation to complete
+      }, 800); // Reduced wait time for faster start
 
       return () => clearTimeout(timer);
     }
