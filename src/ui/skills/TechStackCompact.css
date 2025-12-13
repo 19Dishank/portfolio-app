@@ -12,7 +12,6 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   width: 100%;
-  contain: layout;
 }
 
 .tech-compact-item {
@@ -28,10 +27,7 @@
     rgba(255, 255, 255, 0.02) 100%
   );
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
-              border-color 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   cursor: default;
   position: relative;
   overflow: hidden;
@@ -39,11 +35,8 @@
   /* Performance optimizations */
   will-change: transform;
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  contain: layout style paint;
-  isolation: isolate;
 }
 
 .tech-compact-item::before {
@@ -60,8 +53,7 @@
 }
 
 .tech-compact-item:hover {
-  transform: translateY(-4px) translateZ(0);
-  -webkit-transform: translateY(-4px) translateZ(0);
+  transform: translateY(-4px);
   border-color: rgba(130, 71, 255, 0.3);
   box-shadow: 
     0 10px 30px rgba(0, 0, 0, 0.4),
@@ -82,8 +74,7 @@
 
 .tech-compact-item:hover .tech-compact-icon {
   filter: grayscale(0);
-  transform: scale(1.1) translateZ(0);
-  -webkit-transform: scale(1.1) translateZ(0);
+  transform: scale(1.1);
 }
 
 .tech-compact-content {
@@ -144,12 +135,9 @@
   height: 100%;
   width: 0%;
   position: relative;
-  transition: width 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: width 1s cubic-bezier(0.25, 0.1, 0.25, 1);
   border-radius: 2px;
   will-change: width;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  contain: layout style;
 }
 
 .tech-compact-expertise-bar-fill {
@@ -164,9 +152,6 @@
   border-radius: 2px;
   position: relative;
   overflow: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  will-change: transform;
 }
 
 .tech-compact-expertise-bar-fill::after {
@@ -183,9 +168,6 @@
     transparent
   );
   animation: shimmer 2s infinite;
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .tech-compact-item:hover .tech-compact-expertise-bar-fill {
@@ -198,10 +180,10 @@
 
 @keyframes shimmer {
   0% {
-    transform: translateX(-100%);
+    left: -100%;
   }
   100% {
-    transform: translateX(100%);
+    left: 100%;
   }
 }
 
