@@ -1,6 +1,6 @@
 {
   "short_name": "Dishank Patel - Portfolio",
-  "name": "Create React App Sample",
+  "name": "Dishank Patel - Portfolio",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#000000"
 }

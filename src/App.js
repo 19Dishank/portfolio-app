@@ -9,25 +9,17 @@ import Footer from "./ui/footer/Footer";
 import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function App() {
-  const appRef = useRef(null);
-  const heroRef = useRef(null);
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const scrollRef = useRef(null);
-  const squaresRef = useRef(null);
-  const projectsTitleRef = useRef(null);
-
-  const items = [
+// Move static data outside component to prevent recreation on every render
+const NAV_ITEMS = [
     {
       label: "Resume",
       bgColor: "#0D0716",
@@ -75,18 +67,27 @@ function App() {
         },
       ],
     },
-  ];
+];
 
-  const techSkills = [
-    { name: "React.js", category: "Frontend", icon: "⚛️" },
-    { name: "JavaScript", category: "Language", icon: "⚡" },
-    { name: "HTML & CSS", category: "Markup", icon: "🎨" },
-    { name: "Bootstrap", category: "Framework", icon: "🚀" },
-    { name: "Framer Motion", category: "Animation", icon: "🎬" },
-    { name: "UI/UX Design", category: "Design", icon: "🖌️" },
-    { name: "Responsive Design", category: "Design", icon: "📱" },
-    { name: "Prompt Engineering", category: "AI / LLM Skills", icon: "🤖" },
-  ];
+const TECH_SKILLS = [
+    { name: "React.js", category: "Frontend", icon: "⚛️", expertise: 70 },
+    { name: "JavaScript", category: "Language", icon: "⚡", expertise: 75 },
+    { name: "HTML & CSS", category: "Markup", icon: "🎨", expertise: 95 },
+    { name: "Bootstrap", category: "Framework", icon: "🚀", expertise: 95 },
+    // { name: "Framer Motion", category: "Animation", icon: "🎬", expertise: 35 },
+    // { name: "UI/UX Design", category: "Design", icon: "🖌️", expertise: 70 },
+    { name: "Responsive Design", category: "Design", icon: "📱", expertise: 75 },
+    { name: "Prompt Engineering", category: "AI / LLM Skills", icon: "🤖", expertise: 85 },
+];
+
+function App() {
+  const appRef = useRef(null);
+  const heroRef = useRef(null);
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const scrollRef = useRef(null);
+  const squaresRef = useRef(null);
+  const projectsTitleRef = useRef(null);
 
   // ✅ Fade-in animation for home section - Optimized
   useLayoutEffect(() => {
@@ -131,6 +132,8 @@ function App() {
 
   // ✅ Scroll-triggered animation for Skills section - Optimized
   useLayoutEffect(() => {
+    if (!sectionRef.current) return;
+    
     const ctx = gsap.context(() => {
       // Optimize ScrollTrigger performance
       ScrollTrigger.config({
@@ -173,42 +176,50 @@ function App() {
       }
 
       // Squares background animation - Optimized
-      tl.from(squaresRef.current, {
-        opacity: 0,
-        scale: 0.95,
-        duration: 1,
-        ease: "power3.out",
-        force3D: true,
-      });
+      if (squaresRef.current) {
+        tl.from(squaresRef.current, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 1,
+          ease: "power3.out",
+          force3D: true,
+        });
+      }
 
       // Title animation - Optimized
-      tl.from(
-        titleRef.current,
-        {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          force3D: true,
-        },
-        "-=0.5",
-      );
+      if (titleRef.current) {
+        tl.from(
+          titleRef.current,
+          {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            force3D: true,
+          },
+          "-=0.5",
+        );
+      }
 
       // Tech Stack section animation - Optimized
-      tl.from(
-        scrollRef.current,
-        {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          force3D: true,
-        },
-        "-=0.7",
-      ); // slightly overlapping for smooth sequence
+      if (scrollRef.current) {
+        tl.from(
+          scrollRef.current,
+          {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            force3D: true,
+          },
+          "-=0.7",
+        );
+      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, []);
   
   return (
@@ -246,9 +257,9 @@ function App() {
         </div>
 
         <div style={{ position: "relative", zIndex: 2 }}>
-          <CardNav 
-            logoAlt="Portfolio Logo" 
-            items={items} 
+        <CardNav
+          logoAlt="Portfolio Logo"
+          items={NAV_ITEMS}
             ease="power3.out"
             baseColor="#fff"
             menuColor="#000"
@@ -356,7 +367,7 @@ function App() {
             paddingBottom: "4rem",
           }}
         >
-          <TechStackCompact skills={techSkills} />
+          <TechStackCompact skills={TECH_SKILLS} />
         </div>
       </section>
       {/* 🟢 PROJECTS SECTION WITH CHROMAGRID */}

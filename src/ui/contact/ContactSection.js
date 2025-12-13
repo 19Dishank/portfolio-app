@@ -13,9 +13,9 @@ import {
   University,
 } from "lucide-react";
 import "./ContactSection.css";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 export default function ContactSection() {
   const { ref, inView } = useInView({
@@ -28,8 +28,9 @@ export default function ContactSection() {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
+        duration: 0.55,
+        staggerChildren: 0.08,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -40,8 +41,8 @@ export default function ContactSection() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.55,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -52,8 +53,8 @@ export default function ContactSection() {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
+        duration: 0.45,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -74,7 +75,7 @@ export default function ContactSection() {
             className="contact-subtitle"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.45, delay: 0.08, ease: [0.25, 0.1, 0.25, 1] }}
           >
             Let's Connect
           </motion.p>

@@ -7,9 +7,9 @@ import { SiGmail } from "react-icons/si";
 import { FaReact, FaCss3Alt } from "react-icons/fa";
 import { SiVercel } from "react-icons/si";
 import { User } from "lucide-react";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 export default function Footer() {
   const { ref, inView } = useInView({
@@ -22,8 +22,9 @@ export default function Footer() {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
+        duration: 0.55,
+        staggerChildren: 0.08,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -34,8 +35,8 @@ export default function Footer() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
+        duration: 0.45,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -46,8 +47,8 @@ export default function Footer() {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.4,
-        ease: "easeOut",
+        duration: 0.35,
+        ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };

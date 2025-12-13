@@ -59,9 +59,9 @@
   height: 2px;
   background-color: currentColor;
   transition:
-    transform 0.25s ease,
-    opacity 0.2s ease,
-    margin 0.3s ease;
+    transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+    margin 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   transform-origin: 50% 50%;
 }
 
@@ -105,7 +105,7 @@
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   white-space: nowrap;
 }
 

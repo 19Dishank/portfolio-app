@@ -3,10 +3,10 @@ import React, { memo } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
-import heroPhoto from "../../assets/hero-photo.jpg";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL;
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL;
+import heroPhoto from "../../assets/hero-photo1.jpeg";
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 const HeroSection = memo(function HeroSection() {
   return (
@@ -42,9 +42,9 @@ const HeroSection = memo(function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ 
-            duration: 0.8, 
-            ease: "easeOut",
-            layout: { duration: 0.3 }
+            duration: 0.75, 
+            ease: [0.25, 0.1, 0.25, 1],
+            layout: { duration: 0.25 }
           }}
         >
           <p className="hp-pre">Hi, my name is</p>
