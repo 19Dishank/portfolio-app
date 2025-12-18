@@ -22,6 +22,7 @@ import note1 from "../../assets/note1.png";
 import note2 from "../../assets/note2.png";
 import note3 from "../../assets/note3.png";
 import note4 from "../../assets/note4.png";
+import d1 from "../../assets/d1.png";
 
 
 
@@ -43,6 +44,18 @@ const ProjectsSection = memo(function ProjectsSection() {
       ],
       liveLink: "https://dishank-portfolio.vercel.app",
       codeLink: "https://github.com/19Dishank/portfolio-app",
+    },
+    {
+      title: "Portfolio Web App",
+      description:
+        "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
+      image: d1,
+      type: "Frontend Web-App",
+      year: "2025",
+      technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
+      
+      liveLink: "https://deepkpatel.vercel.app",
+      codeLink: "https://github.com/19Dishank/deep",
     },
     {
       title: "DipThinq – AI Conversation Platform",
