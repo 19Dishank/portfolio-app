@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { GoArrowUpRight } from "react-icons/go";
 import "./CardNav.css";
 
+
 const CardNav = ({
   logo,
   logoAlt = "Logo",
@@ -254,6 +255,7 @@ const CardNav = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={lnk.ariaLabel}
+                    onClick={lnk.onClick}
                   >
                     <GoArrowUpRight
                       className="nav-card-link-icon"

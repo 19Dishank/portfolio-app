@@ -15,7 +15,11 @@ import ReactGA from "react-ga4";
 ReactGA.initialize("G-0CDN4F9KVV"); // your measurement ID
 ReactGA.send("pageview");
 
-
+const handleResumeClick = () => {
+  ReactGA.event("resume_click", {
+    value: 1
+  });
+};
 
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
@@ -35,6 +39,7 @@ const NAV_ITEMS = [
           label: "View Resume",
           ariaLabel: "View Resume Online",
           href: "/resume.pdf",
+          onClick: handleResumeClick,
         },
       ],
     },
