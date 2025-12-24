@@ -10,6 +10,12 @@ import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-0CDN4F9KVV"); // your measurement ID
+ReactGA.send("pageview");
+
+
 
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
