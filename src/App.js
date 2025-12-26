@@ -11,6 +11,18 @@ import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
+import { 
+  SiReact, 
+  SiJavascript, 
+  SiHtml5, 
+  SiCss3, 
+  SiBootstrap, 
+  SiOpenai
+} from "react-icons/si";
+import { VscCode } from "react-icons/vsc";
+import { FaMobileAlt } from "react-icons/fa";
+import { RiCodeSSlashLine } from "react-icons/ri";
+
 
 ReactGA.initialize("G-0CDN4F9KVV"); // your measurement ID
 ReactGA.send("pageview");
@@ -80,16 +92,38 @@ const NAV_ITEMS = [
     },
 ];
 
+// const TECH_SKILLS = [
+//   { name: "React.js", category: "Framework", icon: "⚛️", expertise: 70 },
+//   { name: "JavaScript", category: "Language", icon: "⚡", expertise: 75 },
+//   { name: "HTML & CSS", category: "Language", icon: "🎨", expertise: 95 },
+//   { name: "Bootstrap", category: "Framework", icon: "🚀", expertise: 95 },
+
+//   { name: "Responsive Design", category: "Design", icon: "📱", expertise: 75 },
+
+//   { name: "Prompt Engineering", category: "AI", icon: "🤖", expertise: 85 },
+//   { name: "Cursor AI", category: "AI Tools", icon: "🤖", expertise: 85 },
+//   { name: "ChatGPT", category: "AI Tools", icon: "🤖", expertise: 85 },
+
+//   { name: "VS Code", category: "Development Tools", icon: "🛠️", expertise: 85 },
+// ];
 const TECH_SKILLS = [
-    { name: "React.js", category: "Frontend", icon: "⚛️", expertise: 70 },
-    { name: "JavaScript", category: "Language", icon: "⚡", expertise: 75 },
-    { name: "HTML & CSS", category: "Markup", icon: "🎨", expertise: 95 },
-    { name: "Bootstrap", category: "Framework", icon: "🚀", expertise: 95 },
-    // { name: "Framer Motion", category: "Animation", icon: "🎬", expertise: 35 },
-    // { name: "UI/UX Design", category: "Design", icon: "🖌️", expertise: 70 },
-    { name: "Responsive Design", category: "Design", icon: "📱", expertise: 75 },
-    { name: "Prompt Engineering", category: "AI / LLM Skills", icon: "🤖", expertise: 85 },
+  
+  { name: "React.js", category: "Frontend", icon: <SiReact color="#61DBFB" />, expertise: 70 },
+  { name: "JavaScript", category: "Frontend", icon: <SiJavascript color="#F7DF1E" />, expertise: 75 },
+  { name: "HTML", category: "Frontend", icon: <SiHtml5 color="#E44D26" />, expertise: 95 },
+  { name: "CSS", category: "Frontend", icon: <SiCss3 color="#2965F1" />, expertise: 70 },
+  { name: "Bootstrap", category: "Frontend", icon: <SiBootstrap color="#7B11F5" />, expertise: 80 },
+  { name: "Responsive Design", category: "Frontend", icon: <FaMobileAlt color="#79c7ff" />, expertise: 75 },
+
+  { name: "ChatGPT", category: "AI & Automation", icon: <SiOpenai color="#00FFB3" />, expertise: 80 },
+  { name: "Cursor AI", category: "AI & Automation", icon: <RiCodeSSlashLine color="#38bdf8" />, expertise: 85 },
+  { name: "Prompt Engineering", category: "AI & Automation", icon: <SiOpenai color="#00FFB3" />, expertise: 70 },
+
+  { name: "VS Code", category: "Tools", icon: <VscCode color="#0078d7" />, expertise: 85 },
 ];
+
+
+
 
 function App() {
   const appRef = useRef(null);

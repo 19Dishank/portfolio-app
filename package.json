@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "bootstrap": "^5.3.8",
+    "devicon-react-svg": "^0.2.4",
     "framer-motion": "^12.23.24",
     "gsap": "^3.13.0",
     "locomotive-scroll": "^4.1.4",
