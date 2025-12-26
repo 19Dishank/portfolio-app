@@ -4,9 +4,13 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
 import heroPhoto from "../../assets/hero-photo1.jpeg";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
+const GITHUB_URL =
+  process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL =
+  process.env.REACT_APP_LINKEDIN_URL ||
+  "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL =
+  process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 const HeroSection = memo(function HeroSection() {
   return (
@@ -41,10 +45,10 @@ const HeroSection = memo(function HeroSection() {
           className="hp-text"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.75, 
+          transition={{
+            duration: 0.75,
             ease: [0.25, 0.1, 0.25, 1],
-            layout: { duration: 0.25 }
+            layout: { duration: 0.25 },
           }}
         >
           <p className="hp-pre">Hi, my name is</p>
@@ -89,17 +93,17 @@ const HeroSection = memo(function HeroSection() {
           className="hp-visual"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ 
-            duration: 0.9, 
+          transition={{
+            duration: 0.9,
             ease: "circOut",
-            layout: { duration: 0.3 }
+            layout: { duration: 0.3 },
           }}
         >
           <div className="hp-visual-bg" />
           <div className="hp-photo-wrap">
-            <img 
-              src={heroPhoto} 
-              alt="hero" 
+            <img
+              src={heroPhoto}
+              alt="hero"
               className="hp-photo"
               loading="eager"
               decoding="async"

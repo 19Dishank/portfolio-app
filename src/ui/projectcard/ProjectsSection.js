@@ -17,18 +17,15 @@ import p5 from "../../assets/p5.png";
 import dip2 from "../../assets/dip2.png";
 import dip3 from "../../assets/dip3.png";
 import dip4 from "../../assets/dip4.png";
-import dip5 from "../../assets/dip5.png"; 
+import dip5 from "../../assets/dip5.png";
 import note1 from "../../assets/note1.png";
 import note2 from "../../assets/note2.png";
 import note3 from "../../assets/note3.png";
 import note4 from "../../assets/note4.png";
 import d1 from "../../assets/d1.png";
 
-
-
 const ProjectsSection = memo(function ProjectsSection() {
   const projects = [
-    
     {
       title: "Portfolio Web App",
       description:
@@ -37,11 +34,7 @@ const ProjectsSection = memo(function ProjectsSection() {
       type: "Frontend Web-App",
       year: "2025",
       technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
-      screenshots: [
-        p2,
-        p4,
-        p5,
-      ],
+      screenshots: [p2, p4, p5],
       liveLink: "https://dishank-portfolio.vercel.app",
       codeLink: "https://github.com/19Dishank/portfolio-app",
     },
@@ -53,7 +46,7 @@ const ProjectsSection = memo(function ProjectsSection() {
       type: "Frontend Web-App",
       year: "2025",
       technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
-      
+
       liveLink: "https://deepkpatel.vercel.app",
       codeLink: "https://github.com/19Dishank/deep",
     },
@@ -64,13 +57,13 @@ const ProjectsSection = memo(function ProjectsSection() {
       image: dip2,
       type: "Frontend Web-App",
       year: "2025",
-      technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)", "OpenRouter API"],
-      screenshots: [
-        dip3,
-        dip4,
-        dip5,
-       
+      technologies: [
+        "React.js",
+        "Tailwind CSS",
+        "JavaScript (ES6+)",
+        "OpenRouter API",
       ],
+      screenshots: [dip3, dip4, dip5],
       liveLink: "https://dipthinq.vercel.app",
       codeLink: "https://github.com/19Dishank/dipthinq",
     },
@@ -82,7 +75,7 @@ const ProjectsSection = memo(function ProjectsSection() {
       type: "Frontend Web-App",
       year: "2025",
       technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
-      screenshots: [ note2, note3, note4],
+      screenshots: [note2, note3, note4],
       liveLink: "https://ai-notes-react.vercel.app",
       codeLink: "https://github.com/19Dishank/ai-notes-react",
     },
@@ -164,7 +157,7 @@ const ProjectsSection = memo(function ProjectsSection() {
   const nextSlide = useCallback(() => {
     setIndex((prev) => (prev + 1) % projects.length);
   }, [projects.length]);
-  
+
   const prevSlide = useCallback(() => {
     setIndex((prev) => (prev - 1 + projects.length) % projects.length);
   }, [projects.length]);
@@ -460,75 +453,76 @@ const ProjectsSection = memo(function ProjectsSection() {
               aria-modal="true"
               role="dialog"
             >
-            <motion.div
-              onClick={(e) => e.stopPropagation()}
-              initial={{ y: 40, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 40, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.36, ease: "easeOut" }}
-              style={{
-                width: "100%",
-                maxWidth: 920,
-                borderRadius: 16,
-                background: "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                color: "#fff",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                maxHeight: "90vh",
-                margin: "auto",
-              }}
-            >
-              {/* Close Button - Fixed Position */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedProject(null);
-                }}
-                aria-label="Close"
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                initial={{ y: 40, opacity: 0, scale: 0.98 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: 40, opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.36, ease: "easeOut" }}
                 style={{
-                  position: "absolute",
-                  right: 16,
-                  top: 16,
-                  border: "none",
-                  background: "rgba(255,255,255,0.1)",
+                  width: "100%",
+                  maxWidth: 920,
+                  borderRadius: 16,
+                  background:
+                    "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
                   color: "#fff",
-                  cursor: "pointer",
-                  padding: "10px",
-                  borderRadius: "50%",
-                  width: "36px",
-                  height: "36px",
+                  position: "relative",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 10,
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.2)";
-                  e.currentTarget.style.transform = "rotate(90deg)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-                  e.currentTarget.style.transform = "rotate(0deg)";
+                  flexDirection: "column",
+                  maxHeight: "90vh",
+                  margin: "auto",
                 }}
               >
-                <IconClose size={18} />
-              </button>
+                {/* Close Button - Fixed Position */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedProject(null);
+                  }}
+                  aria-label="Close"
+                  style={{
+                    position: "absolute",
+                    right: 16,
+                    top: 16,
+                    border: "none",
+                    background: "rgba(255,255,255,0.1)",
+                    color: "#fff",
+                    cursor: "pointer",
+                    padding: "10px",
+                    borderRadius: "50%",
+                    width: "36px",
+                    height: "36px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 10,
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+                    e.currentTarget.style.transform = "rotate(90deg)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                    e.currentTarget.style.transform = "rotate(0deg)";
+                  }}
+                >
+                  <IconClose size={18} />
+                </button>
 
-              {/* Scrollable Content */}
-              <div
-                style={{
-                  padding: "24px",
-                  overflowY: "auto",
-                  flex: 1,
-                  minHeight: 0,
-                }}
-              >
-              <style>
-                {`
+                {/* Scrollable Content */}
+                <div
+                  style={{
+                    padding: "24px",
+                    overflowY: "auto",
+                    flex: 1,
+                    minHeight: 0,
+                  }}
+                >
+                  <style>
+                    {`
                   /* 📱 Mobile-only styling for project title layout */
                   @media (max-width: 768px) {
                     .project-title-row h2 {
@@ -553,233 +547,240 @@ const ProjectsSection = memo(function ProjectsSection() {
                     }
                   }
                 `}
-              </style>
+                  </style>
 
-              {/* Title Row */}
-              <div
-                className="project-title-row"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  marginBottom: 14,
-                }}
-              >
-                <h2
-                  style={{
-                    margin: 0,
-                    fontSize: 22,
-                    fontWeight: 700,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  {selectedProject.title}
-                  <span
-                    className="category"
+                  {/* Title Row */}
+                  <div
+                    className="project-title-row"
                     style={{
-                      background: "#005f52",
-                      color: "#dff9f2",
-                      padding: "6px 10px",
-                      borderRadius: 8,
-                      fontSize: 12,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      marginBottom: 14,
                     }}
                   >
-                    {selectedProject.type ||
-                      selectedProject.category ||
-                      "Project"}
-                  </span>
-                  <span
-                    className="year"
-                    style={{ color: "#9aa0a6", fontSize: 13 }}
-                  >
-                    {selectedProject.year}
-                  </span>
-                </h2>
-              </div>
-
-              {/* Description */}
-              <div style={{ marginBottom: 18 }}>
-                <h3
-                  style={{ margin: "6px 0 8px", fontSize: 15, fontWeight: 700 }}
-                >
-                  Description
-                </h3>
-                <p style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}>
-                  {selectedProject.description}
-                </p>
-              </div>
-
-              {/* Technologies */}
-              {selectedProject.technologies?.length > 0 && (
-                <div style={{ marginBottom: 18 }}>
-                  <h3
-                    style={{
-                      margin: "6px 0 8px",
-                      fontSize: 15,
-                      fontWeight: 700,
-                    }}
-                  >
-                    Technologies
-                  </h3>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {selectedProject.technologies.map((t, idx) => (
-                      <div
-                        key={idx}
+                    <h2
+                      style={{
+                        margin: 0,
+                        fontSize: 22,
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                      }}
+                    >
+                      {selectedProject.title}
+                      <span
+                        className="category"
                         style={{
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.03)",
-                          color: "#e6e6e6",
+                          background: "#005f52",
+                          color: "#dff9f2",
                           padding: "6px 10px",
-                          borderRadius: 10,
-                          fontSize: 13,
+                          borderRadius: 8,
+                          fontSize: 12,
                         }}
                       >
-                        {t}
-                      </div>
-                    ))}
+                        {selectedProject.type ||
+                          selectedProject.category ||
+                          "Project"}
+                      </span>
+                      <span
+                        className="year"
+                        style={{ color: "#9aa0a6", fontSize: 13 }}
+                      >
+                        {selectedProject.year}
+                      </span>
+                    </h2>
                   </div>
-                </div>
-              )}
 
-              {/* Screenshots */}
-              {selectedProject.screenshots && (
-                <div className="" style={{ marginBottom: 18 }}>
-                  <h3
-                    style={{
-                      margin: "6px 0 10px",
-                      fontSize: 15,
-                      fontWeight: 700,
-                    }}
-                  >
-                    Screenshots
-                  </h3>
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns:
-                        "repeat(auto-fit, minmax(200px, 1fr))",
-                      overflow: "visible",
-                      gap: 12,
-                    }}
-                  >
-                    {selectedProject.screenshots.map((src, i) => (
-                      <img
-                        key={i}
-                        src={src}
-                        alt={`screenshot-${i}`}
-                        className="popup-zoom-image"
-                        loading="lazy"
-                        decoding="async"
+                  {/* Description */}
+                  <div style={{ marginBottom: 18 }}>
+                    <h3
+                      style={{
+                        margin: "6px 0 8px",
+                        fontSize: 15,
+                        fontWeight: 700,
+                      }}
+                    >
+                      Description
+                    </h3>
+                    <p style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}>
+                      {selectedProject.description}
+                    </p>
+                  </div>
+
+                  {/* Technologies */}
+                  {selectedProject.technologies?.length > 0 && (
+                    <div style={{ marginBottom: 18 }}>
+                      <h3
                         style={{
-                          width: "100%",
-                          height: 140,
-                          objectFit: "cover",
-                          borderRadius: 8,
-                          border: "1px solid rgba(255,255,255,0.03)",
+                          margin: "6px 0 8px",
+                          fontSize: 15,
+                          fontWeight: 700,
                         }}
-                      />
-                    ))}
-                  </div>
+                      >
+                        Technologies
+                      </h3>
+                      <div
+                        style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
+                      >
+                        {selectedProject.technologies.map((t, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              background: "rgba(255,255,255,0.03)",
+                              border: "1px solid rgba(255,255,255,0.03)",
+                              color: "#e6e6e6",
+                              padding: "6px 10px",
+                              borderRadius: 10,
+                              fontSize: 13,
+                            }}
+                          >
+                            {t}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Screenshots */}
+                  {selectedProject.screenshots && (
+                    <div className="" style={{ marginBottom: 18 }}>
+                      <h3
+                        style={{
+                          margin: "6px 0 10px",
+                          fontSize: 15,
+                          fontWeight: 700,
+                        }}
+                      >
+                        Screenshots
+                      </h3>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns:
+                            "repeat(auto-fit, minmax(200px, 1fr))",
+                          overflow: "visible",
+                          gap: 12,
+                        }}
+                      >
+                        {selectedProject.screenshots.map((src, i) => (
+                          <img
+                            key={i}
+                            src={src}
+                            alt={`screenshot-${i}`}
+                            className="popup-zoom-image"
+                            loading="lazy"
+                            decoding="async"
+                            style={{
+                              width: "100%",
+                              height: 140,
+                              objectFit: "cover",
+                              borderRadius: 8,
+                              border: "1px solid rgba(255,255,255,0.03)",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-              </div>
 
-              {/* Actions - Always visible at bottom */}
-              <div
-                style={{
-                  display: "flex",
-                  gap: 12,
-                  justifyContent: "flex-start",
-                  flexWrap: "wrap",
-                  padding: "20px 24px",
-                  borderTop: "1px solid rgba(255,255,255,0.05)",
-                  background: "rgba(0,0,0,0.4)",
-                  flexShrink: 0,
-                }}
-              >
-                {selectedProject.liveLink && (
-                  <a
-                    href={
-                      selectedProject.liveLink !== "#"
-                        ? selectedProject.liveLink
-                        : undefined
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 8,
-                      background:
+                {/* Actions - Always visible at bottom */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    justifyContent: "flex-start",
+                    flexWrap: "wrap",
+                    padding: "20px 24px",
+                    borderTop: "1px solid rgba(255,255,255,0.05)",
+                    background: "rgba(0,0,0,0.4)",
+                    flexShrink: 0,
+                  }}
+                >
+                  {selectedProject.liveLink && (
+                    <a
+                      href={
                         selectedProject.liveLink !== "#"
-                          ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
-                          : "#2a2a2a",
-                      color:
-                        selectedProject.liveLink !== "#" ? "#041412" : "#777",
-                      padding: "10px 14px",
-                      borderRadius: 8,
-                      textDecoration: "none",
-                      fontWeight: 700,
-                      boxShadow:
-                        selectedProject.liveLink !== "#"
-                          ? "0 6px 18px rgba(0,191,166,0.14)"
-                          : "none",
-                      pointerEvents:
-                        selectedProject.liveLink !== "#" ? "auto" : "none",
-                      cursor:
-                        selectedProject.liveLink !== "#"
-                          ? "pointer"
-                          : "not-allowed",
-                      transition: "0.3s",
-                    }}
-                  >
-                    <IconExternal /> View Live Project
-                  </a>
-                )}
+                          ? selectedProject.liveLink
+                          : undefined
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 8,
+                        background:
+                          selectedProject.liveLink !== "#"
+                            ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
+                            : "#2a2a2a",
+                        color:
+                          selectedProject.liveLink !== "#" ? "#041412" : "#777",
+                        padding: "10px 14px",
+                        borderRadius: 8,
+                        textDecoration: "none",
+                        fontWeight: 700,
+                        boxShadow:
+                          selectedProject.liveLink !== "#"
+                            ? "0 6px 18px rgba(0,191,166,0.14)"
+                            : "none",
+                        pointerEvents:
+                          selectedProject.liveLink !== "#" ? "auto" : "none",
+                        cursor:
+                          selectedProject.liveLink !== "#"
+                            ? "pointer"
+                            : "not-allowed",
+                        transition: "0.3s",
+                      }}
+                    >
+                      <IconExternal /> View Live Project
+                    </a>
+                  )}
 
-                {selectedProject.codeLink && (
-                  <a
-                    href={
-                      selectedProject.codeLink !== "#"
-                        ? selectedProject.codeLink
-                        : undefined
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 8,
-                      background: "transparent",
-                      color: selectedProject.codeLink !== "#" ? "#ddd" : "#777",
-                      padding: "10px 14px",
-                      borderRadius: 8,
-                      textDecoration: "none",
-                      border:
+                  {selectedProject.codeLink && (
+                    <a
+                      href={
                         selectedProject.codeLink !== "#"
-                          ? "1px solid rgba(255,255,255,0.06)"
-                          : "1px solid rgba(255,255,255,0.1)",
-                      fontWeight: 600,
-                      pointerEvents:
-                        selectedProject.codeLink !== "#" ? "auto" : "none",
-                      cursor:
-                        selectedProject.codeLink !== "#"
-                          ? "pointer"
-                          : "not-allowed",
-                      transition: "0.3s",
-                    }}
-                  >
-                    <IconCode /> View Code
-                  </a>
-                )}
-              </div>
+                          ? selectedProject.codeLink
+                          : undefined
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 8,
+                        background: "transparent",
+                        color:
+                          selectedProject.codeLink !== "#" ? "#ddd" : "#777",
+                        padding: "10px 14px",
+                        borderRadius: 8,
+                        textDecoration: "none",
+                        border:
+                          selectedProject.codeLink !== "#"
+                            ? "1px solid rgba(255,255,255,0.06)"
+                            : "1px solid rgba(255,255,255,0.1)",
+                        fontWeight: 600,
+                        pointerEvents:
+                          selectedProject.codeLink !== "#" ? "auto" : "none",
+                        cursor:
+                          selectedProject.codeLink !== "#"
+                            ? "pointer"
+                            : "not-allowed",
+                        transition: "0.3s",
+                      }}
+                    >
+                      <IconCode /> View Code
+                    </a>
+                  )}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>,
-      document.body
+          )}
+        </AnimatePresence>,
+        document.body,
       )}
     </section>
   );

@@ -13,9 +13,13 @@ import {
   University,
 } from "lucide-react";
 import "./ContactSection.css";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
+const GITHUB_URL =
+  process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL =
+  process.env.REACT_APP_LINKEDIN_URL ||
+  "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL =
+  process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 export default function ContactSection() {
   const { ref, inView } = useInView({
@@ -75,7 +79,11 @@ export default function ContactSection() {
             className="contact-subtitle"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.45, delay: 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{
+              duration: 0.45,
+              delay: 0.08,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
           >
             Let's Connect
           </motion.p>
@@ -238,10 +246,7 @@ export default function ContactSection() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <School className="list-icon" /> SSC
-                <span className="org">
-                  {" "}
-                  (Sanskar Bharti Vidyalaya, 2019)
-                </span>
+                <span className="org"> (Sanskar Bharti Vidyalaya, 2019)</span>
               </motion.li>
               <motion.li
                 variants={listItemVariants}
@@ -249,17 +254,15 @@ export default function ContactSection() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <BookOpen className="list-icon" /> HSC
-                <span className="org">
-                  {" "}
-                  (Sanskar Bharti Vidyalaya, 2021)
-                </span>
+                <span className="org"> (Sanskar Bharti Vidyalaya, 2021)</span>
               </motion.li>
               <motion.li
                 variants={listItemVariants}
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <GraduationCap className="list-icon" /> Bachelor of computer application
+                <GraduationCap className="list-icon" /> Bachelor of computer
+                application
                 <span className="org">
                   {" "}
                   (Veer Narmad South Gujarat University, 2024)
@@ -270,11 +273,9 @@ export default function ContactSection() {
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <University className="list-icon" /> Master of computer application
-                <span className="org">
-                  {" "}
-                  (Sarvajanik University, 2026)
-                </span>
+                <University className="list-icon" /> Master of computer
+                application
+                <span className="org"> (Sarvajanik University, 2026)</span>
               </motion.li>
             </motion.ul>
           </motion.div>

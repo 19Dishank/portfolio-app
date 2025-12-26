@@ -9,7 +9,10 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
 
   // CATEGORY FILTER
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const categories = ["All", ...new Set(skills.map(s => s.category).filter(Boolean))];
+  const categories = [
+    "All",
+    ...new Set(skills.map((s) => s.category).filter(Boolean)),
+  ];
 
   // 👇 FIXED ESLINT WARNING — SAFE OBSERVER
   useEffect(() => {
@@ -25,7 +28,7 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(node);
@@ -57,11 +60,10 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
   const filteredSkills =
     selectedCategory === "All"
       ? skills
-      : skills.filter(s => s.category === selectedCategory);
+      : skills.filter((s) => s.category === selectedCategory);
 
   return (
     <div className="tech-compact-wrapper" ref={containerRef}>
-
       {/* CATEGORY FILTER */}
       <div className="tech-compact-filter">
         {categories.map((cat, idx) => (
@@ -88,9 +90,7 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
               key={skill.name + idx}
               style={{ "--delay": `${idx * 0.05}s` }}
             >
-              <div className="tech-compact-icon">
-                {skill.icon || "⚡"}
-              </div>
+              <div className="tech-compact-icon">{skill.icon || "⚡"}</div>
 
               <div className="tech-compact-content">
                 <h4 className="tech-compact-name">{skill.name}</h4>

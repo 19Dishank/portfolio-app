@@ -24,7 +24,10 @@ code {
 }
 
 /* Hardware acceleration for smooth animations */
-.motion-section, .motion-element, section, div {
+.motion-section,
+.motion-element,
+section,
+div {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;

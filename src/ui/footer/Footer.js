@@ -7,9 +7,13 @@ import { SiGmail } from "react-icons/si";
 import { FaReact, FaCss3Alt } from "react-icons/fa";
 import { SiVercel } from "react-icons/si";
 import { User } from "lucide-react";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
+const GITHUB_URL =
+  process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
+const LINKEDIN_URL =
+  process.env.REACT_APP_LINKEDIN_URL ||
+  "https://www.linkedin.com/in/19dishank/";
+const EMAIL_URL =
+  process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
 
 export default function Footer() {
   const { ref, inView } = useInView({
@@ -157,7 +161,9 @@ export default function Footer() {
             loading="lazy"
             title="Spotify Player"
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            animate={
+              inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
+            }
             transition={{ duration: 0.6, delay: 0.3 }}
           ></motion.iframe>
         </motion.div>

@@ -3,20 +3,24 @@
 ## ✅ Pre-Deployment Fixes Applied
 
 ### 1. Environment Variables
+
 - ✅ Added fallback values for all environment variables
 - ✅ App will work even if `.env` file is missing
 - ✅ All social links have default values
 
 ### 2. HTML Meta Tags
+
 - ✅ Removed duplicate meta description
 - ✅ Fixed manifest.json name and background color
 
 ### 3. Code Quality
+
 - ✅ No console.log statements in production code
 - ✅ No linter errors
 - ✅ All components properly memoized
 
 ### 4. Performance
+
 - ✅ Optimized animations with smooth easing
 - ✅ Lazy loading for images
 - ✅ Hardware acceleration enabled
@@ -27,6 +31,7 @@
 
 1. **Set Environment Variables** (if using custom URLs):
    Create a `.env` file in the root directory:
+
    ```
    REACT_APP_GITHUB_URL=https://github.com/19Dishank
    REACT_APP_LINKEDIN_URL=https://www.linkedin.com/in/19dishank/
@@ -34,11 +39,13 @@
    ```
 
 2. **Test Production Build Locally**:
+
    ```bash
    npm run build
    npm install -g serve
    serve -s build
    ```
+
    Visit `http://localhost:3000` to test the production build.
 
 3. **Verify Assets**:
@@ -49,16 +56,19 @@
 ### Deployment Platforms:
 
 #### Vercel (Recommended):
+
 ```bash
 npm install -g vercel
 vercel
 ```
 
 #### Netlify:
+
 - Drag and drop the `build` folder
 - Or connect your GitHub repo
 
 #### GitHub Pages:
+
 ```bash
 npm install --save-dev gh-pages
 # Add to package.json scripts:
@@ -106,4 +116,3 @@ npm run deploy
 ---
 
 **Your app is ready to deploy! 🎉**
-
