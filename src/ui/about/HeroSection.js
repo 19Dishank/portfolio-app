@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
-import heroPhoto from "../../assets/hero-photo1.jpeg";
+import heroPhoto from "../../assets/dishank-patel.jpeg";
 const GITHUB_URL =
   process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
 const LINKEDIN_URL =
@@ -103,7 +103,7 @@ const HeroSection = memo(function HeroSection() {
           <div className="hp-photo-wrap">
             <img
               src={heroPhoto}
-              alt="hero"
+              alt="Dishank Patel"
               className="hp-photo"
               loading="eager"
               decoding="async"
