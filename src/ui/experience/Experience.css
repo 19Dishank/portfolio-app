@@ -1,0 +1,169 @@
+:root {
+  --bg-black: #050505;
+  --text-bright: #ffffff;
+  --text-dim: #666666;
+  --accent-purple: #8b5cf6;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.experience-section {
+  background-color: var(--bg-black);
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrapper {
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* Header */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.title {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.header-line {
+  flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #222, transparent);
+}
+
+/* The Stack */
+.experience-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 120px; /* Large spacing for a clean look */
+}
+
+.experience-entry {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 50px;
+}
+
+/* Sidebar */
+.year-display {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+  color: var(--text-bright);
+}
+
+.active .year-display {
+  background: linear-gradient(180deg, #fff 0%, #333 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.past .year-display {
+  color: #222; /* Faded for past work */
+}
+
+.status-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.active .status-label {
+  color: var(--accent-purple);
+}
+
+/* Pulse Dot */
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-purple);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-purple);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(0.9); opacity: 1; }
+}
+
+/* Main Content */
+.main-header {
+  margin-bottom: 20px;
+}
+
+.role-text {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-bright);
+}
+
+.company-text {
+  font-size: 1.1rem;
+  color: var(--accent-purple);
+  font-family: var(--font-mono);
+}
+
+.description-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #adadad;
+  max-width: 700px;
+  margin-bottom: 30px;
+}
+
+/* Tech Tags - Minimalist Style */
+.tech-footer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  transition: color 0.3s ease;
+}
+
+.experience-entry:hover .tech-tag {
+  color: var(--text-bright);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .experience-entry {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .experience-stack {
+    gap: 60px;
+  }
+
+  .year-display {
+    font-size: 3rem;
+  }
+
+  .role-text {
+    font-size: 1.6rem;
+  }
+}

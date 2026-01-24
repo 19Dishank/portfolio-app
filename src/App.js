@@ -11,17 +11,18 @@ import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
-import { 
-  SiReact, 
-  SiJavascript, 
-  SiHtml5, 
-  SiCss3, 
-  SiBootstrap, 
+import {
+  SiReact,
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiBootstrap,
   SiOpenai
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 import { FaMobileAlt } from "react-icons/fa";
 import { RiCodeSSlashLine } from "react-icons/ri";
+import Experience from "./ui/experience/Experience";
 
 
 ReactGA.initialize("G-0CDN4F9KVV"); // your measurement ID
@@ -42,72 +43,58 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Move static data outside component to prevent recreation on every render
 const NAV_ITEMS = [
-    {
-      label: "Resume",
-      bgColor: "#0D0716",
-      textColor: "#fff",
-      links: [
-        {
-          label: "View Resume",
-          ariaLabel: "View Resume Online",
-          href: "/resume.pdf",
-          onClick: handleResumeClick,
-        },
-      ],
-    },
-    {
-      label: "Projects",
-      bgColor: "#170D27",
-      textColor: "#fff",
-      links: [],
-      href: "#projects", // smooth scroll to project section
-    },
-    {
-      label: "Contact",
-      bgColor: "#271E37",
-      textColor: "#fff",
-      links: [
-        {
-          label: "Email",
-          ariaLabel: "Email us",
-          href: EMAIL_URL,
-          target: "_blank",
-          rel: "noreferrer",
-        },
-        {
-          label: "GitHub",
-          ariaLabel: "View GitHub profile",
-          href: GITHUB_URL,
-          target: "_blank",
-          rel: "noreferrer",
-        },
-        {
-          label: "LinkedIn",
-          ariaLabel: "View LinkedIn profile",
-          href: LINKEDIN_URL,
-          target: "_blank",
-          rel: "noreferrer",
-        },
-      ],
-    },
+  {
+    label: "Resume",
+    bgColor: "#0D0716",
+    textColor: "#fff",
+    links: [
+      {
+        label: "View Resume",
+        ariaLabel: "View Resume Online",
+        href: "/resume.pdf",
+        onClick: handleResumeClick,
+      },
+    ],
+  },
+  {
+    label: "Projects",
+    bgColor: "#170D27",
+    textColor: "#fff",
+    links: [],
+    href: "#projects", // smooth scroll to project section
+  },
+  {
+    label: "Contact",
+    bgColor: "#271E37",
+    textColor: "#fff",
+    links: [
+      {
+        label: "Email",
+        ariaLabel: "Email us",
+        href: EMAIL_URL,
+        target: "_blank",
+        rel: "noreferrer",
+      },
+      {
+        label: "GitHub",
+        ariaLabel: "View GitHub profile",
+        href: GITHUB_URL,
+        target: "_blank",
+        rel: "noreferrer",
+      },
+      {
+        label: "LinkedIn",
+        ariaLabel: "View LinkedIn profile",
+        href: LINKEDIN_URL,
+        target: "_blank",
+        rel: "noreferrer",
+      },
+    ],
+  },
 ];
 
-// const TECH_SKILLS = [
-//   { name: "React.js", category: "Framework", icon: "⚛️", expertise: 70 },
-//   { name: "JavaScript", category: "Language", icon: "⚡", expertise: 75 },
-//   { name: "HTML & CSS", category: "Language", icon: "🎨", expertise: 95 },
-//   { name: "Bootstrap", category: "Framework", icon: "🚀", expertise: 95 },
-
-//   { name: "Responsive Design", category: "Design", icon: "📱", expertise: 75 },
-
-//   { name: "Prompt Engineering", category: "AI", icon: "🤖", expertise: 85 },
-//   { name: "Cursor AI", category: "AI Tools", icon: "🤖", expertise: 85 },
-//   { name: "ChatGPT", category: "AI Tools", icon: "🤖", expertise: 85 },
-
-//   { name: "VS Code", category: "Development Tools", icon: "🛠️", expertise: 85 },
-// ];
 const TECH_SKILLS = [
-  
+
   { name: "React.js", category: "Frontend", icon: <SiReact color="#61DBFB" />, expertise: 70 },
   { name: "JavaScript", category: "Frontend", icon: <SiJavascript color="#F7DF1E" />, expertise: 75 },
   { name: "HTML", category: "Frontend", icon: <SiHtml5 color="#E44D26" />, expertise: 95 },
@@ -133,6 +120,7 @@ function App() {
   const scrollRef = useRef(null);
   const squaresRef = useRef(null);
   const projectsTitleRef = useRef(null);
+  const expRef = useRef(null);
 
   // ✅ Fade-in animation for home section - Optimized
   useLayoutEffect(() => {
@@ -141,13 +129,13 @@ function App() {
       if (appRef.current) {
         appRef.current.style.willChange = "opacity";
       }
-      
+
       gsap.fromTo(
         appRef.current,
         { opacity: 0 },
-        { 
-          opacity: 1, 
-          duration: 1.2, 
+        {
+          opacity: 1,
+          duration: 1.2,
           ease: "power3.out",
           force3D: true,
           onComplete: () => {
@@ -161,11 +149,11 @@ function App() {
       gsap.fromTo(
         heroRef.current,
         { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1.2, 
-          delay: 0.8, 
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          delay: 0.8,
           ease: "power3.out",
           force3D: true
         },
@@ -178,7 +166,7 @@ function App() {
   // ✅ Scroll-triggered animation for Skills section - Optimized
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
-    
+
     const ctx = gsap.context(() => {
       // Optimize ScrollTrigger performance
       ScrollTrigger.config({
@@ -262,11 +250,33 @@ function App() {
       }
     }, sectionRef);
 
+    // ✅ Scroll-triggered animation for Experience section
+    if (expRef.current) {
+      gsap.fromTo(
+        expRef.current,
+        {
+          opacity: 0,
+          y: 50, // Slides up slightly as it fades in
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          force3D: true,
+          scrollTrigger: {
+            trigger: expRef.current,
+            start: "top 80%", // Starts when the top of the component hits 80% of the viewport height
+            toggleActions: "play none none none", // Only plays once
+          },
+        }
+      );
+    }
     return () => {
       ctx.revert();
     };
   }, []);
-  
+
   return (
     <div
       ref={appRef}
@@ -302,9 +312,9 @@ function App() {
         </div>
 
         <div style={{ position: "relative", zIndex: 2 }}>
-        <CardNav
-          logoAlt="Portfolio Logo"
-          items={NAV_ITEMS}
+          <CardNav
+            logoAlt="Portfolio Logo"
+            items={NAV_ITEMS}
             ease="power3.out"
             baseColor="#fff"
             menuColor="#000"
@@ -370,7 +380,7 @@ function App() {
         </div>
 
         {/* Centered Title */}
-        <div
+        {/* <div
           ref={titleRef}
           style={{
             position: "relative",
@@ -395,8 +405,68 @@ function App() {
           }}
         >
           Tech Stack
-        </div>
+        </div> */}
 
+
+        {/* Redesigned Tech Stack Title - High Contrast Monolith */}
+        <div
+          ref={titleRef}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            padding: "1.5rem 0rem 0rem 0rem", // Your exact padding
+            width: "100%",
+            maxWidth: "1100px",
+            margin: "0 auto",
+          }}
+        >
+          {/* The Sharp Header Row */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            marginBottom: "0.5rem"
+          }}>
+            <h2 style={{
+              fontSize: "2rem",
+              fontWeight: "800",
+              textTransform: "uppercase",
+              margin: 0,
+              color: "#fff",
+              letterSpacing: "1px"
+            }}>
+              Tech Stack
+            </h2>
+            <div style={{
+              flexGrow: 1,
+              height: "1px",
+              background: "linear-gradient(90deg, #333, transparent)"
+            }}></div>
+            <span style={{
+              fontFamily: "monospace",
+              color: "#888",
+              fontSize: "0.9rem"
+            }}>01</span>
+          </div>
+
+          {/* Increased Opacity Ghost Typography */}
+          <div style={{
+            fontSize: "4rem", // Slightly larger for impact
+            fontWeight: "900",
+            lineHeight: "0.8",
+            color: "transparent",
+            // Increased stroke thickness and opacity
+            WebkitTextStroke: "1.5px rgba(255, 255, 255, 40%)",
+            textTransform: "uppercase",
+            marginTop: "-15px",
+            pointerEvents: "none",
+            userSelect: "none",
+            letterSpacing: "2px",
+            opacity: 5 // Controlling visibility via the stroke color instead
+          }}>
+            SKILLS
+          </div>
+        </div>
         {/* Tech Stack Content */}
         <div
           ref={scrollRef}
@@ -415,6 +485,9 @@ function App() {
           <TechStackCompact skills={TECH_SKILLS} />
         </div>
       </section>
+      <Experience
+        ref={expRef}
+      />
       {/* 🟢 PROJECTS SECTION WITH CHROMAGRID */}
       <section
         id="projects"
@@ -434,7 +507,7 @@ function App() {
           }}
         >
           {/* Centered Title */}
-          <div
+          {/* <div
             ref={projectsTitleRef}
             style={{
               position: "relative",
@@ -459,7 +532,66 @@ function App() {
             }}
           >
             Projects
+          </div> */}
+
+          {/* Redesigned Projects Title - Monolith Style 03 */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              padding: "4rem 0rem 1rem 0rem", // Preserving spacing logic
+              width: "100%",
+              maxWidth: "1100px",
+              margin: "0 auto",
+            }}
+          >
+            {/* The Sharp Header Row */}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              marginBottom: "0.5rem"
+            }}>
+              <h2 style={{
+                fontSize: "2rem",
+                fontWeight: "800",
+                textTransform: "uppercase",
+                margin: 0,
+                color: "#fff",
+                letterSpacing: "1px"
+              }}>
+                Projects
+              </h2>
+              <div style={{
+                flexGrow: 1,
+                height: "1px",
+                background: "linear-gradient(90deg, #333, transparent)"
+              }}></div>
+              <span style={{
+                fontFamily: "monospace",
+                color: "#888",
+                fontSize: "0.9rem"
+              }}>03</span>
+            </div>
+
+            {/* High Contrast Ghost Typography */}
+            <div style={{
+              fontSize: "4rem",
+              fontWeight: "900",
+              lineHeight: "0.8",
+              color: "transparent",
+              WebkitTextStroke: "1.5px rgba(255, 255, 255, 0.15)",
+              textTransform: "uppercase",
+              marginTop: "-15px",
+              pointerEvents: "none",
+              userSelect: "none",
+              letterSpacing: "2px",
+            }}>
+              WORKS
+            </div>
           </div>
+
+
           <section>
             <ProjectsSection speed={4} />
           </section>
@@ -468,6 +600,7 @@ function App() {
       <section id="contact">
         <ContactSection />
       </section>
+      
       <Footer />
       <SpeedInsights />
       {/* CSS for glow pulse */}

@@ -1,4 +1,4 @@
-.card-nav-container {
+ .card-nav-container {
   position: absolute;
   top: 2em;
   left: 50%;
@@ -223,7 +223,7 @@
     font-size: 15px;
   }
 }
-/* Fix link colors inside nav-card */
+ /* Fix link colors inside nav-card */
 .nav-card a,
 .nav-card a:visited,
 .nav-card a:active {
@@ -233,5 +233,5 @@
 
 .nav-card a:hover {
   opacity: 0.8; /* Subtle hover effect */
-  color: inherit; /* Keep same color even on hover */
-}
+  color: inherit; /* Keep same color even on hover  */
+} 

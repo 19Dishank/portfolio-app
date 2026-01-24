@@ -1,0 +1,284 @@
+//CSS
+
+:root {
+  --bg-dark: #050505;
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --accent-purple: #8b5cf6;
+  --accent-blue: #3b82f6;
+  --font-mono: 'Courier New', Courier, monospace; /* Or your preferred mono font */
+}
+
+.experience-section {
+  background-color: var(--bg-dark);
+  padding: 6rem 1rem;
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrapper {
+  max-width: 1100px; /* Wider for that cinematic feel */
+  width: 100%;
+}
+
+/* --- Header: Clean & Sharp --- */
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem;
+  gap: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.line-separator {
+  flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #333, transparent);
+}
+
+.exp-count {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- The Monolith Layout --- */
+.monolith-container {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Fixed left, fluid right */
+  gap: 4rem;
+  position: relative;
+  /* Subtle glass highlight only on the container, not a border */
+  background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.05), transparent 40%);
+}
+
+/* Left Column Styling */
+.monolith-left {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding-right: 2rem;
+}
+
+.year-huge {
+  font-size: 5rem; /* Massive typography */
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg, #fff, #444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-purple);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.blink-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-purple);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-purple);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+  70% { opacity: 1; box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+  100% { opacity: 1; box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+.company-name {
+  margin-top: auto; /* Pushes it to align with bottom if needed */
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Right Column Styling */
+.monolith-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.role-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  /* The Clean Glow on Text */
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.role-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #cccccc;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+/* Tech Rail */
+.tech-rail {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.tech-list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.tech-item {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  position: relative;
+  transition: color 0.3s;
+}
+
+.tech-item:hover {
+  color: var(--accent-blue);
+  text-shadow: 0 0 8px var(--accent-blue);
+  cursor: default;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .monolith-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .monolith-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+    padding-right: 0;
+    flex-direction: row; /* Horizontal on mobile */
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .year-huge {
+    font-size: 3rem;
+    margin-bottom: 0;
+  }
+
+  .status-badge {
+    margin-bottom: 0;
+  }
+  
+  .company-name {
+    width: 100%; /* Force new line for company on mobile */
+    margin-top: 10px;
+  }
+
+  .role-title {
+    font-size: 1.8rem;
+  }
+
+  .tech-rail {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .tech-list {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+//
+import React from 'react';
+import './Experience.css';
+
+const Experience = () => {
+  // Even though it's one item, we keep the data structure clean
+  const currentRole = {
+    company: "Tech Solutions Inc.",
+    role: "Frontend Developer Intern",
+    year: "2024",
+    status: "Present",
+    description: "Architecting high-performance user interfaces with React and Tailwind. Redesigned the core dashboard, reducing load times by 40% and improving mobile responsiveness across all devices.",
+    tech: ["React.js", "Redux", "Tailwind", "Figma"]
+  };
+
+  return (
+    <section className="experience-section">
+      <div className="content-wrapper">
+        
+        {/* Section Header */}
+        <div className="section-header">
+          <h2 className="title">Experience</h2>
+          <div className="line-separator"></div>
+          <span className="exp-count">01</span>
+        </div>
+
+        {/* The Monolith Layout */}
+        <div className="monolith-container">
+          
+          {/* Left Column: Context & Timeline */}
+          <div className="monolith-left">
+            <div className="year-huge">{currentRole.year}</div>
+            <div className="status-badge">
+              <span className="blink-dot"></span>
+              {currentRole.status}
+            </div>
+            <div className="company-name">{currentRole.company}</div>
+          </div>
+
+          {/* Right Column: Details & Impact */}
+          <div className="monolith-right">
+            <h3 className="role-title">{currentRole.role}</h3>
+            <p className="role-description">
+              {currentRole.description}
+            </p>
+
+            <div className="tech-rail">
+              <span className="tech-label">Technologies:</span>
+              <div className="tech-list">
+                {currentRole.tech.map((item, index) => (
+                  <span key={index} className="tech-item">{item}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Experience;
