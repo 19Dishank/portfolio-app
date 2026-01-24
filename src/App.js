@@ -443,11 +443,11 @@ function App() {
               height: "1px",
               background: "linear-gradient(90deg, #333, transparent)"
             }}></div>
-            <span style={{
+            {/* <span style={{
               fontFamily: "monospace",
               color: "#888",
               fontSize: "0.9rem"
-            }}>01</span>
+            }}>01</span> */}
           </div>
 
           {/* Increased Opacity Ghost Typography */}
@@ -539,11 +539,11 @@ function App() {
           <div
             style={{
               position: "relative",
-              zIndex: 2,
-              padding: "1.5rem 0rem 0rem 0rem",
-              width: "90%",       // Changed from 100% to 90% to prevent touching edges
-              maxWidth: "1100px",
-              margin: "0 auto",   // Keeps it centered
+            zIndex: 2,
+            padding: "1.5rem 0rem 0rem 0rem",
+            width: "90%",       // Changed from 100% to 90% to prevent touching edges
+            maxWidth: "1100px",
+            margin: "0 auto",   // Keeps it centered
             }}
           >
             {/* The Sharp Header Row */}
@@ -568,11 +568,11 @@ function App() {
                 height: "1px",
                 background: "linear-gradient(90deg, #333, transparent)"
               }}></div>
-              <span style={{
+              {/* <span style={{
                 fontFamily: "monospace",
                 color: "#888",
                 fontSize: "0.9rem"
-              }}>03</span>
+              }}>03</span> */}
             </div>
 
             {/* High Contrast Ghost Typography */}

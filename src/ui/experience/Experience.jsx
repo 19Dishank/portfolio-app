@@ -57,11 +57,11 @@ const Experience = forwardRef((props, ref) => {
                             height: "1px",
                             background: "linear-gradient(90deg, #333, transparent)"
                         }}></div>
-                        <span style={{
+                        {/* <span style={{
                             fontFamily: "monospace",
                             color: "#888",
                             fontSize: "0.9rem"
-                        }}>02</span>
+                        }}>02</span> */}
                     </div>
 
                     <div style={{
