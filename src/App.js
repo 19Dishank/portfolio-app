@@ -414,10 +414,10 @@ function App() {
           style={{
             position: "relative",
             zIndex: 2,
-            padding: "1.5rem 0rem 0rem 0rem", // Your exact padding
-            width: "100%",
+            padding: "1.5rem 0rem 0rem 0rem",
+            width: "90%",       // Changed from 100% to 90% to prevent touching edges
             maxWidth: "1100px",
-            margin: "0 auto",
+            margin: "0 auto",   // Keeps it centered
           }}
         >
           {/* The Sharp Header Row */}
@@ -425,7 +425,8 @@ function App() {
             display: "flex",
             alignItems: "center",
             gap: "20px",
-            marginBottom: "0.5rem"
+            marginBottom: "0.5rem",
+
           }}>
             <h2 style={{
               fontSize: "2rem",
@@ -539,10 +540,10 @@ function App() {
             style={{
               position: "relative",
               zIndex: 2,
-              padding: "4rem 0rem 1rem 0rem", // Preserving spacing logic
-              width: "100%",
+              padding: "1.5rem 0rem 0rem 0rem",
+              width: "90%",       // Changed from 100% to 90% to prevent touching edges
               maxWidth: "1100px",
-              margin: "0 auto",
+              margin: "0 auto",   // Keeps it centered
             }}
           >
             {/* The Sharp Header Row */}
@@ -600,7 +601,7 @@ function App() {
       <section id="contact">
         <ContactSection />
       </section>
-      
+
       <Footer />
       <SpeedInsights />
       {/* CSS for glow pulse */}
