@@ -247,7 +247,7 @@ const ProjectsSection = memo(function ProjectsSection() {
       style={{
         width: "100%",
         minHeight: "100vh",
-        paddingTop: "7rem",
+        paddingTop: "3rem",
         backgroundColor: "#000",
         display: "flex",
         flexDirection: "column",
