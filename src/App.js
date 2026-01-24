@@ -502,7 +502,7 @@ function App() {
       >
         <div
           style={{
-            height: "600px",
+            // height: "600px",
             position: "relative",
           }}
         >
