@@ -310,7 +310,7 @@ function App() {
         >
           <HeroSection />
         </div>
-
+        
         <div style={{ position: "relative", zIndex: 2 }}>
           <CardNav
             logoAlt="Portfolio Logo"
@@ -321,6 +321,7 @@ function App() {
             buttonBgColor="#111"
             buttonTextColor="#fff"
           />
+          
         </div>
 
         <div
@@ -335,7 +336,6 @@ function App() {
           }}
         ></div>
       </section>
-
       {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + TECH STACK */}
       <section
         id="cardswap"
@@ -539,11 +539,11 @@ function App() {
           <div
             style={{
               position: "relative",
-            zIndex: 2,
-            padding: "1.5rem 0rem 0rem 0rem",
-            width: "90%",       // Changed from 100% to 90% to prevent touching edges
-            maxWidth: "1100px",
-            margin: "0 auto",   // Keeps it centered
+              zIndex: 2,
+              padding: "1.5rem 0rem 0rem 0rem",
+              width: "90%",       // Changed from 100% to 90% to prevent touching edges
+              maxWidth: "1100px",
+              margin: "0 auto",   // Keeps it centered
             }}
           >
             {/* The Sharp Header Row */}

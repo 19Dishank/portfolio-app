@@ -7,7 +7,7 @@ const experiences = [
         status: "Present",
         role: "Software Developer Intern",
         company: "Narola Infotech LLP.",
-        description: "Architecting high-performance user interfaces with React and Tailwind. Redesigned the core dashboard, reducing load times by 40% and improving mobile responsiveness.",
+        // description: "Architecting high-performance user interfaces with React and Tailwind. Redesigned the core dashboard, reducing load times by 40% and improving mobile responsiveness.",
         tech: ["React.js", "Tailwind"]
     },
     // {
