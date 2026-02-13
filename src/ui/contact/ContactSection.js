@@ -206,7 +206,7 @@ export default function ContactSection() {
               >
                 <Award className="list-icon" /> Python Workshop — Shell
               </motion.li>
-              <motion.li
+              {/* <motion.li
                 variants={listItemVariants}
                 whileHover={{ x: 5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -217,7 +217,7 @@ export default function ContactSection() {
                   {" "}
                   (Senior Developer, Narola Infotech)
                 </span>
-              </motion.li>
+              </motion.li> */}
             </motion.ul>
           </motion.div>
 

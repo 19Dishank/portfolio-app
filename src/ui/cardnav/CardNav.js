@@ -213,6 +213,7 @@ const CardNav = ({
             }}
           >
             <h2 style={{ color: "black" }}>Portfolio</h2>
+            
           </div>
 
           <button

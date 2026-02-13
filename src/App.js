@@ -310,7 +310,7 @@ function App() {
         >
           <HeroSection />
         </div>
-        
+
         <div style={{ position: "relative", zIndex: 2 }}>
           <CardNav
             logoAlt="Portfolio Logo"
@@ -321,7 +321,7 @@ function App() {
             buttonBgColor="#111"
             buttonTextColor="#fff"
           />
-          
+
         </div>
 
         <div
@@ -486,9 +486,15 @@ function App() {
           <TechStackCompact skills={TECH_SKILLS} />
         </div>
       </section>
+
+      {/* Experience Section */}
+
       <Experience
         ref={expRef}
       />
+
+      {/* experience section end  */}
+
       {/* 🟢 PROJECTS SECTION WITH CHROMAGRID */}
       <section
         id="projects"

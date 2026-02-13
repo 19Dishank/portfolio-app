@@ -64,14 +64,14 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
 
   return (
     <div className="tech-compact-wrapper" ref={containerRef}>
+
       {/* CATEGORY FILTER */}
       <div className="tech-compact-filter">
         {categories.map((cat, idx) => (
           <button
             key={idx}
-            className={`tech-filter-btn ${
-              selectedCategory === cat ? "active" : ""
-            }`}
+            className={`tech-filter-btn ${selectedCategory === cat ? "active" : ""
+              }`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}
