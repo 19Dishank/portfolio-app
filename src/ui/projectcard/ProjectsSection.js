@@ -36,21 +36,21 @@ const ProjectsSection = memo(function ProjectsSection() {
     }
   }, [selectedProject]);
 
-  // Memoized callbacks for better performance
-  const nextSlide = useCallback(() => {
-    setIndex((prev) => (prev + 1) % projects.length);
-  }, [projects.length]);
+// Memoized callbacks for better performance
+const nextSlide = useCallback(() => {
+  setIndex((prev) => (prev + 1) % projects.length);
+}, [projects]);
 
-  const prevSlide = useCallback(() => {
-    setIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  }, [projects.length]);
+const prevSlide = useCallback(() => {
+  setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+}, [projects]);
 
-  const visibleCount = isMobile ? 1 : 3;
-  const visibleProjects = [];
-  for (let i = 0; i < visibleCount; i++) {
-    visibleProjects.push(projects[(index + i) % projects.length]);
-  }
+const visibleCount = isMobile ? 1 : 3;
+const visibleProjects = [];
 
+for (let i = 0; i < visibleCount; i++) {
+  visibleProjects.push(projects[(index + i) % projects.length]);
+}
   // icons
   const IconClose = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
