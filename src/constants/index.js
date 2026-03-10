@@ -34,6 +34,8 @@ import note2 from "../assets/note2.png";
 import note3 from "../assets/note3.png";
 import note4 from "../assets/note4.png";
 import d1 from "../assets/d1.png";
+import pokedex from "../assets/pokedex.png";
+import emailWriter from "../assets/email-writer.png";
 
 export const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
 export const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
@@ -226,4 +228,28 @@ export   const projects = [
       liveLink: "#",
       codeLink: "#",
     },
+    {
+        title: "Pokedex - Pokemon App",
+        description:
+          "A modern Pokedex web app built with React.js + Tailwind. It allows you to search for Pokemon and view their details. It also allows you to view Pokemon in a grid view and a list view.",
+        image: pokedex,
+        type: "Frontend Web-App",
+        year: "2026",
+        technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
+        screenshots: [],
+        liveLink: "https://pokedex-puce-two-79.vercel.app/",
+        codeLink: "https://github.com/19Dishank/pokedex",
+      },
+      {
+        title: "Email Writer ",
+        description:
+          "A modern Email Writer web app built with React.js + Tailwind. It allows you to write emails. It also allows you to view the email in a preview mode.",
+        image: emailWriter,
+        type: "Frontend Web-App",
+        year: "2026",
+        technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
+        screenshots: [],
+        liveLink: "https://email-writer-omega.vercel.app/",
+        codeLink: "https://github.com/19Dishank/Email-writer",
+      },
   ];
