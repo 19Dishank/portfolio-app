@@ -39,11 +39,11 @@ const ProjectsSection = memo(function ProjectsSection() {
 // Memoized callbacks for better performance
 const nextSlide = useCallback(() => {
   setIndex((prev) => (prev + 1) % projects.length);
-}, [projects]);
+}, []);
 
 const prevSlide = useCallback(() => {
   setIndex((prev) => (prev - 1 + projects.length) % projects.length);
-}, [projects]);
+}, []);
 
 const visibleCount = isMobile ? 1 : 3;
 const visibleProjects = [];
