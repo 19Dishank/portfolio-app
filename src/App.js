@@ -11,106 +11,13 @@ import ContactSection from "./ui/contact/ContactSection";
 import TechStackCompact from "./ui/skills/TechStackCompact";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
-import {
-  SiReact,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
-  SiBootstrap,
-  SiOpenai
-} from "react-icons/si";
-import { VscCode } from "react-icons/vsc";
-import { FaMobileAlt } from "react-icons/fa";
-import { RiCodeSSlashLine } from "react-icons/ri";
 import Experience from "./ui/experience/Experience";
+import { NAV_ITEMS, TECH_SKILLS } from "./constants";
 
 
-ReactGA.initialize("G-0CDN4F9KVV"); // your measurement ID
+ReactGA.initialize("G-0CDN4F9KVV"); 
 ReactGA.send("pageview");
-
-const handleResumeClick = () => {
-  ReactGA.event("resume_click", {
-    value: 1
-  });
-};
-
-
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
-const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";
-const EMAIL_URL = process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
-
 gsap.registerPlugin(ScrollTrigger);
-
-// Move static data outside component to prevent recreation on every render
-const NAV_ITEMS = [
-  {
-    label: "Resume",
-    bgColor: "#0D0716",
-    textColor: "#fff",
-    links: [
-      {
-        label: "View Resume",
-        ariaLabel: "View Resume Online",
-        href: "/resume.pdf",
-        onClick: handleResumeClick,
-      },
-    ],
-  },
-  {
-    label: "Projects",
-    bgColor: "#170D27",
-    textColor: "#fff",
-    links: [],
-    href: "#projects", // smooth scroll to project section
-  },
-  {
-    label: "Contact",
-    bgColor: "#271E37",
-    textColor: "#fff",
-    links: [
-      {
-        label: "Email",
-        ariaLabel: "Email us",
-        href: EMAIL_URL,
-        target: "_blank",
-        rel: "noreferrer",
-      },
-      {
-        label: "GitHub",
-        ariaLabel: "View GitHub profile",
-        href: GITHUB_URL,
-        target: "_blank",
-        rel: "noreferrer",
-      },
-      {
-        label: "LinkedIn",
-        ariaLabel: "View LinkedIn profile",
-        href: LINKEDIN_URL,
-        target: "_blank",
-        rel: "noreferrer",
-      },
-    ],
-  },
-];
-
-const TECH_SKILLS = [
-
-  { name: "React.js", category: "Frontend", icon: <SiReact color="#61DBFB" />, expertise: 70 },
-  { name: "JavaScript", category: "Frontend", icon: <SiJavascript color="#F7DF1E" />, expertise: 75 },
-  { name: "HTML", category: "Frontend", icon: <SiHtml5 color="#E44D26" />, expertise: 95 },
-  { name: "CSS", category: "Frontend", icon: <SiCss3 color="#2965F1" />, expertise: 70 },
-  { name: "Bootstrap", category: "Frontend", icon: <SiBootstrap color="#7B11F5" />, expertise: 80 },
-  { name: "Responsive Design", category: "Frontend", icon: <FaMobileAlt color="#79c7ff" />, expertise: 75 },
-
-  { name: "ChatGPT", category: "AI & Automation", icon: <SiOpenai color="#00FFB3" />, expertise: 80 },
-  { name: "Cursor AI", category: "AI & Automation", icon: <RiCodeSSlashLine color="#38bdf8" />, expertise: 85 },
-  { name: "Prompt Engineering", category: "AI & Automation", icon: <SiOpenai color="#00FFB3" />, expertise: 70 },
-
-  { name: "VS Code", category: "Tools", icon: <VscCode color="#0078d7" />, expertise: 85 },
-];
-
-
-
 
 function App() {
   const appRef = useRef(null);

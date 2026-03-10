@@ -1,24 +1,8 @@
 import React, { forwardRef } from 'react';
 import './Experience.css';
+import { experiences } from '../../constants';
 
-const experiences = [
-    {
-        year: "2026",
-        status: "Present",
-        role: "Software Developer Intern",
-        company: "Narola Infotech LLP.",
-        // description: "Architecting high-performance user interfaces with React and Tailwind. Redesigned the core dashboard, reducing load times by 40% and improving mobile responsiveness.",
-        tech: ["React.js", "Tailwind"]
-    },
-    // {
-    //     year: "2023",
-    //     status: "Finished",
-    //     role: "Freelance Web Developer",
-    //     company: "Personal Clients",
-    //     description: "Developed custom landing pages and SEO-optimized portfolios for local businesses. Focused on clean code and accessibility standards.",
-    //     tech: ["HTML/CSS", "JavaScript", "GSAP", "WordPress"]
-    // }
-];
+
 
 const Experience = forwardRef((props, ref) => {
     return (
