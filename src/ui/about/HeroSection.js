@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
-import heroPhoto from "../../assets/dishank-patel.jpeg";
+import heroPhoto from "../../assets/dishank-patel.webp";
 const GITHUB_URL =
   process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
 const LINKEDIN_URL =
