@@ -2,6 +2,7 @@ import React, { useState, useEffect, memo, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../../constants";
+import SectionMonolithHeader from "../common/SectionMonolithHeader";
 
 
 const ProjectsSection = memo(function ProjectsSection() {
@@ -36,21 +37,21 @@ const ProjectsSection = memo(function ProjectsSection() {
     }
   }, [selectedProject]);
 
-// Memoized callbacks for better performance
-const nextSlide = useCallback(() => {
-  setIndex((prev) => (prev + 1) % projects.length);
-}, []);
+  // Memoized callbacks for better performance
+  const nextSlide = useCallback(() => {
+    setIndex((prev) => (prev + 1) % projects.length);
+  }, []);
 
-const prevSlide = useCallback(() => {
-  setIndex((prev) => (prev - 1 + projects.length) % projects.length);
-}, []);
+  const prevSlide = useCallback(() => {
+    setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  }, []);
 
-const visibleCount = isMobile ? 1 : 3;
-const visibleProjects = [];
+  const visibleCount = isMobile ? 1 : 3;
+  const visibleProjects = [];
 
-for (let i = 0; i < visibleCount; i++) {
-  visibleProjects.push(projects[(index + i) % projects.length]);
-}
+  for (let i = 0; i < visibleCount; i++) {
+    visibleProjects.push(projects[(index + i) % projects.length]);
+  }
   // icons
   const IconClose = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -139,13 +140,18 @@ for (let i = 0; i < visibleCount; i++) {
         overflow: "hidden",
       }}
     >
+      {/* Section heading */}
+      <SectionMonolithHeader title="Projects" ghostText="WORKS" />
+
       <div
         style={{
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: isMobile ? "92%" : "85%",
+          width: "90%",
+          maxWidth: "1100px",
+          margin: "0 auto",
         }}
       >
         {/* Left Button */}

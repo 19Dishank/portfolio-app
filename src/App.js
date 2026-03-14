@@ -8,11 +8,11 @@ import HeroSection from "./ui/about/HeroSection";
 import Footer from "./ui/footer/Footer";
 import "./index.css";
 import ContactSection from "./ui/contact/ContactSection";
-import TechStackCompact from "./ui/skills/TechStackCompact";
+import SkillsSection from "./ui/skills/SkillsSection";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
 import Experience from "./ui/experience/Experience";
-import { NAV_ITEMS, TECH_SKILLS } from "./constants";
+import { NAV_ITEMS } from "./constants";
 
 
 ReactGA.initialize("G-0CDN4F9KVV"); 
@@ -22,11 +22,6 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const appRef = useRef(null);
   const heroRef = useRef(null);
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const scrollRef = useRef(null);
-  const squaresRef = useRef(null);
-  const projectsTitleRef = useRef(null);
   const expRef = useRef(null);
 
   // ✅ Fade-in animation for home section - Optimized
@@ -70,100 +65,16 @@ function App() {
     return () => ctx.revert();
   }, []);
 
-  // ✅ Scroll-triggered animation for Skills section - Optimized
+  // ✅ Scroll-triggered animation for Experience section
   useLayoutEffect(() => {
-    if (!sectionRef.current) return;
+    if (!expRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Optimize ScrollTrigger performance
-      ScrollTrigger.config({
-        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
-        ignoreMobileResize: true,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-          markers: false,
-          refreshPriority: -1,
-        },
-      });
-
-      // Projects section title animation
-      if (projectsTitleRef.current) {
-        gsap.fromTo(
-          projectsTitleRef.current,
-          {
-            opacity: 0,
-            y: 50,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            force3D: true,
-            scrollTrigger: {
-              trigger: projectsTitleRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-
-      // Squares background animation - Optimized
-      if (squaresRef.current) {
-        tl.from(squaresRef.current, {
-          opacity: 0,
-          scale: 0.95,
-          duration: 1,
-          ease: "power3.out",
-          force3D: true,
-        });
-      }
-
-      // Title animation - Optimized
-      if (titleRef.current) {
-        tl.from(
-          titleRef.current,
-          {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            force3D: true,
-          },
-          "-=0.5",
-        );
-      }
-
-      // Tech Stack section animation - Optimized
-      if (scrollRef.current) {
-        tl.from(
-          scrollRef.current,
-          {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            force3D: true,
-          },
-          "-=0.7",
-        );
-      }
-    }, sectionRef);
-
-    // ✅ Scroll-triggered animation for Experience section
-    if (expRef.current) {
       gsap.fromTo(
         expRef.current,
         {
           opacity: 0,
-          y: 50, // Slides up slightly as it fades in
+          y: 50,
         },
         {
           opacity: 1,
@@ -173,15 +84,14 @@ function App() {
           force3D: true,
           scrollTrigger: {
             trigger: expRef.current,
-            start: "top 80%", // Starts when the top of the component hits 80% of the viewport height
-            toggleActions: "play none none none", // Only plays once
+            start: "top 80%",
+            toggleActions: "play none none none",
           },
         }
       );
-    }
-    return () => {
-      ctx.revert();
-    };
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -244,155 +154,7 @@ function App() {
         ></div>
       </section>
       {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + TECH STACK */}
-      <section
-        id="cardswap"
-        ref={sectionRef}
-        style={{
-          width: "100vw",
-          minHeight: "100vh",
-          position: "relative",
-          zIndex: 5,
-          backgroundColor: "#000",
-          overflow: "hidden",
-        }}
-      >
-        {/* Subtle Gradient Background */}
-        <div
-          ref={squaresRef}
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 1,
-            overflow: "hidden",
-            background:
-              "linear-gradient(180deg, rgba(8,4,20,0.9) 0%, rgba(3,2,6,0.95) 100%)",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              width: "70%",
-              height: "70%",
-              top: "15%",
-              left: "15%",
-              background:
-                "radial-gradient(circle, rgba(130,70,255,0.35) 0%, rgba(0,0,0,0) 60%)",
-              filter: "blur(45px)",
-              opacity: 0.8,
-            }}
-          />
-        </div>
-
-        {/* Centered Title */}
-        {/* <div
-          ref={titleRef}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            padding: "1.5rem 0rem 0rem 0rem",
-            fontSize: "3rem",
-            fontWeight: "900",
-            color: "#fff",
-            textAlign: "center",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            textShadow: `
-              0 0 5px rgba(255,255,255,0.3),
-              0 0 10px rgba(82,39,255,0.5),
-              0 0 20px rgba(82,39,255,0.4),
-              0 2px 8px rgba(0,0,0,0.6)
-            `,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            animation: "glowPulse 2s ease-in-out infinite alternate",
-          }}
-        >
-          Tech Stack
-        </div> */}
-
-
-        {/* Redesigned Tech Stack Title - High Contrast Monolith */}
-        <div
-          ref={titleRef}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            padding: "1.5rem 0rem 0rem 0rem",
-            width: "90%",       // Changed from 100% to 90% to prevent touching edges
-            maxWidth: "1100px",
-            margin: "0 auto",   // Keeps it centered
-          }}
-        >
-          {/* The Sharp Header Row */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            marginBottom: "0.5rem",
-
-          }}>
-            <h2 style={{
-              fontSize: "2rem",
-              fontWeight: "800",
-              textTransform: "uppercase",
-              margin: 0,
-              color: "#fff",
-              letterSpacing: "1px"
-            }}>
-              Tech Stack
-            </h2>
-            <div style={{
-              flexGrow: 1,
-              height: "1px",
-              background: "linear-gradient(90deg, #333, transparent)"
-            }}></div>
-            {/* <span style={{
-              fontFamily: "monospace",
-              color: "#888",
-              fontSize: "0.9rem"
-            }}>01</span> */}
-          </div>
-
-          {/* Increased Opacity Ghost Typography */}
-          <div style={{
-            fontSize: "4rem", // Slightly larger for impact
-            fontWeight: "900",
-            lineHeight: "0.8",
-            color: "transparent",
-            // Increased stroke thickness and opacity
-            WebkitTextStroke: "1.5px rgba(255, 255, 255, 40%)",
-            textTransform: "uppercase",
-            marginTop: "-15px",
-            pointerEvents: "none",
-            userSelect: "none",
-            letterSpacing: "2px",
-            opacity: 5 // Controlling visibility via the stroke color instead
-          }}>
-            SKILLS
-          </div>
-        </div>
-        {/* Tech Stack Content */}
-        <div
-          ref={scrollRef}
-          style={{
-            width: "100%",
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "1.5rem",
-            zIndex: 2,
-            boxSizing: "border-box",
-            paddingBottom: "4rem",
-          }}
-        >
-          <TechStackCompact skills={TECH_SKILLS} />
-        </div>
-      </section>
+      <SkillsSection />
 
       {/* Experience Section */}
 
@@ -402,115 +164,8 @@ function App() {
 
       {/* experience section end  */}
 
-      {/* 🟢 PROJECTS SECTION WITH CHROMAGRID */}
-      <section
-        id="projects"
-        style={{
-          width: "100vw",
-          height: "100vh", // full viewport height
-          position: "relative",
-          zIndex: 5,
-          backgroundColor: "#000", // black background
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            // height: "600px",
-            position: "relative",
-          }}
-        >
-          {/* Centered Title */}
-          {/* <div
-            ref={projectsTitleRef}
-            style={{
-              position: "relative",
-              zIndex: 2,
-              paddingTop: "3rem",
-              fontSize: "3rem",
-              fontWeight: "900",
-              color: "#fff",
-              textAlign: "center",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              textShadow: `
-              0 0 5px rgba(255,255,255,0.3),
-              0 0 10px rgba(82,39,255,0.5),
-              0 0 20px rgba(82,39,255,0.4),
-              0 2px 8px rgba(0,0,0,0.6)
-            `,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              animation: "glowPulse 2s ease-in-out infinite alternate",
-            }}
-          >
-            Projects
-          </div> */}
-
-          {/* Redesigned Projects Title - Monolith Style 03 */}
-          <div
-            style={{
-              position: "relative",
-              zIndex: 2,
-              padding: "1.5rem 0rem 0rem 0rem",
-              width: "90%",       // Changed from 100% to 90% to prevent touching edges
-              maxWidth: "1100px",
-              margin: "0 auto",   // Keeps it centered
-            }}
-          >
-            {/* The Sharp Header Row */}
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              marginBottom: "0.5rem"
-            }}>
-              <h2 style={{
-                fontSize: "2rem",
-                fontWeight: "800",
-                textTransform: "uppercase",
-                margin: 0,
-                color: "#fff",
-                letterSpacing: "1px"
-              }}>
-                Projects
-              </h2>
-              <div style={{
-                flexGrow: 1,
-                height: "1px",
-                background: "linear-gradient(90deg, #333, transparent)"
-              }}></div>
-              {/* <span style={{
-                fontFamily: "monospace",
-                color: "#888",
-                fontSize: "0.9rem"
-              }}>03</span> */}
-            </div>
-
-            {/* High Contrast Ghost Typography */}
-            <div style={{
-              fontSize: "4rem",
-              fontWeight: "900",
-              lineHeight: "0.8",
-              color: "transparent",
-              WebkitTextStroke: "1.5px rgba(255, 255, 255, 0.15)",
-              textTransform: "uppercase",
-              marginTop: "-15px",
-              pointerEvents: "none",
-              userSelect: "none",
-              letterSpacing: "2px",
-            }}>
-              WORKS
-            </div>
-          </div>
-
-
-          <section>
-            <ProjectsSection speed={4} />
-          </section>
-        </div>
-      </section>
+      {/* 🟢 PROJECTS SECTION (handled fully inside component) */}
+      <ProjectsSection />
       <section id="contact">
         <ContactSection />
       </section>
