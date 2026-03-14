@@ -15,7 +15,7 @@ import Experience from "./ui/experience/Experience";
 import { NAV_ITEMS } from "./constants";
 
 
-ReactGA.initialize("G-0CDN4F9KVV"); 
+ReactGA.initialize("G-0CDN4F9KVV");
 ReactGA.send("pageview");
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,17 +117,25 @@ function App() {
           zIndex: 1,
         }}
       >
-        <div
-          className="hero-wrapper"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
-          }}
-        >
-          <HeroSection />
-        </div>
-
+        <style>
+          {`
+            .hero-wrapper {
+              position: absolute;
+              inset: 0;
+              z-index: 1;
+            }
+            @media (max-width: 800px) {
+              .hero-wrapper {
+                position: relative;
+                height: auto;
+              }
+              #home {
+                height: auto !important;
+                min-height: 100vh;
+              }
+            }
+          `}
+        </style>
         <div style={{ position: "relative", zIndex: 2 }}>
           <CardNav
             logoAlt="Portfolio Logo"
@@ -138,7 +146,10 @@ function App() {
             buttonBgColor="#111"
             buttonTextColor="#fff"
           />
+        </div>
 
+        <div className="hero-wrapper">
+          <HeroSection />
         </div>
 
         <div

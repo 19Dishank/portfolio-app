@@ -40,15 +40,14 @@ const Experience = () => {
 
     return (
         <section className="experience-section" ref={sectionRef}>
+            <SectionMonolithHeader title="Experience" ghostText="HISTORY" />
+            
             <div className="content-wrapper">
 
                 {/* <div className="section-header">
           <h2 className="title">Experience</h2>
           <div className="header-line"></div>
         </div> */}
-
-                {/* Section heading */}
-                <SectionMonolithHeader title="Experience" ghostText="HISTORY" />
 
                 <div className="experience-stack">
                     {experiences.map((exp, index) => (

@@ -9,6 +9,7 @@
   --accent: linear-gradient(90deg, #b084f5 0%, #7ff0e3 100%);
   --accent-solid: #b084f5;
 }
+
 /* Add these lines in your HeroSection.css */
 
 /* ✅ Make image black & white by default */
@@ -36,7 +37,8 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 0 80px; /* No vertical padding → perfect centering */
+  padding: 0 80px;
+  /* No vertical padding → perfect centering */
   font-family: "Inter", "Poppins", system-ui, sans-serif;
   box-sizing: border-box;
 }
@@ -53,6 +55,7 @@
   gap: 18px;
   z-index: 20;
 }
+
 .hp-left-social a {
   display: flex;
   align-items: center;
@@ -69,19 +72,19 @@
     background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
     color 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
+
 .hp-left-social a:hover {
   transform: translateY(-6px);
   background: rgba(255, 255, 255, 0.03);
   color: #fff;
 }
+
 .hp-left-line {
   width: 2px;
   height: 120px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0.02)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02));
   margin-top: 8px;
   border-radius: 2px;
 }
@@ -104,6 +107,7 @@
   flex: 1 1 58%;
   max-width: 680px;
 }
+
 .hp-pre {
   color: var(--muted);
   font-size: 14px;
@@ -111,6 +115,7 @@
   letter-spacing: 0.4px;
   font-weight: 500;
 }
+
 .hp-name {
   font-family: "Poppins", sans-serif;
   font-weight: 800;
@@ -120,6 +125,7 @@
   letter-spacing: -1px;
   color: #fff;
 }
+
 .hp-name-accent {
   display: inline-block;
   background: var(--accent);
@@ -128,12 +134,14 @@
   color: transparent;
   margin-left: 6px;
 }
+
 .hp-role {
   font-size: 24px;
   color: #cfcfe0;
   margin: 18px 0 20px 0;
   font-weight: 600;
 }
+
 .hp-desc {
   color: #aeb0bd;
   font-size: 16px;
@@ -148,6 +156,7 @@
   gap: 14px;
   margin-top: 6px;
 }
+
 .hp-cta,
 button.hp-cta {
   display: inline-block;
@@ -167,9 +176,11 @@ button.hp-cta {
   font-family: inherit;
   font-size: inherit;
 }
+
 .hp-cta:hover {
   transform: translateY(-4px);
 }
+
 .hp-cta.ghost {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -195,12 +206,10 @@ button.hp-cta {
   width: 520px;
   height: 520px;
   filter: blur(62px);
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(176, 120, 247, 0.28),
-    rgba(123, 206, 192, 0.12) 40%,
-    rgba(0, 0, 0, 0) 70%
-  );
+  background: radial-gradient(circle at 30% 30%,
+      rgba(176, 120, 247, 0.28),
+      rgba(123, 206, 192, 0.12) 40%,
+      rgba(0, 0, 0, 0) 70%);
   transform: rotate(-12deg);
   z-index: 1;
   pointer-events: none;
@@ -216,17 +225,16 @@ button.hp-cta {
     0 30px 80px rgba(2, 6, 23, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.03);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.005)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.005));
   z-index: 5;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .hp-photo {
   width: 100%;
   height: 100%;
@@ -244,25 +252,26 @@ button.hp-cta {
   padding: 8px 12px;
   font-weight: 600;
   font-size: 13px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 15%),
-    rgba(255, 255, 255, 15%)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 15%),
+      rgba(255, 255, 255, 15%));
   border: 1px solid rgba(255, 255, 255, 0.04);
   box-shadow: 0 18px 40px rgba(3, 6, 22, 0.6);
   color: #f5f5f8;
   z-index: 9;
 }
+
 .hp-badge .b-left {
   color: var(--accent-solid);
   padding-right: 6px;
 }
+
 .hp-badge-1 {
   right: -12px;
   top: 30px;
   transform: translateY(-8%);
 }
+
 .hp-badge-2 {
   left: -24px;
   bottom: 35px;
@@ -272,18 +281,23 @@ button.hp-cta {
 /* ✅ Responsive */
 @media (max-width: 1100px) {
   .hp-hero {
-    padding: 40px 60px; /* decreased overall padding */
+    padding: 40px 60px;
+    /* decreased overall padding */
   }
+
   .hp-name {
     font-size: 56px;
   }
+
   .hp-inner {
     gap: 28px;
   }
+
   .hp-visual {
     flex-basis: 300px;
     height: 360px;
   }
+
   .hp-photo-wrap {
     width: 260px;
     height: 260px;
@@ -296,18 +310,22 @@ button.hp-cta {
     padding: 28px 28px 36px;
     justify-content: center;
   }
+
   .hp-inner {
     flex-direction: column-reverse;
     align-items: center;
     text-align: center;
     gap: 24px;
   }
+
   .hp-left-social {
     display: none;
   }
+
   .hp-text {
     max-width: 600px;
   }
+
   .hp-visual {
     margin: 0;
     display: flex;
@@ -346,12 +364,15 @@ button.hp-cta {
   .hp-name {
     font-size: 44px;
   }
+
   .hp-role {
     font-size: 20px;
   }
+
   .hp-desc {
     font-size: 15px;
   }
+
   .hp-cta-row {
     justify-content: center;
     flex-wrap: wrap;
@@ -361,11 +382,13 @@ button.hp-cta {
 /* ✅ Mobile view */
 @media (max-width: 720px) {
   .hp-hero {
-    padding: 80px 18px 10px;
+    padding: 100px 18px 10px;
   }
+
   .hp-inner {
     gap: 16px;
   }
+
   .hp-photo-wrap {
     width: 220px;
     height: 220px;
@@ -376,6 +399,7 @@ button.hp-cta {
     right: -30px;
     transform: scale(0.85);
   }
+
   .hp-badge-2 {
     bottom: 29px;
     left: -30px;
@@ -413,6 +437,7 @@ button.hp-cta {
 }
 
 @media (max-width: 480px) {
+
   .hp-badge-1,
   .hp-badge-2 {
     font-size: 11px;
