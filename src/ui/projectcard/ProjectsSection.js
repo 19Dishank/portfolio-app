@@ -150,7 +150,7 @@ const ProjectsSection = memo(function ProjectsSection() {
           justifyContent: "center",
           alignItems: "center",
           width: "90%",
-          maxWidth: "1100px",
+          maxWidth: "1350px",
           margin: "0 auto",
         }}
       >
