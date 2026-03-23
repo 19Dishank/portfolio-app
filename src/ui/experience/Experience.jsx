@@ -1,69 +1,53 @@
-import React, { forwardRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import './Experience.css';
 import { experiences } from '../../constants';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SectionMonolithHeader from '../common/SectionMonolithHeader';
 
+gsap.registerPlugin(ScrollTrigger);
 
+const Experience = () => {
+    const sectionRef = useRef(null);
 
-const Experience = forwardRef((props, ref) => {
+    useLayoutEffect(() => {
+        if (!sectionRef.current) return;
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                sectionRef.current,
+                {
+                    opacity: 0,
+                    y: 50,
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="experience-section" ref={ref}>
+        <section className="experience-section" ref={sectionRef}>
+            <SectionMonolithHeader title="Experience" ghostText="HISTORY" />
+            
             <div className="content-wrapper">
 
                 {/* <div className="section-header">
           <h2 className="title">Experience</h2>
           <div className="header-line"></div>
         </div> */}
-
-                {/* --- INTERNAL MONOLITH HEADER (02) --- */}
-                <div style={{
-                    position: "relative",
-                    width: "100%",
-                    marginBottom: "4rem" // Space before the timeline starts
-                }}>
-                    <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "20px",
-                        marginBottom: "0.5rem"
-                    }}>
-                        <h2 style={{
-                            fontSize: "2rem",
-                            fontWeight: "800",
-                            textTransform: "uppercase",
-                            margin: 0,
-                            color: "#fff",
-                            letterSpacing: "1px"
-                        }}>
-                            Experience
-                        </h2>
-                        <div style={{
-                            flexGrow: 1,
-                            height: "1px",
-                            background: "linear-gradient(90deg, #333, transparent)"
-                        }}></div>
-                        {/* <span style={{
-                            fontFamily: "monospace",
-                            color: "#888",
-                            fontSize: "0.9rem"
-                        }}>02</span> */}
-                    </div>
-
-                    <div style={{
-                        fontSize: "4rem",
-                        fontWeight: "900",
-                        lineHeight: "0.8",
-                        color: "transparent",
-                        WebkitTextStroke: "1.5px rgba(255, 255, 255, 0.15)",
-                        textTransform: "uppercase",
-                        marginTop: "-15px",
-                        pointerEvents: "none",
-                        userSelect: "none",
-                        letterSpacing: "2px",
-                    }}>
-                        HISTORY
-                    </div>
-                </div>
-                {/* --- END HEADER --- */}
 
                 <div className="experience-stack">
                     {experiences.map((exp, index) => (
@@ -100,6 +84,6 @@ const Experience = forwardRef((props, ref) => {
             </div>
         </section>
     );
-});
+};
 
 export default Experience;
