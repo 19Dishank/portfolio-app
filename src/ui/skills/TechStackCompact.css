@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  padding: 0 1.5rem 4rem;
   position: relative;
   z-index: 2;
 }
@@ -21,11 +21,9 @@
   padding: 1.25rem 1.5rem;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 100%);
   backdrop-filter: blur(10px);
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   cursor: default;
@@ -43,11 +41,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 50% 0%,
-    rgba(130, 71, 255, 0.15),
-    transparent 70%
-  );
+  background: radial-gradient(circle at 50% 0%,
+      rgba(130, 71, 255, 0.15),
+      transparent 70%);
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
@@ -145,12 +141,10 @@
 .tech-compact-expertise-bar-fill {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(130, 71, 255, 0.8) 0%,
-    rgba(130, 71, 255, 1) 50%,
-    rgba(176, 132, 245, 0.9) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(130, 71, 255, 0.8) 0%,
+      rgba(130, 71, 255, 1) 50%,
+      rgba(176, 132, 245, 0.9) 100%);
   border-radius: 2px;
   position: relative;
   overflow: hidden;
@@ -163,12 +157,10 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
   animation: shimmer 2s infinite;
 }
 
@@ -184,6 +176,7 @@
   0% {
     left: -100%;
   }
+
   100% {
     left: 100%;
   }
@@ -194,6 +187,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -280,6 +274,7 @@
     height: 3px;
   }
 }
+
 /* .tech-compact-icon svg {
   color: #b588ff;
   filter: drop-shadow(0 0 6px rgba(130,71,255,.4));
@@ -336,11 +331,9 @@
   width: 0%;
   height: 2px;
 
-  background: linear-gradient(
-    90deg,
-    rgba(130, 71, 255, 1),
-    rgba(176, 132, 245, 1)
-  );
+  background: linear-gradient(90deg,
+      rgba(130, 71, 255, 1),
+      rgba(176, 132, 245, 1));
 
   border-radius: 4px;
   transition: width 0.35s ease;
