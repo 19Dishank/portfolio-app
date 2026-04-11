@@ -24,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+PROBLEMS_README.md
+DEPLOYMENT_CHECKLIST.md
+search-deps.txt
