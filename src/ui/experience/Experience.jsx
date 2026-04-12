@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, forwardRef } from 'react';
 import './Experience.css';
 import { experiences } from '../../constants';
 import { gsap } from "gsap";
@@ -7,15 +7,14 @@ import SectionMonolithHeader from '../common/SectionMonolithHeader';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Experience = () => {
-    const sectionRef = useRef(null);
+const Experience = forwardRef((props, ref) => {
 
-    useLayoutEffect(() => {
-        if (!sectionRef.current) return;
+    useEffect(() => {
+        if (!ref.current) return;
 
         const ctx = gsap.context(() => {
             gsap.fromTo(
-                sectionRef.current,
+                ref.current,
                 {
                     opacity: 0,
                     y: 50,
@@ -27,19 +26,19 @@ const Experience = () => {
                     ease: "power3.out",
                     force3D: true,
                     scrollTrigger: {
-                        trigger: sectionRef.current,
+                        trigger: ref.current,
                         start: "top 80%",
                         toggleActions: "play none none none",
                     },
                 }
             );
-        }, sectionRef);
+        }, ref);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section className="experience-section" ref={sectionRef}>
+        <section className="experience-section" ref={ref}>
             <SectionMonolithHeader title="Experience" ghostText="HISTORY" />
             
             <div className="content-wrapper">
@@ -84,6 +83,6 @@ const Experience = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Experience;

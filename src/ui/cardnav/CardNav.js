@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { GoArrowUpRight } from "react-icons/go";
 import "./CardNav.css";
@@ -78,7 +78,7 @@ const CardNav = ({
     return tl;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const tl = createTimeline();
     tlRef.current = tl;
     return () => {
@@ -88,7 +88,7 @@ const CardNav = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ease, items]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       if (!tlRef.current) return;
       if (isExpanded) {
@@ -129,7 +129,7 @@ const CardNav = ({
     if (el) cardsRef.current[i] = el;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const nav = navRef.current;
     if (nav) {
       // Ensure navbar is visible immediately
@@ -144,7 +144,7 @@ const CardNav = ({
       window.history.replaceState(null, "", window.location.pathname); // 👈 removes #hash
     }
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isExpanded) return;
 
     let inactivityTimer;
@@ -213,7 +213,6 @@ const CardNav = ({
             }}
           >
             <h2 style={{ color: "black" }}>Portfolio</h2>
-            
           </div>
 
           <button
@@ -274,5 +273,3 @@ const CardNav = ({
 };
 
 export default CardNav;
-
-

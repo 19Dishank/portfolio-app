@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TechStackCompact from "./TechStackCompact";
@@ -14,7 +14,7 @@ function SkillsSection() {
   const squaresRef = useRef(null);
 
   // Scroll-triggered animation for Skills section (localized)
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -120,7 +120,11 @@ function SkillsSection() {
       </div>
 
       {/* Section heading */}
-      <SectionMonolithHeader ref={titleRef} title="Tech Stack" ghostText="SKILLS" />
+      <SectionMonolithHeader
+        ref={titleRef}
+        title="Tech Stack"
+        ghostText="SKILLS"
+      />
 
       {/* Tech Stack Content */}
       <div
@@ -143,4 +147,3 @@ function SkillsSection() {
 }
 
 export default SkillsSection;
-

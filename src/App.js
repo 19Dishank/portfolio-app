@@ -1,18 +1,23 @@
-import { useLayoutEffect, useRef } from "react";
+import { useRef, lazy, Suspense, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./App.css";
 import CardNav from "./ui/cardnav/CardNav";
-import ProjectsSection from "./ui/projectcard/ProjectsSection";
+// import ProjectsSection from "./ui/projectcard/ProjectsSection";
 import HeroSection from "./ui/about/HeroSection";
-import Footer from "./ui/footer/Footer";
+// import Footer from "./ui/footer/Footer";
 import "./index.css";
-import ContactSection from "./ui/contact/ContactSection";
+// import ContactSection from "./ui/contact/ContactSection";
 import SkillsSection from "./ui/skills/SkillsSection";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
 import Experience from "./ui/experience/Experience";
 import { NAV_ITEMS } from "./constants";
+import Loader from "./ui/loader/Loader";
+
+const ProjectsSection = lazy(() => import("./ui/projectcard/ProjectsSection"));
+const ContactSection = lazy(() => import("./ui/contact/ContactSection"));
+const Footer = lazy(() => import("./ui/footer/Footer"));
 
 ReactGA.initialize("G-0CDN4F9KVV");
 ReactGA.send("pageview");
@@ -24,7 +29,7 @@ function App() {
   const expRef = useRef(null);
 
   // ✅ Fade-in animation for home section - Optimized
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       // Use will-change for better performance
       if (appRef.current) {
@@ -65,7 +70,7 @@ function App() {
   }, []);
 
   // ✅ Scroll-triggered animation for Experience section
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!expRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -110,31 +115,13 @@ function App() {
         style={{
           position: "relative",
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
+          height: "auto",
           overflow: "hidden",
           isolation: "isolate",
           zIndex: 1,
         }}
       >
-        <style>
-          {`
-            .hero-wrapper {
-              position: absolute;
-              inset: 0;
-              z-index: 1;
-            }
-            @media (max-width: 800px) {
-              .hero-wrapper {
-                position: relative;
-                height: auto;
-              }
-              #home {
-                height: auto !important;
-                min-height: 100vh;
-              }
-            }
-          `}
-        </style>
         <div style={{ position: "relative", zIndex: 2 }}>
           <CardNav
             logoAlt="Portfolio Logo"
@@ -173,12 +160,14 @@ function App() {
       {/* experience section end  */}
 
       {/* 🟢 PROJECTS SECTION (handled fully inside component) */}
-      <ProjectsSection />
-      <section id="contact">
-        <ContactSection />
-      </section>
+      <Suspense fallback={<Loader />}>
+        <ProjectsSection />
+        <section id="contact">
+          <ContactSection />
+        </section>
 
-      <Footer />
+        <Footer />
+      </Suspense>
       <SpeedInsights />
       {/* CSS for glow pulse */}
       <style>
