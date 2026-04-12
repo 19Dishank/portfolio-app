@@ -47,10 +47,10 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
             const expertise = parseInt(ref.dataset.expertise, 10);
             setTimeout(() => {
               if (ref) ref.style.width = `${expertise}%`;
-            }, idx * 50);
+            }, idx * 50); // 50ms delay between bars
           }
         });
-      }, 300);
+      }, 100); // 100ms delay before starting the animation
 
       return () => clearTimeout(timer);
     }
@@ -64,14 +64,14 @@ const TechStackCompact = memo(function TechStackCompact({ skills = [] }) {
 
   return (
     <div className="tech-compact-wrapper" ref={containerRef}>
-
       {/* CATEGORY FILTER */}
       <div className="tech-compact-filter">
         {categories.map((cat, idx) => (
           <button
             key={idx}
-            className={`tech-filter-btn ${selectedCategory === cat ? "active" : ""
-              }`}
+            className={`tech-filter-btn ${
+              selectedCategory === cat ? "active" : ""
+            }`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}

@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { InView, useInView } from "react-intersection-observer";
 import "./Footer.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import { FaReact, FaCss3Alt } from "react-icons/fa";
 import { SiVercel } from "react-icons/si";
 import { User } from "lucide-react";
+
 const GITHUB_URL =
   process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
 const LINKEDIN_URL =
@@ -152,20 +153,24 @@ export default function Footer() {
         </motion.div>
 
         <motion.div className="footer-spotify" variants={itemVariants}>
-          <motion.iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
-            width="280"
-            height="152"
-            frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title="Spotify Player"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={
-              inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
-            }
-            transition={{ duration: 0.6, delay: 0.3 }}
-          ></motion.iframe>
+          {InView ? (
+            <motion.iframe
+              src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+              width="280"
+              height="152"
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Spotify Player"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={
+                inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
+              }
+              transition={{ duration: 0.6, delay: 0.3 }}
+            ></motion.iframe>
+          ) : (
+            "load Music"
+          )}
         </motion.div>
       </motion.div>
 

@@ -4,10 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../../constants";
 import SectionMonolithHeader from "../common/SectionMonolithHeader";
 
-
 const ProjectsSection = memo(function ProjectsSection() {
-
-
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -101,29 +98,40 @@ const ProjectsSection = memo(function ProjectsSection() {
       />
     </svg>
   );
-  useEffect(() => {
-    const images = document.querySelectorAll(".popup-zoom-image");
+  // useEffect(() => {
+  //   const images = document.querySelectorAll(".popup-zoom-image");
 
-    const handleMove = (e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
-    };
+  //   const handleMove = (e) => {
+  //     const rect = e.currentTarget.getBoundingClientRect();
+  //     const x = ((e.clientX - rect.left) / rect.width) * 100;
+  //     const y = ((e.clientY - rect.top) / rect.height) * 100;
+  //     e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
+  //   };
 
-    images.forEach((img) => {
-      img.addEventListener("mousemove", handleMove);
-      img.addEventListener("mouseleave", () => {
-        img.style.transformOrigin = "center center";
-      });
-    });
+  //   images.forEach((img) => {
+  //     img.addEventListener("mousemove", handleMove);
+  //     img.addEventListener("mouseleave", () => {
+  //       img.style.transformOrigin = "center center";
+  //     });
+  //   });
 
-    return () => {
-      images.forEach((img) => {
-        img.removeEventListener("mousemove", handleMove);
-      });
-    };
-  }, []);
+  //   return () => {
+  //     images.forEach((img) => {
+  //       img.removeEventListener("mousemove", handleMove);
+  //     });
+  //   };
+  // }, []);
+
+  const handleImageMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
+  };
+
+  const handleImageLeave = (e) => {
+    e.currentTarget.style.transformOrigin = "center center";
+  };
 
   return (
     <section
@@ -311,108 +319,111 @@ const ProjectsSection = memo(function ProjectsSection() {
       </div>
 
       {/* Popup Modal - Rendered via Portal to body */}
-      {createPortal(
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.18 }}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: 99999,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "rgba(0,0,0,0.85)",
-                backdropFilter: "blur(8px)",
-                padding: "20px",
-                overflow: "auto",
-              }}
-              onClick={(e) => {
-                if (e.target === e.currentTarget) {
-                  setSelectedProject(null);
-                }
-              }}
-              aria-modal="true"
-              role="dialog"
-            >
+      {selectedProject &&
+        createPortal(
+          <AnimatePresence>
+            {selectedProject && (
               <motion.div
-                onClick={(e) => e.stopPropagation()}
-                initial={{ y: 40, opacity: 0, scale: 0.98 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 40, opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.36, ease: "easeOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
                 style={{
-                  width: "100%",
-                  maxWidth: 920,
-                  borderRadius: 16,
-                  background:
-                    "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                  color: "#fff",
-                  position: "relative",
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 99999,
                   display: "flex",
-                  flexDirection: "column",
-                  maxHeight: "90vh",
-                  margin: "auto",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "rgba(0,0,0,0.85)",
+                  backdropFilter: "blur(8px)",
+                  padding: "20px",
+                  overflow: "auto",
                 }}
-              >
-                {/* Close Button - Fixed Position */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) {
                     setSelectedProject(null);
-                  }}
-                  aria-label="Close"
+                  }
+                }}
+                aria-modal="true"
+                role="dialog"
+              >
+                <motion.div
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ y: 40, opacity: 0, scale: 0.98 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  exit={{ y: 40, opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.36, ease: "easeOut" }}
                   style={{
-                    position: "absolute",
-                    right: 16,
-                    top: 16,
-                    border: "none",
-                    background: "rgba(255,255,255,0.1)",
+                    width: "100%",
+                    maxWidth: 920,
+                    borderRadius: 16,
+                    background:
+                      "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
                     color: "#fff",
-                    cursor: "pointer",
-                    padding: "10px",
-                    borderRadius: "50%",
-                    width: "36px",
-                    height: "36px",
+                    position: "relative",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    zIndex: 10,
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.2)";
-                    e.currentTarget.style.transform = "rotate(90deg)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-                    e.currentTarget.style.transform = "rotate(0deg)";
+                    flexDirection: "column",
+                    maxHeight: "90vh",
+                    margin: "auto",
                   }}
                 >
-                  <IconClose size={18} />
-                </button>
+                  {/* Close Button - Fixed Position */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProject(null);
+                    }}
+                    aria-label="Close"
+                    style={{
+                      position: "absolute",
+                      right: 16,
+                      top: 16,
+                      border: "none",
+                      background: "rgba(255,255,255,0.1)",
+                      color: "#fff",
+                      cursor: "pointer",
+                      padding: "10px",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      zIndex: 10,
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.2)";
+                      e.currentTarget.style.transform = "rotate(90deg)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.1)";
+                      e.currentTarget.style.transform = "rotate(0deg)";
+                    }}
+                  >
+                    <IconClose size={18} />
+                  </button>
 
-                {/* Scrollable Content */}
-                <div
-                  style={{
-                    padding: "24px",
-                    overflowY: "auto",
-                    flex: 1,
-                    minHeight: 0,
-                  }}
-                >
-                  <style>
-                    {`
-                  /* 📱 Mobile-only styling for project title layout */
+                  {/* Scrollable Content */}
+                  <div
+                    style={{
+                      padding: "24px",
+                      overflowY: "auto",
+                      flex: 1,
+                      minHeight: 0,
+                    }}
+                  >
+                    <style>
+                      {`
+                  /*  Mobile-only styling for project title layout */
                   @media (max-width: 768px) {
                     .project-title-row h2 {
                       display: flex !important;
@@ -436,70 +447,53 @@ const ProjectsSection = memo(function ProjectsSection() {
                     }
                   }
                 `}
-                  </style>
+                    </style>
 
-                  {/* Title Row */}
-                  <div
-                    className="project-title-row"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      marginBottom: 14,
-                    }}
-                  >
-                    <h2
+                    {/* Title Row */}
+                    <div
+                      className="project-title-row"
                       style={{
-                        margin: 0,
-                        fontSize: 22,
-                        fontWeight: 700,
                         display: "flex",
                         alignItems: "center",
                         gap: 10,
+                        marginBottom: 14,
                       }}
                     >
-                      {selectedProject.title}
-                      <span
-                        className="category"
+                      <h2
                         style={{
-                          background: "#005f52",
-                          color: "#dff9f2",
-                          padding: "6px 10px",
-                          borderRadius: 8,
-                          fontSize: 12,
+                          margin: 0,
+                          fontSize: 22,
+                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
                         }}
                       >
-                        {selectedProject.type ||
-                          selectedProject.category ||
-                          "Project"}
-                      </span>
-                      <span
-                        className="year"
-                        style={{ color: "#9aa0a6", fontSize: 13 }}
-                      >
-                        {selectedProject.year}
-                      </span>
-                    </h2>
-                  </div>
+                        {selectedProject.title}
+                        <span
+                          className="category"
+                          style={{
+                            background: "#005f52",
+                            color: "#dff9f2",
+                            padding: "6px 10px",
+                            borderRadius: 8,
+                            fontSize: 12,
+                          }}
+                        >
+                          {selectedProject.type ||
+                            selectedProject.category ||
+                            "Project"}
+                        </span>
+                        <span
+                          className="year"
+                          style={{ color: "#9aa0a6", fontSize: 13 }}
+                        >
+                          {selectedProject.year}
+                        </span>
+                      </h2>
+                    </div>
 
-                  {/* Description */}
-                  <div style={{ marginBottom: 18 }}>
-                    <h3
-                      style={{
-                        margin: "6px 0 8px",
-                        fontSize: 15,
-                        fontWeight: 700,
-                      }}
-                    >
-                      Description
-                    </h3>
-                    <p style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}>
-                      {selectedProject.description}
-                    </p>
-                  </div>
-
-                  {/* Technologies */}
-                  {selectedProject.technologies?.length > 0 && (
+                    {/* Description */}
                     <div style={{ marginBottom: 18 }}>
                       <h3
                         style={{
@@ -508,169 +502,194 @@ const ProjectsSection = memo(function ProjectsSection() {
                           fontWeight: 700,
                         }}
                       >
-                        Technologies
+                        Description
                       </h3>
-                      <div
-                        style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
+                      <p
+                        style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}
                       >
-                        {selectedProject.technologies.map((t, idx) => (
-                          <div
-                            key={idx}
+                        {selectedProject.description}
+                      </p>
+                    </div>
+
+                    {/* Technologies */}
+                    {selectedProject.technologies?.length > 0 && (
+                      <div style={{ marginBottom: 18 }}>
+                        <h3
+                          style={{
+                            margin: "6px 0 8px",
+                            fontSize: 15,
+                            fontWeight: 700,
+                          }}
+                        >
+                          Technologies
+                        </h3>
+                        <div
+                          style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
+                        >
+                          {selectedProject.technologies.map((t, idx) => (
+                            <div
+                              key={idx}
+                              style={{
+                                background: "rgba(255,255,255,0.03)",
+                                border: "1px solid rgba(255,255,255,0.03)",
+                                color: "#e6e6e6",
+                                padding: "6px 10px",
+                                borderRadius: 10,
+                                fontSize: 13,
+                              }}
+                            >
+                              {t}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screenshots */}
+                    {selectedProject.screenshots && (
+                      <div className="" style={{ marginBottom: 18 }}>
+                        {selectedProject.screenshots.length === 0 || (
+                          <h3
                             style={{
-                              background: "rgba(255,255,255,0.03)",
-                              border: "1px solid rgba(255,255,255,0.03)",
-                              color: "#e6e6e6",
-                              padding: "6px 10px",
-                              borderRadius: 10,
-                              fontSize: 13,
+                              margin: "6px 0 10px",
+                              fontSize: 15,
+                              fontWeight: 700,
                             }}
                           >
-                            {t}
-                          </div>
-                        ))}
+                            Screenshots
+                          </h3>
+                        )}
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns:
+                              "repeat(auto-fit, minmax(200px, 1fr))",
+                            overflow: "visible",
+                            gap: 12,
+                          }}
+                        >
+                          {selectedProject.screenshots.map((src, i) => (
+                            <img
+                              key={i}
+                              src={src}
+                              alt={`screenshot-${i}`}
+                              loading="lazy"
+                              decoding="async"
+                              onMouseMove={handleImageMove}
+                              onMouseLeave={handleImageLeave}
+                              style={{
+                                width: "100%",
+                                height: 140,
+                                objectFit: "cover",
+                                borderRadius: 8,
+                                border: "1px solid rgba(255,255,255,0.03)",
+                                transition: "transform 0.3s ease",
+                              }}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
-                  {/* Screenshots */}
-                  {selectedProject.screenshots && (
-                    <div className="" style={{ marginBottom: 18 }}>
-                      <h3
+                  {/* Actions - Always visible at bottom */}
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      justifyContent: "flex-start",
+                      flexWrap: "wrap",
+                      padding: "20px 24px",
+                      borderTop: "1px solid rgba(255,255,255,0.05)",
+                      background: "rgba(0,0,0,0.4)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {selectedProject.liveLink && (
+                      <a
+                        href={
+                          selectedProject.liveLink !== "#"
+                            ? selectedProject.liveLink
+                            : undefined
+                        }
+                        target="_blank"
+                        rel="noreferrer"
                         style={{
-                          margin: "6px 0 10px",
-                          fontSize: 15,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 8,
+                          background:
+                            selectedProject.liveLink !== "#"
+                              ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
+                              : "#2a2a2a",
+                          color:
+                            selectedProject.liveLink !== "#"
+                              ? "#041412"
+                              : "#777",
+                          padding: "10px 14px",
+                          borderRadius: 8,
+                          textDecoration: "none",
                           fontWeight: 700,
+                          boxShadow:
+                            selectedProject.liveLink !== "#"
+                              ? "0 6px 18px rgba(0,191,166,0.14)"
+                              : "none",
+                          pointerEvents:
+                            selectedProject.liveLink !== "#" ? "auto" : "none",
+                          cursor:
+                            selectedProject.liveLink !== "#"
+                              ? "pointer"
+                              : "not-allowed",
+                          transition: "0.3s",
                         }}
                       >
-                        Screenshots
-                      </h3>
-                      <div
+                        <IconExternal /> View Live Project
+                      </a>
+                    )}
+
+                    {selectedProject.codeLink && (
+                      <a
+                        href={
+                          selectedProject.codeLink !== "#"
+                            ? selectedProject.codeLink
+                            : undefined
+                        }
+                        target="_blank"
+                        rel="noreferrer"
                         style={{
-                          display: "grid",
-                          gridTemplateColumns:
-                            "repeat(auto-fit, minmax(200px, 1fr))",
-                          overflow: "visible",
-                          gap: 12,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 8,
+                          background: "transparent",
+                          color:
+                            selectedProject.codeLink !== "#" ? "#ddd" : "#777",
+                          padding: "10px 14px",
+                          borderRadius: 8,
+                          textDecoration: "none",
+                          border:
+                            selectedProject.codeLink !== "#"
+                              ? "1px solid rgba(255,255,255,0.06)"
+                              : "1px solid rgba(255,255,255,0.1)",
+                          fontWeight: 600,
+                          pointerEvents:
+                            selectedProject.codeLink !== "#" ? "auto" : "none",
+                          cursor:
+                            selectedProject.codeLink !== "#"
+                              ? "pointer"
+                              : "not-allowed",
+                          transition: "0.3s",
                         }}
                       >
-                        {selectedProject.screenshots.map((src, i) => (
-                          <img
-                            key={i}
-                            src={src}
-                            alt={`screenshot-${i}`}
-                            className="popup-zoom-image"
-                            loading="lazy"
-                            decoding="async"
-                            style={{
-                              width: "100%",
-                              height: 140,
-                              objectFit: "cover",
-                              borderRadius: 8,
-                              border: "1px solid rgba(255,255,255,0.03)",
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Actions - Always visible at bottom */}
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    justifyContent: "flex-start",
-                    flexWrap: "wrap",
-                    padding: "20px 24px",
-                    borderTop: "1px solid rgba(255,255,255,0.05)",
-                    background: "rgba(0,0,0,0.4)",
-                    flexShrink: 0,
-                  }}
-                >
-                  {selectedProject.liveLink && (
-                    <a
-                      href={
-                        selectedProject.liveLink !== "#"
-                          ? selectedProject.liveLink
-                          : undefined
-                      }
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 8,
-                        background:
-                          selectedProject.liveLink !== "#"
-                            ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
-                            : "#2a2a2a",
-                        color:
-                          selectedProject.liveLink !== "#" ? "#041412" : "#777",
-                        padding: "10px 14px",
-                        borderRadius: 8,
-                        textDecoration: "none",
-                        fontWeight: 700,
-                        boxShadow:
-                          selectedProject.liveLink !== "#"
-                            ? "0 6px 18px rgba(0,191,166,0.14)"
-                            : "none",
-                        pointerEvents:
-                          selectedProject.liveLink !== "#" ? "auto" : "none",
-                        cursor:
-                          selectedProject.liveLink !== "#"
-                            ? "pointer"
-                            : "not-allowed",
-                        transition: "0.3s",
-                      }}
-                    >
-                      <IconExternal /> View Live Project
-                    </a>
-                  )}
-
-                  {selectedProject.codeLink && (
-                    <a
-                      href={
-                        selectedProject.codeLink !== "#"
-                          ? selectedProject.codeLink
-                          : undefined
-                      }
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 8,
-                        background: "transparent",
-                        color:
-                          selectedProject.codeLink !== "#" ? "#ddd" : "#777",
-                        padding: "10px 14px",
-                        borderRadius: 8,
-                        textDecoration: "none",
-                        border:
-                          selectedProject.codeLink !== "#"
-                            ? "1px solid rgba(255,255,255,0.06)"
-                            : "1px solid rgba(255,255,255,0.1)",
-                        fontWeight: 600,
-                        pointerEvents:
-                          selectedProject.codeLink !== "#" ? "auto" : "none",
-                        cursor:
-                          selectedProject.codeLink !== "#"
-                            ? "pointer"
-                            : "not-allowed",
-                        transition: "0.3s",
-                      }}
-                    >
-                      <IconCode /> View Code
-                    </a>
-                  )}
-                </div>
+                        <IconCode /> View Code
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body,
-      )}
+            )}
+          </AnimatePresence>,
+          document.body,
+        )}
     </section>
   );
 });
