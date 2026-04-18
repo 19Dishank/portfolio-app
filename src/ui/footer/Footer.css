@@ -124,6 +124,7 @@
 .tech-icon.vercel {
   color: #ffffff;
 }
+
 .tech-icon.user {
   color: #ffffff;
   font-size: 0.5rem;
@@ -196,11 +197,15 @@
   }
 
   .footer-spotify iframe {
-    width: 92vw; /* Bigger player */
-    max-width: 380px; /* Prevent overflow */
-    height: 180px; /* Taller player */
+    width: 92vw;
+    /* Bigger player */
+    max-width: 380px;
+    /* Prevent overflow */
+    height: 180px;
+    /* Taller player */
     border-radius: 12px;
-    margin-bottom: 0; /* Remove blank space */
+    margin-bottom: 0;
+    /* Remove blank space */
   }
 
   .like-btn {
