@@ -8,6 +8,9 @@ import {
   SiCss3,
   SiBootstrap,
   SiOpenai,
+  SiTypescript,
+  SiTailwindcss,
+  SiRedux,
 } from "react-icons/si";
 
 import {
@@ -110,6 +113,30 @@ export const TECH_SKILLS = [
     expertise: 75,
   },
   {
+    name: "TypeScript",
+    category: "Frontend",
+    icon: <SiTypescript color="#3178C6" />,
+    expertise: 50,
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Frontend",
+    icon: <SiTailwindcss color="#06B6D4" />,
+    expertise: 80,
+  },
+  {
+    name: "Redux Toolkit (RTK)",
+    category: "Frontend",
+    icon: <SiRedux color="#764ABC" />,
+    expertise: 65,
+  },
+  {
+    name: "Zustand",
+    category: "Frontend",
+    icon: <RiCodeSSlashLine color="#EAB308" />,
+    expertise: 80,
+  },
+  {
     name: "HTML",
     category: "Frontend",
     icon: <SiHtml5 color="#E44D26" />,
@@ -168,7 +195,7 @@ export const experiences = [
     role: "Software Developer Intern",
     company: "Narola Infotech LLP.",
     // description: "Architecting high-performance user interfaces with React and Tailwind. Redesigned the core dashboard, reducing load times by 40% and improving mobile responsiveness.",
-    tech: ["React.js", "Tailwind"],
+    tech: ["React.js", "Tailwind", "JavaScript", 'TypeScript'],
   },
   // {
   //     year: "2023",
