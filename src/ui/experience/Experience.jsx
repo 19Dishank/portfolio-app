@@ -35,7 +35,7 @@ const Experience = forwardRef((props, ref) => {
         }, ref);
 
         return () => ctx.revert();
-    }, []);
+    }, [ref]);
 
     return (
         <section className="experience-section" ref={ref}>
