@@ -1,236 +1,333 @@
-.footer {
-  background-color: #0d0d0d;
-  color: #fff;
-  padding: 40px 20px;
-  font-family: "Poppins", sans-serif;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* ==========================================================================
+   SKETCHBOOK FOOTER STYLES
+   ========================================================================== */
+
+.footer-sketchbook {
+  position: relative;
+  background-color: var(--paper-2);
+  padding: 2.5rem 2rem 1.5rem;
+  font-family: 'Patrick Hand', cursive;
+  overflow: hidden;
+  z-index: 10;
 }
 
-.footer-content {
+.footer-top-edge {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Background Doodles */
+.footer-bg-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.footer-doodle {
+  position: absolute;
+}
+
+.footer-star {
+  top: 10%;
+  left: 5%;
+  width: 60px;
+  height: 60px;
+}
+
+.footer-zigzag {
+  bottom: 20%;
+  left: 10%;
+  width: 100px;
+  height: 40px;
+}
+
+.footer-pluses {
+  top: 15%;
+  right: 5%;
+  width: 80px;
+  height: 80px;
+}
+
+.footer-spiral {
+  bottom: 15%;
+  right: 10%;
+  width: 70px;
+  height: 70px;
+}
+
+.footer-content-sketch {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1140px;
   margin: 0 auto;
-  gap: 20px;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
 }
 
-/* Default (Desktop) - untouched design */
-.footer-icons {
-  display: flex;
-  gap: 20px;
-}
-
-.icon {
-  color: #aaa;
-  font-size: 1.6rem;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.icon:hover {
-  color: #9b5cff;
-  transform: scale(1.2);
-}
-
-.footer-likes .like-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: 1px solid #9b5cff;
-  color: #9b5cff;
-  border-radius: 50px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.footer-likes .like-btn:hover {
-  background-color: #9b5cff;
-  color: #fff;
-}
-
-.heart-icon {
-  color: #9b5cff;
-  transition: color 0.3s ease;
-}
-
-.footer-built p {
-  margin: 3px 0;
-  color: #ccc;
-}
-
-.footer-built strong {
-  color: #fff;
-}
-
-.footer-spotify iframe {
-  border-radius: 12px;
-  width: 300px;
-  height: 152px;
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 30px;
-  padding-top: 20px;
-  text-align: center;
-  color: #aaa;
-  font-size: 0.9rem;
-}
-
-.footer-tech {
+/* =======================
+   LEFT COLUMN (Brand/Socials)
+   ======================= */
+.footer-left-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  color: #b3b3b3;
-  font-size: 0.95rem;
-  text-align: center;
+  gap: 1.5rem;
+  flex: 1;
+  min-width: 300px;
 }
 
-.tech-item {
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer-signature {
+  font-family: 'Caveat', cursive;
+  font-size: 3rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+  transform: rotate(-2deg);
+}
+
+.footer-tagline {
+  font-size: 1.2rem;
+  color: var(--pencil);
+  margin: 0;
+}
+
+.footer-icons-sketch {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.sketch-icon-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  width: 50px;
+  height: 50px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.sketch-icon-wrapper:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.sketch-icon {
+  font-size: 1.8rem;
+  z-index: 2;
+}
+
+.icon-hover-scribble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: scale(0.8) rotate(-15deg);
+  z-index: 1;
+}
+
+.sketch-icon-wrapper:hover .icon-hover-scribble {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* =======================
+   TECH STACK CREDITS
+   ======================= */
+.footer-tech-sketch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tech-sketch-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--ballpoint);
+  background: var(--paper);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+  border: 1px solid var(--pencil);
+  transform: rotate(random(-2deg, 2deg));
+}
+
+.tech-sketch-item:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+.tech-sketch-item:nth-child(odd) {
+  transform: rotate(-1deg);
+}
+
+.tech-icon-hand {
+  font-size: 1.2rem;
+}
+
+.drawn-react { color: #61dafb; }
+.drawn-css { color: #2965f1; }
+.drawn-vercel { color: var(--ink); }
+
+.tech-highlight {
+  font-weight: bold;
+  color: var(--ink);
+}
+
+/* =======================
+   RIGHT COLUMN (Polaroid Spotify)
+   ======================= */
+.footer-right-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-width: 300px;
+}
+
+.spotify-polaroid-card {
+  position: relative;
+  background-color: var(--paper);
+  padding: 1rem 1rem 1.5rem 1rem;
+  box-shadow: 3px 5px 15px rgba(0,0,0,0.08);
+  transform: rotate(2deg);
+  width: 100%;
+  max-width: 340px;
   transition: transform 0.3s ease;
 }
 
-.tech-item:hover {
-  transform: translateY(-3px);
+.spotify-polaroid-card:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 20;
 }
 
-.tech-icon {
+.polaroid-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.polaroid-washi-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 80px;
+  height: 25px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.polaroid-caption {
+  font-family: 'Kalam', cursive;
   font-size: 1.2rem;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  color: var(--ballpoint);
+  margin-bottom: 0.8rem;
+  text-align: center;
 }
 
-.tech-icon.react {
-  color: #61dafb;
+.spotify-embed-container {
+  position: relative;
+  z-index: 2;
+  border-radius: 8px;
+  overflow: hidden;
+  /* Add a subtle sketch border to iframe container */
+  border: 1px solid var(--pencil);
 }
 
-.tech-icon.css {
-  color: #2965f1;
+.spotify-placeholder {
+  height: 152px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pencil);
+  font-style: italic;
 }
 
-.tech-icon.vercel {
-  color: #ffffff;
+/* =======================
+   BOTTOM COPYRIGHT
+   ======================= */
+.footer-bottom-sketch {
+  position: relative;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-top: 0.5rem;
+  text-align: center;
+  color: var(--pencil);
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.tech-icon.user {
-  color: #ffffff;
-  font-size: 0.5rem;
+.footer-bottom-doodle {
+  width: 100px;
+  height: 20px;
+  opacity: 0.5;
 }
 
-.tech-item:hover .tech-icon.react {
-  transform: rotate(10deg);
-  color: #33cfff;
-}
 
-.tech-item:hover .tech-icon.css {
-  transform: rotate(-10deg);
-  color: #1e4ef5;
-}
+/* =======================
+   RESPONSIVE LAYOUT
+   ======================= */
 
-.tech-item:hover .tech-icon.vercel {
-  transform: scale(1.2);
-  color: #9b5cff;
-}
-
-/* ------------------------ */
-/* ✅ Responsive Design Fix */
-/* ------------------------ */
-
-@media (max-width: 1024px) {
-  .footer-content {
-    padding: 1.5rem 2rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .footer-spotify iframe {
-    width: 340px;
-    height: 160px;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer-content {
+@media (max-width: 900px) {
+  .footer-content-sketch {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
     text-align: center;
+    gap: 2.5rem;
   }
-
-  .footer-icons {
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  .footer-likes {
-    order: 2;
-  }
-
-  .footer-tech {
-    order: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .footer-spotify {
-    order: 4;
-    display: flex;
-    justify-content: center;
+  
+  .footer-left-col {
     align-items: center;
-    width: 100%;
   }
 
-  .footer-spotify iframe {
-    width: 92vw;
-    /* Bigger player */
-    max-width: 380px;
-    /* Prevent overflow */
-    height: 180px;
-    /* Taller player */
-    border-radius: 12px;
-    margin-bottom: 0;
-    /* Remove blank space */
-  }
-
-  .like-btn {
-    font-size: 15px;
-    padding: 8px 18px;
-  }
-
-  .footer-bottom {
-    font-size: 13px;
-    padding-bottom: 0.5rem;
-    margin-top: 0.5rem;
+  .footer-tech-sketch {
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-spotify iframe {
-    width: 95vw;
-    height: 170px;
+  .footer-sketchbook {
+    padding: 3rem 1rem 1rem;
   }
 
-  .footer-content {
-    padding: 1rem;
+  .footer-signature {
+    font-size: 2.5rem;
   }
 
-  .footer-bottom {
-    font-size: 12px;
+  .spotify-polaroid-card {
+    max-width: 100%;
+  }
+  
+  .tech-sketch-item {
+    font-size: 1rem;
   }
 }
