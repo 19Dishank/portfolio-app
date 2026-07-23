@@ -204,7 +204,7 @@ export const TECH_SKILLS = [
 
 export const experiences = [
   {
-    year: "2026",
+    year: "Jan 2026",
     status: "Present",
     role: "Software Developer Intern",
     company: "Narola Infotech LLP.",
