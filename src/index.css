@@ -1,9 +1,18 @@
+:root {
+  --paper: #F7F1E1;
+  --paper-2: #F0E8D2;
+  --ink: #26241F;
+  --pencil: #6E6A5E;
+  --marker-red: #D8492E;
+  --highlighter: #F3D94B;
+  --ballpoint: #33538C;
+}
+
 body {
   margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  background-color: black;
+  font-family: "Kalam", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--paper-2);
+  color: var(--ink);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

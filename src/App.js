@@ -2,9 +2,8 @@ import { useRef, lazy, Suspense, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./App.css";
-import CardNav from "./ui/cardnav/CardNav";
 // import ProjectsSection from "./ui/projectcard/ProjectsSection";
-import HeroSection from "./ui/about/HeroSection";
+import Hero from "./ui/hero/hero";
 // import Footer from "./ui/footer/Footer";
 import "./index.css";
 // import ContactSection from "./ui/contact/ContactSection";
@@ -12,7 +11,6 @@ import SkillsSection from "./ui/skills/SkillsSection";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
 import Experience from "./ui/experience/Experience";
-import { NAV_ITEMS } from "./constants";
 import Loader from "./ui/loader/Loader";
 
 const ProjectsSection = lazy(() => import("./ui/projectcard/ProjectsSection"));
@@ -28,13 +26,9 @@ function App() {
   const heroRef = useRef(null);
   const expRef = useRef(null);
 
-  // ✅ Fade-in animation for home section - Optimized
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Use will-change for better performance
-      if (appRef.current) {
-        appRef.current.style.willChange = "opacity";
-      }
+      if (appRef.current) appRef.current.style.willChange = "opacity";
 
       gsap.fromTo(
         appRef.current,
@@ -45,9 +39,7 @@ function App() {
           ease: "power3.out",
           force3D: true,
           onComplete: () => {
-            if (appRef.current) {
-              appRef.current.style.willChange = "auto";
-            }
+            if (appRef.current) appRef.current.style.willChange = "auto";
           },
         },
       );
@@ -69,17 +61,13 @@ function App() {
     return () => ctx.revert();
   }, []);
 
-  // ✅ Scroll-triggered animation for Experience section
   useEffect(() => {
     if (!expRef.current) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
         expRef.current,
-        {
-          opacity: 0,
-          y: 50,
-        },
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
@@ -109,7 +97,30 @@ function App() {
         position: "relative",
       }}
     >
-      {/* 🟣 HOME SECTION */}
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <defs>
+          <filter id="roughPaper" x="-2%" y="-2%" width="104%" height="104%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.014" numOctaves="3" seed="7" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="roughLine" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="roughLineAlt" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="13" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0"/>
+          </filter>
+          <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink)" strokeWidth="1" opacity="0.6"/>
+          </pattern>
+        </defs>
+      </svg>
+
       <section
         id="home"
         style={{
@@ -122,20 +133,8 @@ function App() {
           zIndex: 1,
         }}
       >
-        <div style={{ position: "relative", zIndex: 2 }}>
-          <CardNav
-            logoAlt="Portfolio Logo"
-            items={NAV_ITEMS}
-            ease="power3.out"
-            baseColor="#fff"
-            menuColor="#000"
-            buttonBgColor="#111"
-            buttonTextColor="#fff"
-          />
-        </div>
-
         <div className="hero-wrapper">
-          <HeroSection />
+          <Hero />
         </div>
 
         <div
@@ -150,26 +149,18 @@ function App() {
           }}
         ></div>
       </section>
-      {/* 🟡 NEXT SECTION WITH SQUARES BACKGROUND + TECH STACK */}
+
       <SkillsSection />
-
-      {/* Experience Section */}
-
       <Experience ref={expRef} />
-
-      {/* experience section end  */}
-
-      {/* 🟢 PROJECTS SECTION (handled fully inside component) */}
+      
       <Suspense fallback={<Loader />}>
         <ProjectsSection />
         <section id="contact">
           <ContactSection />
         </section>
-
         <Footer />
       </Suspense>
       <SpeedInsights />
-      {/* CSS for glow pulse */}
       <style>
         {`
           @keyframes glowPulse {

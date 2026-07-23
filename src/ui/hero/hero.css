@@ -1,0 +1,653 @@
+/* Mobile-first base styles (360px+) */
+.hero-section {
+  width: 100%;
+  padding: 3rem 1.5rem;
+  background-color: var(--paper-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  /* Prevent ANY unexpected horizontal overflow */
+  min-height: 100dvh;
+}
+
+.hero-bg-doodle {
+  display: none;
+  /* Replaced by hero-bg-decorations */
+}
+
+.hero-bg-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  /* Below sketch page */
+  overflow: hidden;
+}
+
+.bg-decor {
+  position: absolute;
+  opacity: 0.8;
+  /* Base opacity control */
+}
+
+/* Base sizes for mobile */
+.bg-spiral {
+  top: 2%;
+  left: -2%;
+  width: 80px;
+  height: 80px;
+  transform: rotate(-15deg);
+}
+
+.bg-pluses {
+  top: 2%;
+  right: -2%;
+  width: 70px;
+  height: 70px;
+}
+
+.bg-zigzag {
+  display: none;
+  /* hide on mobile */
+}
+
+.bg-triangle {
+  top: 30%;
+  left: -5%;
+  width: 60px;
+  height: 60px;
+  transform: rotate(12deg);
+}
+
+.bg-spring {
+  bottom: 5%;
+  left: -5%;
+  width: 70px;
+  height: 70px;
+  transform: rotate(-20deg);
+}
+
+.bg-asterisk {
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+}
+
+.bg-circles {
+  bottom: 5%;
+  right: -5%;
+  width: 80px;
+  height: 80px;
+}
+
+.sketch-page {
+  width: 100%;
+  max-width: 1140px;
+  background-color: var(--paper);
+  /* Flat paper color, no full hatch */
+  border-radius: 6px;
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem 1.25rem;
+}
+
+/* Double border wrapper */
+.sketch-page-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ring-holes {
+  display: none;
+  /* hidden on mobile */
+}
+
+/* Small floating stars */
+.hero-star-small {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  /* Hidden on mobile to avoid clutter */
+}
+
+/* Inner Doodles inside the sketch page */
+.card-inner-doodles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.inner-doodle-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-star-small.doodle-1 {
+  top: 10%;
+  right: 5%;
+  width: 20px;
+  height: 20px;
+  transform: rotate(25deg);
+}
+
+.hero-star-small.doodle-2 {
+  bottom: 15%;
+  left: 8%;
+  width: 25px;
+  height: 25px;
+  transform: rotate(-15deg);
+}
+
+.sketch-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-copy-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-eyebrow {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--pencil);
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 0 var(--paper), -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper);
+}
+
+.hero-title {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(3.2rem, 12vw, 5.7rem);
+  /* scales nicely on mobile */
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--ink);
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 0 var(--paper), -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper);
+}
+
+.hero-highlight {
+  position: relative;
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+.hero-highlighter-svg {
+  position: absolute;
+  bottom: 10%;
+  left: -5%;
+  width: 110%;
+  height: 90%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-subtitle {
+  font-family: 'Kalam', cursive;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0.5rem 0 0 0;
+  line-height: 1.55;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 0 var(--paper), -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper);
+}
+
+.hero-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-underline-svg {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  pointer-events: none;
+}
+
+.hero-body {
+  font-family: 'Kalam', cursive;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--pencil);
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 0 var(--paper), -1px -1px 0 var(--paper), 1px -1px 0 var(--paper), -1px 1px 0 var(--paper);
+}
+
+/* Actions */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.hero-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0.85rem 1.7rem;
+  min-height: 48px;
+  /* Safe mobile touch target */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 100%;
+  /* Full width on tiny mobile screens */
+}
+
+/* Button Jitter */
+.hero-btn:nth-child(1) {
+  transform: rotate(-1deg);
+}
+
+.hero-btn:nth-child(2) {
+  transform: rotate(1.5deg) translateY(2px);
+}
+
+.hero-btn:nth-child(3) {
+  transform: rotate(-0.5deg) translateY(-1px);
+}
+
+.hero-btn:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 5;
+}
+
+.hero-btn-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-btn-shape,
+.hero-btn-shape-alt {
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.primary-btn:hover .hero-btn-shape {
+  fill: var(--paper-2);
+}
+
+.secondary-btn:hover .hero-btn-shape,
+.secondary-btn:hover .hero-btn-shape-alt {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.hero-btn-text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.25rem;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.hero-btn:focus-visible {
+  outline: 2px dashed var(--pencil);
+  outline-offset: 4px;
+}
+
+/* Portrait Block */
+.hero-portrait-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+  /* extra space at bottom for mobile layout */
+  z-index: 15;
+  /* sits above sketch-page-border */
+}
+
+.portrait-container {
+  width: 100%;
+  max-width: 250px;
+  /* Safe mobile limit */
+  position: relative;
+  transform: rotate(-1.5deg);
+  /* Rotation jitter */
+  margin-bottom: 1.5rem;
+}
+
+.hero-portrait-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-sticky-note {
+  position: absolute;
+  bottom: -25px;
+  right: -10px;
+  transform: rotate(1.5deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 55px;
+  padding: 0 1rem;
+  z-index: 5;
+}
+
+.sticky-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.washi-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 22px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Floating Words Decoration */
+.floating-word {
+  position: absolute;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.95rem;
+  color: var(--pencil);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.word-1 {
+  top: 0%;
+  left: -10%;
+  transform: rotate(-6deg);
+}
+
+.word-2 {
+  top: 15%;
+  right: -15%;
+  transform: rotate(9deg);
+}
+
+.word-3 {
+  bottom: 20%;
+  left: -15%;
+  transform: rotate(-3deg);
+}
+
+.word-4 {
+  bottom: 25%;
+  right: -10%;
+  transform: rotate(4deg);
+}
+
+.word-5 {
+  top: -8%;
+  left: 60%;
+  transform: translateX(-50%) rotate(-8deg);
+}
+
+.word-6 {
+  bottom: 0%;
+  left: -5%;
+  transform: rotate(5deg);
+}
+
+.word-circle {
+  position: absolute;
+  top: -6px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 12px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sticky-text {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.15rem;
+  color: var(--ink);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+}
+
+/* Margin Notes (Mobile: horizontal list, wrapping safely) */
+.hero-margin-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  z-index: 2;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.hero-social-note {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.hero-social-note:hover {
+  color: var(--ballpoint);
+  z-index: 10;
+}
+
+/* Tablet & Desktop Layouts (768px+) */
+@media (min-width: 768px) {
+  .hero-btn {
+    width: auto;
+    /* Revert to auto width on tablet */
+    padding: 0.9rem 2.2rem;
+  }
+}
+
+/* Desktop Layout (880px+ based on design.md) */
+@media (min-width: 880px) {
+  .hero-section {
+    padding: 5rem 2rem;
+  }
+
+  .hero-bg-doodle {
+    opacity: 1;
+    /* Full opacity on desktop */
+  }
+
+  /* Desktop sizes for background decor */
+  .bg-spiral {
+    top: 5vh;
+    left: 2vw;
+    width: 120px;
+    height: 120px;
+  }
+
+  .bg-pluses {
+    top: 5vh;
+    right: 2vw;
+    width: 100px;
+    height: 100px;
+  }
+
+  .bg-zigzag {
+    display: block;
+    top: 2vh;
+    left: 50%;
+    width: 150px;
+    height: 50px;
+    transform: translateX(-50%) rotate(5deg);
+  }
+
+  .bg-triangle {
+    top: 45vh;
+    left: 1vw;
+    width: 90px;
+    height: 90px;
+  }
+
+  .bg-spring {
+    bottom: 5vh;
+    left: 2vw;
+    width: 120px;
+    height: 120px;
+  }
+
+  .bg-asterisk {
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+  }
+
+  .bg-circles {
+    bottom: 5vh;
+    right: 2vw;
+    width: 110px;
+    height: 110px;
+  }
+
+  .sketch-page {
+    padding: 66px 62px;
+    padding-left: 88px;
+    /* Extra room for ring holes and indentation */
+  }
+
+  .ring-holes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    bottom: 40px;
+    width: 20px;
+  }
+
+  .hole {
+    width: 16px;
+    height: 16px;
+    background-color: var(--paper-2);
+    border-radius: 50%;
+    border: 2px solid var(--pencil);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Show small stars on desktop safely */
+  .hero-star-small {
+    display: block;
+  }
+
+  .sketch-grid {
+    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+
+  .hero-portrait-block {
+    border-top: none;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .portrait-container {
+    max-width: 300px;
+    margin-bottom: 0;
+  }
+
+  .hero-sticky-note {
+    bottom: -10px;
+    right: -25px;
+  }
+
+  /* Margin Notes (Desktop: absolute positioned sticky notes on the right) */
+  .hero-margin-notes {
+    position: absolute;
+    right: 4%;
+    top: 30%;
+    flex-direction: column;
+    width: auto;
+    gap: 2rem;
+    margin-top: 0;
+  }
+
+  .hero-social-note {
+    background-color: var(--paper);
+    padding: 0.75rem 1.25rem;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Jitter for Margin Notes */
+  .hero-social-note:nth-child(1) {
+    transform: rotate(3.5deg);
+  }
+
+  .hero-social-note:nth-child(2) {
+    transform: rotate(-2deg) translateX(12px);
+  }
+
+  .hero-social-note:nth-child(3) {
+    transform: rotate(2deg) translateX(-8px);
+  }
+
+  .hero-social-note:hover {
+    transform: scale(1.05) rotate(0deg);
+  }
+}
