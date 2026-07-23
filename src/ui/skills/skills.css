@@ -1,0 +1,408 @@
+/* ==========================================================================
+   SKETCHBOOK SKILLS SECTION STYLES
+   ========================================================================== */
+
+.skills-section {
+  width: 100%;
+  padding: 4rem 1.5rem;
+  background-color: var(--paper-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Background Decorations */
+.skills-bg-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-doodle {
+  position: absolute;
+  opacity: 0.8;
+}
+
+.skills-bg-spiral { top: 5%; left: 2%; width: 120px; height: 120px; transform: rotate(-10deg); }
+.skills-bg-pluses { top: 10%; right: 5%; width: 80px; height: 80px; }
+.skills-bg-zigzag { bottom: 15%; left: 3%; width: 100px; height: 50px; transform: rotate(15deg); }
+.skills-bg-circles { bottom: 5%; right: 2%; width: 100px; height: 100px; }
+.skills-bg-asterisk { top: 2%; left: 40%; width: 60px; height: 60px; }
+
+.skills-sketch-page {
+  width: 100%;
+  max-width: 1140px;
+  background-color: var(--paper);
+  border-radius: 6px;
+  position: relative;
+  z-index: 2;
+  padding: 3rem 1.5rem;
+  /* Add subtle page shadow */
+  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Inner Doodles */
+.skills-inner-doodles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.inner-doodle-1 { position: absolute; top: 12%; right: 10%; width: 60px; height: 60px; transform: rotate(15deg); }
+.inner-doodle-2 { position: absolute; top: 40%; left: 5%; width: 40px; height: 40px; transform: rotate(-10deg); }
+.inner-doodle-3 { position: absolute; bottom: 8%; right: 15%; width: 30px; height: 30px; transform: rotate(5deg); }
+.inner-doodle-4 { position: absolute; top: 50%; right: 5%; width: 30px; height: 60px; transform: rotate(-5deg); }
+.inner-doodle-5 { position: absolute; top: 20%; left: 15%; width: 40px; height: 40px; transform: rotate(10deg); }
+.inner-doodle-6 { position: absolute; bottom: 15%; left: 10%; width: 50px; height: 50px; transform: rotate(-20deg); }
+
+/* Double border wrapper for the page */
+.skills-page-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Ring holes on the left */
+.skills-ring-holes {
+  display: none;
+}
+
+/* Section Header */
+.skills-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.skills-title {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+}
+
+/* Optional highlighter under subtitle word */
+.highlight-wrapper {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.skills-subtitle-highlight {
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 110%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.skills-subtitle {
+  font-family: 'Kalam', cursive;
+  font-size: 1.2rem;
+  color: var(--pencil);
+  margin-top: 0.5rem;
+}
+
+
+
+/* =======================
+   FILTER BUTTONS
+   ======================= */
+.skills-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 15;
+}
+
+.skills-filter-btn {
+  background: transparent;
+  border: none;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--pencil);
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skills-filter-btn:hover {
+  color: var(--ink);
+  transform: translateY(-2px) rotate(1deg);
+}
+
+.skills-filter-btn.active {
+  color: var(--ink);
+}
+
+/* Active Filter Outline */
+.filter-btn-outline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Filter Jitter */
+.skills-filter-btn:nth-child(even) {
+  transform: rotate(-1.5deg);
+}
+.skills-filter-btn:nth-child(odd) {
+  transform: rotate(1deg) translateY(2px);
+}
+.skills-filter-btn:nth-child(3n) {
+  transform: rotate(0.5deg) translateY(-1px);
+}
+
+/* =======================
+   SKILLS GRID
+   ======================= */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  position: relative;
+  z-index: 15;
+}
+
+/* =======================
+   SKILL CARD - STICKY NOTE
+   ======================= */
+.skill-card-wrapper {
+  position: relative;
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.skill-card-wrapper:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.skill-card {
+  position: relative;
+  background-color: var(--paper-2);
+  padding: 1.25rem 1rem 1rem; /* More breathing room */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Better spacing between items */
+  cursor: default;
+  width: 100%;
+  height: 100%;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Sketched border for sticky notes */
+.skill-card-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Washi Tape on top of sticky note */
+.skill-washi-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 40px;
+  height: 15px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skill-icon-wrapper {
+  font-size: 1.5rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-icon-wrapper svg {
+  color: var(--ink) !important;
+}
+
+.skill-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-name {
+  font-family: 'Kalam', cursive;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.skill-category {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.85rem;
+  color: var(--pencil);
+}
+
+/* Hand-drawn Stars Expertise */
+.skill-stars-container {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.skill-star {
+  width: 16px;
+  height: 16px;
+  /* Jitter handled inline to avoid identical stars */
+}
+
+/* Learning Tag */
+.learning-tag {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.8rem;
+  color: var(--pencil);
+  margin-left: 0.5rem;
+  background-color: rgba(0,0,0,0.03);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Learning Section Divider */
+.learning-section-heading {
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  color: var(--pencil);
+  margin: 3rem 0 1.5rem;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  z-index: 15;
+}
+
+/* Empty State */
+.skills-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.5rem;
+  color: var(--pencil);
+  padding: 3rem;
+  position: relative;
+}
+
+.skills-empty-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 80px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Small doodle accents */
+.skills-doodle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.skills-doodle-arrow {
+  top: 10%;
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  transform: rotate(15deg);
+}
+
+.skills-doodle-star {
+  bottom: -15px;
+  left: 10%;
+  width: 30px;
+  height: 30px;
+  transform: rotate(-20deg);
+}
+
+/* =======================
+   RESPONSIVE DESIGN
+   ======================= */
+@media (min-width: 880px) {
+  .skills-section {
+    padding: 5rem 2rem;
+  }
+  
+  .skills-sketch-page {
+    padding: 4rem 4rem 4rem 5rem; /* Extra left padding for holes */
+  }
+
+  .skills-ring-holes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    bottom: 40px;
+    width: 20px;
+  }
+
+  .hole {
+    width: 16px;
+    height: 16px;
+    background-color: var(--paper-2);
+    border-radius: 50%;
+    border: 2px solid var(--pencil);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15);
+  }
+  
+  .skills-grid {
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}

@@ -7,11 +7,11 @@ import Hero from "./ui/hero/hero";
 // import Footer from "./ui/footer/Footer";
 import "./index.css";
 // import ContactSection from "./ui/contact/ContactSection";
-import SkillsSection from "./ui/skills/SkillsSection";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
 import Experience from "./ui/experience/Experience";
 import Loader from "./ui/loader/Loader";
+import Skills from "./ui/skills/skills";
 
 const ProjectsSection = lazy(() => import("./ui/projectcard/ProjectsSection"));
 const ContactSection = lazy(() => import("./ui/contact/ContactSection"));
@@ -100,23 +100,23 @@ function App() {
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
           <filter id="roughPaper" x="-2%" y="-2%" width="104%" height="104%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.014" numOctaves="3" seed="7" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.014" numOctaves="3" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
           </filter>
           <filter id="roughLine" x="-8%" y="-8%" width="116%" height="116%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G" />
           </filter>
           <filter id="roughLineAlt" x="-8%" y="-8%" width="116%" height="116%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="13" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="13" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G" />
           </filter>
           <filter id="grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="n"/>
-            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="n" />
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0" />
           </filter>
           <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink)" strokeWidth="1" opacity="0.6"/>
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink)" strokeWidth="1" opacity="0.6" />
           </pattern>
         </defs>
       </svg>
@@ -126,7 +126,7 @@ function App() {
         style={{
           position: "relative",
           width: "100%",
-          minHeight: "100vh",
+          minHeight: "100dvh",
           height: "auto",
           overflow: "hidden",
           isolation: "isolate",
@@ -150,9 +150,9 @@ function App() {
         ></div>
       </section>
 
-      <SkillsSection />
+      <Skills />
       <Experience ref={expRef} />
-      
+
       <Suspense fallback={<Loader />}>
         <ProjectsSection />
         <section id="contact">

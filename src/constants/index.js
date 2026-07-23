@@ -11,6 +11,8 @@ import {
   SiTypescript,
   SiTailwindcss,
   SiRedux,
+  SiNextdotjs,
+  SiClaude,
 } from "react-icons/si";
 
 import {
@@ -155,10 +157,10 @@ export const TECH_SKILLS = [
     expertise: 80,
   },
   {
-    name: "Responsive Design",
+    name: "Next.js",
     category: "Frontend",
-    icon: <FaMobileAlt color="#79c7ff" />,
-    expertise: 75,
+    icon: <SiNextdotjs color="#000000" />,
+    expertise: 40,
   },
 
   {
@@ -172,6 +174,18 @@ export const TECH_SKILLS = [
     category: "AI & Automation",
     icon: <RiCodeSSlashLine color="#38bdf8" />,
     expertise: 85,
+  },
+  {
+    name: "Antigravity AI",
+    category: "AI & Automation",
+    icon: <RiCodeSSlashLine color="#a855f7" />,
+    expertise: 85,
+  },
+  {
+    name: "Claude",
+    category: "AI & Automation",
+    icon: <SiClaude color="#d97757" />,
+    expertise: 65,
   },
   {
     name: "Prompt Engineering",
