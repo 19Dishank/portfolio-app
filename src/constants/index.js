@@ -235,17 +235,39 @@ export const projects = [
     codeLink: "https://github.com/19Dishank/portfolio-app",
   },
   {
-    title: "Portfolio Web App",
+    title: "AWIP — Aviation Weather Intelligence Platform",
     description:
-      "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
-    image: d1,
-    type: "Frontend Web-App",
-    year: "2025",
-    technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
-
-    liveLink: "https://deepkpatel.vercel.app",
-    codeLink: "https://github.com/19Dishank/deep",
+      "A real-time aviation weather dashboard for pilots and dispatch teams, featuring proactive socket management and comprehensive alternate airport scoring.",
+    image: null,
+    type: "Frontend Dashboard",
+    year: "2026",
+    technologies: ["React", "Zustand", "Tailwind", "Socket.io Client"],
+    liveLink: "#",
+    codeLink: "#",
   },
+  {
+    title: "DocCentral — Document Management SaaS",
+    description:
+      "A multi-tenant document management SaaS with real-time features, precise storage accounting, and a responsive Windows 11-style interface.",
+    image: null,
+    type: "Frontend SaaS",
+    year: "2026",
+    technologies: ["React 19", "Vite", "Tailwind v4", "shadcn/ui", "Socket.io Client"],
+    liveLink: "#",
+    codeLink: "#",
+  },
+  // {
+  //   title: "Portfolio Web App",
+  //   description:
+  //     "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
+  //   image: d1,
+  //   type: "Frontend Web-App",
+  //   year: "2025",
+  //   technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
+  // 
+  //   liveLink: "https://deepkpatel.vercel.app",
+  //   codeLink: "https://github.com/19Dishank/deep",
+  // },
   {
     title: "DipThinq – AI Conversation Platform",
     description:
@@ -266,7 +288,7 @@ export const projects = [
   {
     title: "AI Notes App – Smart Notes with AI",
     description:
-      "A modern AI notes app built with React + Tailwind. It allows you to create, edit, and delete notes. It also allows you to search for notes and delete notes. It also allows you to create notes with AI. It also allows you to create notes with AI. It also allows you to create notes with AI.",
+      "A modern AI notes app built with React + Tailwind. Create, edit, delete, and search your notes with built-in AI assistance for smart note generation.",
     image: note1,
     type: "Frontend Web-App",
     year: "2025",
@@ -306,40 +328,40 @@ export const projects = [
     liveLink: "#",
     codeLink: "https://github.com/19Dishank/jobify-php",
   },
-  {
-    title: "SafePassage - Secure Vault App",
-    description:
-      "SafePassage is an Android app that helps users securely store and manage their credentials and documents. It includes PIN- based access, a password manager, credit card storage, a document vault, a password generator, and a password strength monitor.Designed with an easy - to - use interface and strong security to ensure a private, seamless experience.",
-    image: app1,
-    type: "Mobile App",
-    year: "2025",
-    technologies: ["XML", "Firebase", "Kotlin"],
-    screenshots: [app1, app2],
-    liveLink: "#",
-    codeLink: "#",
-  },
-  {
-    title: "Pokedex - Pokemon App",
-    description:
-      "A modern Pokedex web app built with React.js + Tailwind. It allows you to search for Pokemon and view their details. It also allows you to view Pokemon in a grid view and a list view.",
-    image: pokedex,
-    type: "Frontend Web-App",
-    year: "2026",
-    technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
-    screenshots: [],
-    liveLink: "https://pokedex-puce-two-79.vercel.app/",
-    codeLink: "https://github.com/19Dishank/pokedex",
-  },
-  {
-    title: "Email Writer ",
-    description:
-      "A modern Email Writer web app built with React.js + Tailwind. It allows you to write emails. It also allows you to view the email in a preview mode.",
-    image: emailWriter,
-    type: "Frontend Web-App",
-    year: "2026",
-    technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
-    screenshots: [],
-    liveLink: "https://email-writer-omega.vercel.app/",
-    codeLink: "https://github.com/19Dishank/Email-writer",
-  },
+  // {
+  //   title: "SafePassage - Secure Vault App",
+  //   description:
+  //     "SafePassage is an Android app that helps users securely store and manage their credentials and documents. It includes PIN- based access, a password manager, credit card storage, a document vault, a password generator, and a password strength monitor.Designed with an easy - to - use interface and strong security to ensure a private, seamless experience.",
+  //   image: app1,
+  //   type: "Mobile App",
+  //   year: "2025",
+  //   technologies: ["XML", "Firebase", "Kotlin"],
+  //   screenshots: [app1, app2],
+  //   liveLink: "#",
+  //   codeLink: "#",
+  // },
+  // {
+  //   title: "Pokedex - Pokemon App",
+  //   description:
+  //     "A modern Pokedex web app built with React.js + Tailwind. It allows you to search for Pokemon and view their details. It also allows you to view Pokemon in a grid view and a list view.",
+  //   image: pokedex,
+  //   type: "Frontend Web-App",
+  //   year: "2026",
+  //   technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
+  //   screenshots: [],
+  //   liveLink: "https://pokedex-puce-two-79.vercel.app/",
+  //   codeLink: "https://github.com/19Dishank/pokedex",
+  // },
+  // {
+  //   title: "Email Writer ",
+  //   description:
+  //     "A modern Email Writer web app built with React.js + Tailwind. It allows you to write emails. It also allows you to view the email in a preview mode.",
+  //   image: emailWriter,
+  //   type: "Frontend Web-App",
+  //   year: "2026",
+  //   technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
+  //   screenshots: [],
+  //   liveLink: "https://email-writer-omega.vercel.app/",
+  //   codeLink: "https://github.com/19Dishank/Email-writer",
+  // },
 ];

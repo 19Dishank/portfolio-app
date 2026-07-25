@@ -1,21 +1,23 @@
-import React, { useState, useEffect, memo, useCallback } from "react";
-import { createPortal } from "react-dom";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../../constants";
-import SectionMonolithHeader from "../common/SectionMonolithHeader";
+import ProjectCard from "./ProjectCard";
+import ProjectModal from "./ProjectModal";
 
 const ProjectsSection = memo(function ProjectsSection() {
   const [index, setIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Optimized resize handler with debouncing
+  // Responsive breakpoint handling
   useEffect(() => {
     let timeoutId;
     const handleResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth <= 768);
+        setWindowWidth(window.innerWidth);
       }, 150);
     };
     handleResize();
@@ -26,15 +28,8 @@ const ProjectsSection = memo(function ProjectsSection() {
     };
   }, []);
 
-  useEffect(() => {
-    if (selectedProject) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => (document.body.style.overflow = prev);
-    }
-  }, [selectedProject]);
+  const visibleCount = windowWidth < 768 ? 1 : windowWidth < 1200 ? 2 : 3;
 
-  // Memoized callbacks for better performance
   const nextSlide = useCallback(() => {
     setIndex((prev) => (prev + 1) % projects.length);
   }, []);
@@ -43,95 +38,38 @@ const ProjectsSection = memo(function ProjectsSection() {
     setIndex((prev) => (prev - 1 + projects.length) % projects.length);
   }, []);
 
-  const visibleCount = isMobile ? 1 : 3;
-  const visibleProjects = [];
+  // Keyboard accessibility for Carousel
+  useEffect(() => {
+    if (selectedProject) return; // Disable carousel keyboard nav when modal is open
 
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") {
+        prevSlide();
+      } else if (e.key === "ArrowRight") {
+        nextSlide();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProject, nextSlide, prevSlide]);
+
+  // Handle swipe gestures
+  const handleDragEnd = (e, { offset, velocity }) => {
+    const swipe = offset.x;
+    if (swipe < -50) {
+      nextSlide();
+    } else if (swipe > 50) {
+      prevSlide();
+    }
+  };
+
+  const visibleProjects = [];
   for (let i = 0; i < visibleCount; i++) {
     visibleProjects.push(projects[(index + i) % projects.length]);
   }
-  // icons
-  const IconClose = ({ size = 18 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M18 6L6 18M6 6L18 18"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  const IconExternal = ({ size = 16 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M14 3H21V10"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M10 14L21 3"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21 21H3V3"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  const IconCode = ({ size = 16 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M10 17L5 12L10 7"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14 17L19 12L14 7"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  // useEffect(() => {
-  //   const images = document.querySelectorAll(".popup-zoom-image");
-
-  //   const handleMove = (e) => {
-  //     const rect = e.currentTarget.getBoundingClientRect();
-  //     const x = ((e.clientX - rect.left) / rect.width) * 100;
-  //     const y = ((e.clientY - rect.top) / rect.height) * 100;
-  //     e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
-  //   };
-
-  //   images.forEach((img) => {
-  //     img.addEventListener("mousemove", handleMove);
-  //     img.addEventListener("mouseleave", () => {
-  //       img.style.transformOrigin = "center center";
-  //     });
-  //   });
-
-  //   return () => {
-  //     images.forEach((img) => {
-  //       img.removeEventListener("mousemove", handleMove);
-  //     });
-  //   };
-  // }, []);
-
-  const handleImageMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
-  };
-
-  const handleImageLeave = (e) => {
-    e.currentTarget.style.transformOrigin = "center center";
-  };
 
   return (
     <section
@@ -139,578 +77,269 @@ const ProjectsSection = memo(function ProjectsSection() {
       style={{
         width: "100%",
         minHeight: "100vh",
-        paddingTop: "3rem",
-        backgroundColor: "#000",
+        padding: "2rem 20px 4rem", // Reduced top padding
+        backgroundColor: "transparent", // Inherits the paper background from App.js/body
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
-        overflow: "hidden",
+        overflow: "hidden", // Prevent horizontal scroll
+        color: "var(--ink)",
       }}
     >
-      {/* Section heading */}
-      <SectionMonolithHeader title="Projects" ghostText="WORKS" />
+      {/* Background Decorative Doodles */}
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0, overflow: "hidden" }} aria-hidden="true">
+        <svg viewBox="0 0 1000 800" preserveAspectRatio="none" style={{ position: "absolute", top: "10%", left: "-10%", width: "120%", height: "80%", opacity: 0.15 }}>
+          <path d="M 100,100 C 400,-100 800,200 900,500 C 950,800 500,900 200,700 C -100,500 100,200 400,300 C 700,400 700,700 400,750" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLine)" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: "absolute", top: "15%", left: "5%", width: "100px", height: "100px", opacity: 0.4 }}>
+          <path d="M 50 50 C 50 20, 80 20, 80 50 C 80 80, 20 80, 20 50 C 20 10, 90 10, 90 50" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLine)" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: "absolute", top: "20%", right: "8%", width: "80px", height: "80px", opacity: 0.4 }}>
+          <path d="M 50 10 L 50 90 M 10 50 L 90 50 M 20 20 L 80 80 M 20 80 L 80 20" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLine)" />
+        </svg>
+        <svg viewBox="0 0 100 30" style={{ position: "absolute", bottom: "15%", left: "10%", width: "120px", height: "40px", opacity: 0.4 }}>
+          <path d="M 5 25 L 20 5 L 35 25 L 50 5 L 65 25 L 80 5 L 95 25" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLine)" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: "absolute", bottom: "20%", right: "10%", width: "100px", height: "100px", opacity: 0.4 }}>
+          <circle cx="35" cy="45" r="25" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLine)" />
+          <circle cx="70" cy="70" r="15" fill="none" stroke="var(--pencil)" strokeWidth="1.5" filter="url(#roughLineAlt)" />
+        </svg>
+      </div>
+
+      {/* Hand-drawn section marker instead of plain heading */}
+      <div style={{ marginBottom: "2.5rem", position: "relative", textAlign: "center", zIndex: 1 }}>
+        <div style={{ position: "relative", display: "inline-block" }}>
+          <h2
+            style={{
+              fontFamily: "Caveat, cursive",
+              fontSize: "clamp(3rem, 6vw, 4.5rem)",
+              fontWeight: 700,
+              margin: 0,
+              color: "var(--ink)",
+              position: "relative",
+              zIndex: 2,
+            }}
+          >
+            Unfolding My Work
+          </h2>
+          {/* Highlighter stroke behind title */}
+          <svg
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              left: "-10%",
+              width: "120%",
+              height: "30px",
+              zIndex: 1,
+              pointerEvents: "none",
+            }}
+            viewBox="0 0 100 30"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 5,20 Q 50,10 95,25"
+              fill="none"
+              stroke="var(--highlighter)"
+              strokeWidth="15"
+              opacity="0.6"
+              filter="url(#roughLine)"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
+        <p
+          style={{
+            fontFamily: "Patrick Hand, cursive",
+            fontSize: "1.5rem",
+            color: "var(--pencil)",
+            margin: "0.5rem 0 0 0",
+          }}
+        >
+          Every project, a page worth flipping to.
+        </p>
+      </div>
 
       <div
         style={{
           position: "relative",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
           alignItems: "center",
-          width: "90%",
-          maxWidth: "1350px",
+          width: "100%",
+          maxWidth: "1440px",
           margin: "0 auto",
         }}
       >
-        {/* Left Button */}
-        <button
-          onClick={prevSlide}
-          style={navBtn("left")}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
-          }
-        >
-          ❮
-        </button>
-
-        {/* Cards */}
         <div
           style={{
             display: "flex",
-            gap: isMobile ? "1rem" : "2rem",
-            justifyContent: "center",
             alignItems: "center",
-            overflow: "hidden",
+            justifyContent: "space-between",
             width: "100%",
+            gap: "20px",
           }}
         >
-          <AnimatePresence mode="wait">
-            {visibleProjects.map((project, i) => (
-              <motion.div
-                key={`${index}-${i}`}
-                initial={{ opacity: 0, scale: 0.95, y: 18 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -18 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                style={{
-                  flex: `0 0 ${isMobile ? "100%" : "30%"}`,
-                  background: "rgba(255,255,255,0.04)",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  boxShadow: "0 6px 30px rgba(0,0,0,0.6)",
-                  textAlign: "left",
-                  color: "#fff",
-                  cursor: "pointer",
-                  border: "1px solid rgba(255,255,255,0.03)",
-                  height: isMobile ? 450 : 420, // ✅ fixed height for uniform cards
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-                onClick={() => setSelectedProject(project)}
-              >
-                {/* Image container ensures same size */}
-                <div
-                  style={{
-                    width: "100%",
-                    height: "55%", // fixed ratio for consistent layout
-                    overflow: "hidden",
-                    backgroundColor: "#111",
-                  }}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                    decoding="async"
+          {/* Left Arrow */}
+          {windowWidth >= 768 && (
+            <button
+              onClick={prevSlide}
+              aria-label="Previous project"
+              style={navBtnStyle(-2)}
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  filter="url(#roughLine)"
+                />
+              </svg>
+            </button>
+          )}
+
+          {/* Cards Container */}
+          <motion.div
+            drag={windowWidth < 768 ? "x" : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={handleDragEnd}
+            style={{
+              display: "flex",
+              gap: windowWidth < 768 ? "1rem" : "2rem",
+              justifyContent: "center",
+              alignItems: "stretch", // Ensures cards are same height
+              flex: 1,
+              width: "100%",
+              minHeight: "320px",
+            }}
+          >
+            <AnimatePresence mode="popLayout">
+              {visibleProjects.map((project, i) => {
+                // Determine actual project index to maintain stable rotation seed
+                const actualIndex = projects.findIndex(p => p.title === project.title && p.description === project.description);
+                return (
+                  <motion.div
+                    key={`${actualIndex}-${index}`}
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
-                </div>
-
-                {/* Text section */}
-                <div
-                  style={{
-                    padding: "1rem 1.2rem",
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        marginBottom: 10,
-                      }}
-                    >
-                      <span
-                        style={{
-                          background: "rgba(0,191,166,0.12)",
-                          color: "#00BFA6",
-                          padding: "4px 8px",
-                          borderRadius: 8,
-                          fontSize: 12,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {project.type}
-                      </span>
-                      <span style={{ color: "#9aa0a6", fontSize: 13 }}>
-                        {project.year}
-                      </span>
-                    </div>
-
-                    <h3
-                      style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}
-                    >
-                      {project.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: 14,
-                        color: "#cfcfcf",
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      {project.description.slice(0, 90)}...
-                    </p>
-                  </div>
-
-                  <span
-                    style={{
-                      marginTop: 8,
-                      fontSize: 13,
-                      color: "#00BFA6",
-                      fontWeight: 600,
-                      alignSelf: "flex-start",
+                      flex: `0 0 ${windowWidth < 768 ? "100%" : windowWidth < 1200 ? "48%" : "30%"}`,
+                      maxWidth: windowWidth < 768 ? "100%" : windowWidth < 1200 ? "48%" : "30%",
+                      display: "flex",
+                      flexDirection: "column",
                     }}
                   >
-                    View Details →
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                    <ProjectCard
+                      project={project}
+                      index={actualIndex}
+                      onClick={() => setSelectedProject(project)}
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Right Arrow */}
+          {windowWidth >= 768 && (
+            <button
+              onClick={nextSlide}
+              aria-label="Next project"
+              style={navBtnStyle(2)}
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  filter="url(#roughLine)"
+                />
+              </svg>
+            </button>
+          )}
         </div>
 
-        {/* Right Button */}
-        <button
-          onClick={nextSlide}
-          style={navBtn("right")}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
-          }
+        {/* Position Indicator & Mobile Navigation */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "16px",
+            marginTop: "3rem",
+          }}
         >
-          ❯
-        </button>
+          {windowWidth < 768 && (
+            <button onClick={prevSlide} aria-label="Previous" style={mobileNavBtnStyle()}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" filter="url(#roughLine)" />
+              </svg>
+            </button>
+          )}
+
+          <div style={{ display: "flex", gap: "8px" }}>
+            {projects.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: "12px",
+                  height: "4px",
+                  borderRadius: "2px",
+                  backgroundColor: i === index ? "var(--marker-red)" : "var(--pencil)",
+                  opacity: i === index ? 1 : 0.4,
+                  transition: "background-color 0.3s ease, opacity 0.3s ease",
+                  transform: `rotate(${i % 2 === 0 ? 2 : -2}deg)`,
+                }}
+              />
+            ))}
+          </div>
+
+          {windowWidth < 768 && (
+            <button onClick={nextSlide} aria-label="Next" style={mobileNavBtnStyle()}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" filter="url(#roughLine)" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Popup Modal - Rendered via Portal to body */}
-      {selectedProject &&
-        createPortal(
-          <AnimatePresence>
-            {selectedProject && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 99999,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "rgba(0,0,0,0.85)",
-                  backdropFilter: "blur(8px)",
-                  padding: "20px",
-                  overflow: "auto",
-                }}
-                onClick={(e) => {
-                  if (e.target === e.currentTarget) {
-                    setSelectedProject(null);
-                  }
-                }}
-                aria-modal="true"
-                role="dialog"
-              >
-                <motion.div
-                  onClick={(e) => e.stopPropagation()}
-                  initial={{ y: 40, opacity: 0, scale: 0.98 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  exit={{ y: 40, opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.36, ease: "easeOut" }}
-                  style={{
-                    width: "100%",
-                    maxWidth: 920,
-                    borderRadius: 16,
-                    background:
-                      "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                    color: "#fff",
-                    position: "relative",
-                    display: "flex",
-                    flexDirection: "column",
-                    maxHeight: "90vh",
-                    margin: "auto",
-                  }}
-                >
-                  {/* Close Button - Fixed Position */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProject(null);
-                    }}
-                    aria-label="Close"
-                    style={{
-                      position: "absolute",
-                      right: 16,
-                      top: 16,
-                      border: "none",
-                      background: "rgba(255,255,255,0.1)",
-                      color: "#fff",
-                      cursor: "pointer",
-                      padding: "10px",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      zIndex: 10,
-                      transition: "all 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.2)";
-                      e.currentTarget.style.transform = "rotate(90deg)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.1)";
-                      e.currentTarget.style.transform = "rotate(0deg)";
-                    }}
-                  >
-                    <IconClose size={18} />
-                  </button>
-
-                  {/* Scrollable Content */}
-                  <div
-                    style={{
-                      padding: "24px",
-                      overflowY: "auto",
-                      flex: 1,
-                      minHeight: 0,
-                    }}
-                  >
-                    <style>
-                      {`
-                  /*  Mobile-only styling for project title layout */
-                  @media (max-width: 768px) {
-                    .project-title-row h2 {
-                      display: flex !important;
-                      flex-wrap: wrap !important;
-                      align-items: center !important;
-                      gap: 4px !important;
-                      font-size: 18px !important;
-                    }
-
-                    /* Move the year after title (not affecting category) */
-                    .project-title-row h2 span.year {
-                      order: 2 !important; /* comes right after title */
-                      margin-left: 6px !important;
-                      color: #9aa0a6 !important;
-                      font-size: 13px !important;
-                    }
-
-                    /* Keep category badge same position (order unchanged) */
-                    .project-title-row h2 span.category {
-                      order: 3 !important;
-                    }
-                  }
-                `}
-                    </style>
-
-                    {/* Title Row */}
-                    <div
-                      className="project-title-row"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        marginBottom: 14,
-                      }}
-                    >
-                      <h2
-                        style={{
-                          margin: 0,
-                          fontSize: 22,
-                          fontWeight: 700,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 10,
-                        }}
-                      >
-                        {selectedProject.title}
-                        <span
-                          className="category"
-                          style={{
-                            background: "#005f52",
-                            color: "#dff9f2",
-                            padding: "6px 10px",
-                            borderRadius: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          {selectedProject.type ||
-                            selectedProject.category ||
-                            "Project"}
-                        </span>
-                        <span
-                          className="year"
-                          style={{ color: "#9aa0a6", fontSize: 13 }}
-                        >
-                          {selectedProject.year}
-                        </span>
-                      </h2>
-                    </div>
-
-                    {/* Description */}
-                    <div style={{ marginBottom: 18 }}>
-                      <h3
-                        style={{
-                          margin: "6px 0 8px",
-                          fontSize: 15,
-                          fontWeight: 700,
-                        }}
-                      >
-                        Description
-                      </h3>
-                      <p
-                        style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}
-                      >
-                        {selectedProject.description}
-                      </p>
-                    </div>
-
-                    {/* Technologies */}
-                    {selectedProject.technologies?.length > 0 && (
-                      <div style={{ marginBottom: 18 }}>
-                        <h3
-                          style={{
-                            margin: "6px 0 8px",
-                            fontSize: 15,
-                            fontWeight: 700,
-                          }}
-                        >
-                          Technologies
-                        </h3>
-                        <div
-                          style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
-                        >
-                          {selectedProject.technologies.map((t, idx) => (
-                            <div
-                              key={idx}
-                              style={{
-                                background: "rgba(255,255,255,0.03)",
-                                border: "1px solid rgba(255,255,255,0.03)",
-                                color: "#e6e6e6",
-                                padding: "6px 10px",
-                                borderRadius: 10,
-                                fontSize: 13,
-                              }}
-                            >
-                              {t}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Screenshots */}
-                    {selectedProject.screenshots && (
-                      <div className="" style={{ marginBottom: 18 }}>
-                        {selectedProject.screenshots.length === 0 || (
-                          <h3
-                            style={{
-                              margin: "6px 0 10px",
-                              fontSize: 15,
-                              fontWeight: 700,
-                            }}
-                          >
-                            Screenshots
-                          </h3>
-                        )}
-                        <div
-                          style={{
-                            display: "grid",
-                            gridTemplateColumns:
-                              "repeat(auto-fit, minmax(200px, 1fr))",
-                            overflow: "visible",
-                            gap: 12,
-                          }}
-                        >
-                          {selectedProject.screenshots.map((src, i) => (
-                            <img
-                              key={i}
-                              src={src}
-                              alt={`screenshot-${i}`}
-                              loading="lazy"
-                              decoding="async"
-                              onMouseMove={handleImageMove}
-                              onMouseLeave={handleImageLeave}
-                              style={{
-                                width: "100%",
-                                height: 140,
-                                objectFit: "cover",
-                                borderRadius: 8,
-                                border: "1px solid rgba(255,255,255,0.03)",
-                                transition: "transform 0.3s ease",
-                              }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Actions - Always visible at bottom */}
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 12,
-                      justifyContent: "flex-start",
-                      flexWrap: "wrap",
-                      padding: "20px 24px",
-                      borderTop: "1px solid rgba(255,255,255,0.05)",
-                      background: "rgba(0,0,0,0.4)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {selectedProject.liveLink && (
-                      <a
-                        href={
-                          selectedProject.liveLink !== "#"
-                            ? selectedProject.liveLink
-                            : undefined
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          background:
-                            selectedProject.liveLink !== "#"
-                              ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
-                              : "#2a2a2a",
-                          color:
-                            selectedProject.liveLink !== "#"
-                              ? "#041412"
-                              : "#777",
-                          padding: "10px 14px",
-                          borderRadius: 8,
-                          textDecoration: "none",
-                          fontWeight: 700,
-                          boxShadow:
-                            selectedProject.liveLink !== "#"
-                              ? "0 6px 18px rgba(0,191,166,0.14)"
-                              : "none",
-                          pointerEvents:
-                            selectedProject.liveLink !== "#" ? "auto" : "none",
-                          cursor:
-                            selectedProject.liveLink !== "#"
-                              ? "pointer"
-                              : "not-allowed",
-                          transition: "0.3s",
-                        }}
-                      >
-                        <IconExternal /> View Live Project
-                      </a>
-                    )}
-
-                    {selectedProject.codeLink && (
-                      <a
-                        href={
-                          selectedProject.codeLink !== "#"
-                            ? selectedProject.codeLink
-                            : undefined
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          background: "transparent",
-                          color:
-                            selectedProject.codeLink !== "#" ? "#ddd" : "#777",
-                          padding: "10px 14px",
-                          borderRadius: 8,
-                          textDecoration: "none",
-                          border:
-                            selectedProject.codeLink !== "#"
-                              ? "1px solid rgba(255,255,255,0.06)"
-                              : "1px solid rgba(255,255,255,0.1)",
-                          fontWeight: 600,
-                          pointerEvents:
-                            selectedProject.codeLink !== "#" ? "auto" : "none",
-                          cursor:
-                            selectedProject.codeLink !== "#"
-                              ? "pointer"
-                              : "not-allowed",
-                          transition: "0.3s",
-                        }}
-                      >
-                        <IconCode /> View Code
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>,
-          document.body,
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
         )}
+      </AnimatePresence>
     </section>
   );
 });
 
 export default ProjectsSection;
 
-// reusable navigation button style
-const navBtn = (side) => ({
-  position: "absolute",
-  [side]: "-1.5rem",
-  top: "50%",
-  transform: "translateY(-50%)",
-  zIndex: 10,
-  color: "#fff",
-  background: "rgba(255,255,255,0.06)",
+const navBtnStyle = (rotation) => ({
+  background: "none",
   border: "none",
-  fontSize: "1.6rem",
+  color: "var(--ink)",
   cursor: "pointer",
-  borderRadius: "50%",
-  width: "44px",
-  height: "44px",
-  backdropFilter: "blur(6px)",
-  transition: "all .18s",
+  padding: "12px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transform: `rotate(${rotation}deg)`,
+  transition: "transform 0.2s ease, color 0.2s ease",
+});
+
+const mobileNavBtnStyle = () => ({
+  background: "none",
+  border: "none",
+  color: "var(--ink)",
+  cursor: "pointer",
+  padding: "8px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
