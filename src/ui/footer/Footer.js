@@ -1,10 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { InView, useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 import "./Footer.css";
 import { FaGithub, FaLinkedin, FaReact, FaCss3Alt } from "react-icons/fa";
 import { SiGmail, SiVercel } from "react-icons/si";
-import { User } from "lucide-react";
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
 const LINKEDIN_URL = process.env.REACT_APP_LINKEDIN_URL || "https://www.linkedin.com/in/19dishank/";

@@ -12,9 +12,6 @@ const ProjectCard = ({ project, index, onClick }) => {
     return (index % 3) * 2 - 2; // -2, 0, 2
   }, [index]);
 
-  const shortDesc = project.description
-    ? project.description.split('. ')[0] + '.' // Get first sentence
-    : '';
 
   return (
     <motion.div

@@ -1,4 +1,4 @@
-import { FaMobileAlt } from "react-icons/fa";
+
 import { RiCodeSSlashLine } from "react-icons/ri";
 import { VscCode } from "react-icons/vsc";
 import {
@@ -15,32 +15,7 @@ import {
   SiClaude,
 } from "react-icons/si";
 
-import {
-  alpha1,
-  alpha2,
-  alpha3,
-  alpha4,
-  note1,
-  note2,
-  note3,
-  note4,
-  p1,
-  p2,
-  p4,
-  p5,
-  dip2,
-  dip3,
-  dip4,
-  dip5,
-  app1,
-  app2,
-  d1,
-  job1,
-  job2,
-  job3,
-  pokedex,
-  emailWriter,
-} from "../assets/indx";
+
 
 export const GITHUB_URL =
   process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
@@ -226,11 +201,9 @@ export const projects = [
     title: "Portfolio Web App",
     description:
       "A modern React.js portfolio built with smooth scrolling, elegant UI, and mobile-first responsiveness. It features animated popups, and clean layout transitions for a seamless user experience — all designed to reflect a sleek, classy aesthetic.",
-    image: p1,
     type: "Frontend Web-App",
     year: "2025",
     technologies: ["React.js", "CSS", "JavaScript (ES6+)"],
-    screenshots: [p2, p4, p5],
     liveLink: "https://dishank-portfolio.vercel.app",
     codeLink: "https://github.com/19Dishank/portfolio-app",
   },
@@ -238,23 +211,21 @@ export const projects = [
     title: "AWIP — Aviation Weather Intelligence Platform",
     description:
       "A real-time aviation weather dashboard for pilots and dispatch teams, featuring proactive socket management and comprehensive alternate airport scoring.",
-    image: null,
     type: "Frontend Dashboard",
     year: "2026",
     technologies: ["React", "Zustand", "Tailwind", "Socket.io Client"],
     liveLink: "#",
-    codeLink: "#",
+    codeLink: "https://github.com/19Dishank/awip-frontend",
   },
   {
     title: "DocCentral — Document Management SaaS",
     description:
       "A multi-tenant document management SaaS with real-time features, precise storage accounting, and a responsive Windows 11-style interface.",
-    image: null,
     type: "Frontend SaaS",
     year: "2026",
     technologies: ["React 19", "Vite", "Tailwind v4", "shadcn/ui", "Socket.io Client"],
-    liveLink: "#",
-    codeLink: "#",
+    liveLink: "https://app.doccenter.in",
+    codeLink: "https://github.com/19Dishank/doc-centre-frontend",
   },
   // {
   //   title: "Portfolio Web App",
@@ -272,7 +243,6 @@ export const projects = [
     title: "DipThinq – AI Conversation Platform",
     description:
       "A modern AI chat platform built with React + Tailwind. Supports multiple AI agents (Creative, Code Assistant,Deep Thinker) and integrates multiple AI models via OpenRouter. Includes dark/light mode and fully responsive UI.",
-    image: dip2,
     type: "Frontend Web-App",
     year: "2025",
     technologies: [
@@ -281,7 +251,6 @@ export const projects = [
       "JavaScript (ES6+)",
       "OpenRouter API",
     ],
-    screenshots: [dip3, dip4, dip5],
     liveLink: "https://dipthinq.vercel.app",
     codeLink: "https://github.com/19Dishank/dipthinq",
   },
@@ -289,11 +258,9 @@ export const projects = [
     title: "AI Notes App – Smart Notes with AI",
     description:
       "A modern AI notes app built with React + Tailwind. Create, edit, delete, and search your notes with built-in AI assistance for smart note generation.",
-    image: note1,
     type: "Frontend Web-App",
     year: "2025",
     technologies: ["React.js", "Tailwind CSS", "JavaScript (ES6+)"],
-    screenshots: [note2, note3, note4],
     liveLink: "https://ai-notes-react.vercel.app",
     codeLink: "https://github.com/19Dishank/ai-notes-react",
   },
@@ -301,11 +268,9 @@ export const projects = [
     title: "AlphaArray - Online Study Platform",
     description:
       "AlphaArray is a PHP-based educational web application designed to empower learners, instructors, and institutions through an interactive and scalable online learning environment.",
-    image: alpha1,
     type: "Web Application",
     year: "2024",
     technologies: ["HTML", "CSS", "MYSQL", "PHP", "JavaScript", "Bootstrap"],
-    screenshots: [alpha2, alpha3, alpha4],
     liveLink: "#",
     codeLink: "https://github.com/19Dishank/alpha_array",
   },
@@ -313,7 +278,6 @@ export const projects = [
     title: "Jobify - Laravel-based Job Portal",
     description:
       "A full-featured Job Portal web application designed to connect job seekers with employers. The platform supports user registration, job postings, application tracking, and role-based access for administrators, recruiters, and job seekers.",
-    image: job1,
     type: "Web Application",
     year: "2024",
     technologies: [
@@ -324,7 +288,6 @@ export const projects = [
       "JavaScript",
       "Bootstrap",
     ],
-    screenshots: [job1, job2, job3],
     liveLink: "#",
     codeLink: "https://github.com/19Dishank/jobify-php",
   },
