@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 const CardNav = ({ lenis }) => {
@@ -9,6 +11,7 @@ const CardNav = ({ lenis }) => {
     const savedTheme = localStorage.getItem("portfolio-theme");
     const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
     const initialTheme = savedTheme || (prefersLight ? "light" : "dark");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(initialTheme);
     document.documentElement.setAttribute("data-theme", initialTheme);
 

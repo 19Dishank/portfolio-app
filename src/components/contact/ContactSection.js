@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo, useState } from "react";
 
 const ContactSection = memo(function ContactSection() {
@@ -17,8 +19,8 @@ const ContactSection = memo(function ContactSection() {
       <div className="wrap">
         <span className="eyebrow reveal">Get in touch</span>
         <p className="contact-lead serif reveal">
-          If you're building something and want a hand on the frontend —{" "}
-          <em>I'd like to hear about it.</em>
+          If you&apos;re building something and want a hand on the frontend —{" "}
+          <em>I&apos;d like to hear about it.</em>
         </p>
 
         <div className="contact-channels reveal">

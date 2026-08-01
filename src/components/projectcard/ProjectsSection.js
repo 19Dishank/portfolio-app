@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo, useState } from "react";
 import { projects } from "../../constants";
 
@@ -33,10 +35,10 @@ const ProjectsSection = memo(function ProjectsSection() {
       <div className="wrap">
         <span className="eyebrow reveal">Selected work</span>
         <h2 className="h2 serif reveal">
-          A few things <em>I've shipped.</em>
+          A few things <em>I&apos;ve shipped.</em>
         </h2>
         <p className="sub reveal">
-          The ones I'd point you to first — everything else lives on GitHub.
+          The ones I&apos;d point you to first — everything else lives on GitHub.
         </p>
 
         <div className="proj-list reveal">

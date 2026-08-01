@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo } from "react";
 
 const AboutSection = memo(function AboutSection() {
@@ -11,7 +13,7 @@ const AboutSection = memo(function AboutSection() {
         <div className="about-body" style={{ marginTop: "26px" }}>
           <p className="reveal">
             I got into frontend work because I liked the immediacy of it — you
-            change something, you see it, you feel whether it's right. I care
+            change something, you see it, you feel whether it&apos;s right. I care
             about{" "}
             <span className="highlight">
               the parts of a UI most people never consciously notice

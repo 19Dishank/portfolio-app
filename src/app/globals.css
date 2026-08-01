@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 :root {
   --bg: #fbfaf8;
   --surface: #ffffff;
@@ -39,7 +41,7 @@ html[data-theme="dark"] {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
   transition: background 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -51,11 +53,11 @@ a {
 }
 
 .serif {
-  font-family: 'Fraunces', serif;
+  font-family: var(--font-fraunces), 'Fraunces', serif;
 }
 
 .mono {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
 }
 
 .wrap {
@@ -138,7 +140,7 @@ html[data-theme="light"] .blob {
   position: absolute;
   top: 8%;
   right: 2%;
-  font-family: 'Fraunces', serif;
+  font-family: var(--font-fraunces), 'Fraunces', serif;
   font-size: min(38vw, 420px);
   font-weight: 600;
   color: var(--text);
@@ -255,7 +257,7 @@ a:focus-visible {
 }
 
 .hero-eyebrow {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
   font-size: 12px;
   color: var(--accent);
   letter-spacing: 0.1em;
@@ -273,21 +275,28 @@ a:focus-visible {
 }
 
 .hero-name {
-  font-size: clamp(52px, 10.5vw, 128px);
+  font-size: clamp(48px, 10.5vw, 128px);
   line-height: 0.96;
   letter-spacing: -0.02em;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .hero-name .first {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
 }
 
 .hero-name .last {
-  font-family: 'Fraunces', serif;
+  font-family: var(--font-fraunces), 'Fraunces', serif;
   font-style: italic;
   font-weight: 500;
   color: var(--accent);
+}
+
+@media (max-width: 680px) {
+  .hero-name {
+    white-space: normal;
+  }
 }
 
 .hero-role {

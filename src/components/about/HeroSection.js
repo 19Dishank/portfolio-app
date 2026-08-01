@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo } from "react";
 
 const HeroSection = memo(function HeroSection({ lenis }) {
@@ -36,7 +38,7 @@ const HeroSection = memo(function HeroSection({ lenis }) {
           <span className="first">Dishank</span> <span className="last">Patel.</span>
         </h1>
         <p className="hero-role">
-          I'm a frontend developer working in{" "}
+          I&apos;m a frontend developer working in{" "}
           <b>React, Tailwind CSS and JavaScript</b> — building things people{" "}
           <em>actually rely on.</em>
         </p>

@@ -1,24 +1,27 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
-import "./index.css";
-import CardNav from "./ui/cardnav/CardNav";
-import HeroSection from "./ui/about/HeroSection";
-import AboutSection from "./ui/about/AboutSection";
-import SkillsSection from "./ui/skills/SkillsSection";
-import ProjectsSection from "./ui/projectcard/ProjectsSection";
-import Experience from "./ui/experience/Experience";
-import ContactSection from "./ui/contact/ContactSection";
-import Footer from "./ui/footer/Footer";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 import ReactGA from "react-ga4";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-ReactGA.initialize("G-0CDN4F9KVV");
-ReactGA.send("pageview");
+import CardNav from "@/components/cardnav/CardNav";
+import HeroSection from "@/components/about/HeroSection";
+import AboutSection from "@/components/about/AboutSection";
+import SkillsSection from "@/components/skills/SkillsSection";
+import ProjectsSection from "@/components/projectcard/ProjectsSection";
+import Experience from "@/components/experience/Experience";
+import ContactSection from "@/components/contact/ContactSection";
+import Footer from "@/components/footer/Footer";
 
-function App() {
+export default function Home() {
   const [lenisInstance, setLenisInstance] = useState(null);
 
   useEffect(() => {
+    // Analytics initialization
+    ReactGA.initialize("G-0CDN4F9KVV");
+    ReactGA.send("pageview");
+
     let lenis;
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       lenis = new Lenis({
@@ -26,6 +29,7 @@ function App() {
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLenisInstance(lenis);
 
       function raf(time) {
@@ -60,7 +64,6 @@ function App() {
       { threshold: 0.15 }
     );
 
-    // Give DOM time to render before attaching observers
     const timer = setTimeout(() => {
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     }, 50);
@@ -112,5 +115,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo } from "react";
 
 const EXPERIENCES_DATA = [
@@ -15,7 +17,7 @@ const Experience = memo(function Experience() {
   return (
     <section id="experience">
       <div className="wrap">
-        <span className="eyebrow reveal">Where I've been</span>
+        <span className="eyebrow reveal">Where I&apos;ve been</span>
         <h2 className="h2 serif reveal">
           Still early — <em>moving with intent.</em>
         </h2>

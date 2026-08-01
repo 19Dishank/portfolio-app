@@ -14,13 +14,10 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 
-export const GITHUB_URL =
-  process.env.REACT_APP_GITHUB_URL || "https://github.com/19Dishank";
-export const LINKEDIN_URL =
-  process.env.REACT_APP_LINKEDIN_URL ||
-  "https://www.linkedin.com/in/19dishank/";
+export const GITHUB_URL = "https://github.com/19Dishank";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/19dishank/";
 export const EMAIL_URL =
-  process.env.REACT_APP_EMAIL_URL || "mailto:pateldishank19@gmail.com";
+  "https://mail.google.com/mail/?view=cm&fs=1&to=pateldishank19@gmail.com&su=Let%27s%20Collaborate&body=Hey%20Dishank%2C%20I%20checked%20your%20portfolio%20and%20wanted%20to%20connect!";
 
 export const NAV_ITEMS = [
   {
