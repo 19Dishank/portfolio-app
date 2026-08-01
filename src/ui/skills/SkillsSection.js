@@ -1,149 +1,63 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TechStackCompact from "./TechStackCompact";
-import SectionMonolithHeader from "../common/SectionMonolithHeader";
+import React, { memo } from "react";
 import { TECH_SKILLS } from "../../constants";
 
-gsap.registerPlugin(ScrollTrigger);
+const SkillsSection = memo(function SkillsSection() {
+  const skillNames =
+    TECH_SKILLS && TECH_SKILLS.length > 0
+      ? TECH_SKILLS.map((s) => s.name)
+      : [
+          "React.js",
+          "Tailwind CSS",
+          "JavaScript",
+          "TypeScript",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "NestJS",
+          "Git",
+          "REST APIs",
+          "Figma",
+          "Responsive UI",
+        ];
 
-function SkillsSection() {
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const scrollRef = useRef(null);
-  const squaresRef = useRef(null);
+  const mid = Math.ceil(skillNames.length / 2);
+  const skillsA = skillNames.slice(0, mid);
+  const skillsB = skillNames.slice(mid);
 
-  // Scroll-triggered animation for Skills section (localized)
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.config({
-        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
-        ignoreMobileResize: true,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-          markers: false,
-          refreshPriority: -1,
-        },
-      });
-
-      if (squaresRef.current) {
-        tl.from(squaresRef.current, {
-          opacity: 0,
-          scale: 0.95,
-          duration: 1,
-          ease: "power3.out",
-          force3D: true,
-        });
-      }
-
-      if (titleRef.current) {
-        tl.from(
-          titleRef.current,
-          {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            force3D: true,
-          },
-          "-=0.5",
-        );
-      }
-
-      if (scrollRef.current) {
-        tl.from(
-          scrollRef.current,
-          {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            force3D: true,
-          },
-          "-=0.7",
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  // Repeat array 4 times to ensure track width is >200% screen width on all screens
+  const loopA = [...skillsA, ...skillsA, ...skillsA, ...skillsA];
+  const loopB = [...skillsB, ...skillsB, ...skillsB, ...skillsB];
 
   return (
-    <section
-      id="cardswap"
-      ref={sectionRef}
-      style={{
-        width: "100%",
-        minHeight: "100vh",
-        position: "relative",
-        zIndex: 5,
-        backgroundColor: "#000",
-        overflow: "hidden",
-      }}
-    >
-      {/* Subtle Gradient Background */}
-      <div
-        ref={squaresRef}
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: 1,
-          overflow: "hidden",
-          background:
-            "linear-gradient(180deg, rgba(8,4,20,0.9) 0%, rgba(3,2,6,0.95) 100%)",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            width: "70%",
-            height: "70%",
-            top: "15%",
-            left: "15%",
-            background:
-              "radial-gradient(circle, rgba(130,70,255,0.35) 0%, rgba(0,0,0,0) 60%)",
-            filter: "blur(45px)",
-            opacity: 0.8,
-          }}
-        />
+    <section id="skills">
+      <div className="wrap">
+        <span className="eyebrow reveal">What I reach for</span>
+        <h2 className="h2 serif reveal">
+          My day-to-day <em>toolkit.</em>
+        </h2>
       </div>
-
-      {/* Section heading */}
-      <SectionMonolithHeader
-        ref={titleRef}
-        title="Tech Stack"
-        ghostText="SKILLS"
-      />
-
-      {/* Tech Stack Content */}
-      <div
-        ref={scrollRef}
-        style={{
-          width: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 2,
-          boxSizing: "border-box",
-          paddingBottom: "4rem",
-        }}
-      >
-        <TechStackCompact skills={TECH_SKILLS} />
+      <div className="reveal">
+        <div className="marquee-outer">
+          <div className="marquee-track dir-left">
+            {loopA.map((skill, idx) => (
+              <div className="skill-chip" key={`sa-${idx}`}>
+                {skill}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="marquee-outer" style={{ marginTop: "10px" }}>
+          <div className="marquee-track dir-right">
+            {loopB.map((skill, idx) => (
+              <div className="skill-chip" key={`sb-${idx}`}>
+                {skill}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
-}
+});
 
 export default SkillsSection;

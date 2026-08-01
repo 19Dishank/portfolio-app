@@ -1,716 +1,143 @@
-import React, { useState, useEffect, memo, useCallback } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { memo, useState } from "react";
 import { projects } from "../../constants";
-import SectionMonolithHeader from "../common/SectionMonolithHeader";
+
+const GRADIENTS = [
+  "linear-gradient(135deg, #2f5d4f, #8fd8bc)",
+  "linear-gradient(135deg, #b8562f, #e2916a)",
+  "linear-gradient(135deg, #3d4a63, #7c8bab)",
+  "linear-gradient(135deg, #5b4a8c, #9d8ce0)",
+  "linear-gradient(135deg, #3a6b5c, #98e0c4)",
+  "linear-gradient(135deg, #a64e2b, #e08865)",
+  "linear-gradient(135deg, #4b5875, #8a9bbd)",
+];
 
 const ProjectsSection = memo(function ProjectsSection() {
-  const [index, setIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Optimized resize handler with debouncing
-  useEffect(() => {
-    let timeoutId;
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth <= 768);
-      }, 150);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize, { passive: true });
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+  const toggleMore = () => {
+    setIsOpen((prev) => !prev);
+  };
 
-  useEffect(() => {
-    if (selectedProject) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => (document.body.style.overflow = prev);
+  const handleProjectClick = (proj) => {
+    const link = proj.liveLink && proj.liveLink !== "#" ? proj.liveLink : proj.codeLink;
+    if (link && link !== "#") {
+      window.open(link, "_blank", "noopener,noreferrer");
     }
-  }, [selectedProject]);
-
-  // Memoized callbacks for better performance
-  const nextSlide = useCallback(() => {
-    setIndex((prev) => (prev + 1) % projects.length);
-  }, []);
-
-  const prevSlide = useCallback(() => {
-    setIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  }, []);
-
-  const visibleCount = isMobile ? 1 : 3;
-  const visibleProjects = [];
-
-  for (let i = 0; i < visibleCount; i++) {
-    visibleProjects.push(projects[(index + i) % projects.length]);
-  }
-  // icons
-  const IconClose = ({ size = 18 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M18 6L6 18M6 6L18 18"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  const IconExternal = ({ size = 16 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M14 3H21V10"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M10 14L21 3"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21 21H3V3"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  const IconCode = ({ size = 16 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M10 17L5 12L10 7"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14 17L19 12L14 7"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-  // useEffect(() => {
-  //   const images = document.querySelectorAll(".popup-zoom-image");
-
-  //   const handleMove = (e) => {
-  //     const rect = e.currentTarget.getBoundingClientRect();
-  //     const x = ((e.clientX - rect.left) / rect.width) * 100;
-  //     const y = ((e.clientY - rect.top) / rect.height) * 100;
-  //     e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
-  //   };
-
-  //   images.forEach((img) => {
-  //     img.addEventListener("mousemove", handleMove);
-  //     img.addEventListener("mouseleave", () => {
-  //       img.style.transformOrigin = "center center";
-  //     });
-  //   });
-
-  //   return () => {
-  //     images.forEach((img) => {
-  //       img.removeEventListener("mousemove", handleMove);
-  //     });
-  //   };
-  // }, []);
-
-  const handleImageMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
   };
 
-  const handleImageLeave = (e) => {
-    e.currentTarget.style.transformOrigin = "center center";
-  };
+  const initialProjects = (projects || []).slice(0, 3);
+  const remainingProjects = (projects || []).slice(3);
 
   return (
-    <section
-      id="projects"
-      style={{
-        width: "100%",
-        minHeight: "100vh",
-        paddingTop: "3rem",
-        backgroundColor: "#000",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Section heading */}
-      <SectionMonolithHeader title="Projects" ghostText="WORKS" />
+    <section id="work">
+      <div className="wrap">
+        <span className="eyebrow reveal">Selected work</span>
+        <h2 className="h2 serif reveal">
+          A few things <em>I've shipped.</em>
+        </h2>
+        <p className="sub reveal">
+          The ones I'd point you to first — everything else lives on GitHub.
+        </p>
 
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "90%",
-          maxWidth: "1350px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Left Button */}
-        <button
-          onClick={prevSlide}
-          style={navBtn("left")}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
-          }
-        >
-          ❮
-        </button>
-
-        {/* Cards */}
-        <div
-          style={{
-            display: "flex",
-            gap: isMobile ? "1rem" : "2rem",
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden",
-            width: "100%",
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {visibleProjects.map((project, i) => (
-              <motion.div
-                key={`${index}-${i}`}
-                initial={{ opacity: 0, scale: 0.95, y: 18 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -18 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                style={{
-                  flex: `0 0 ${isMobile ? "100%" : "30%"}`,
-                  background: "rgba(255,255,255,0.04)",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  boxShadow: "0 6px 30px rgba(0,0,0,0.6)",
-                  textAlign: "left",
-                  color: "#fff",
-                  cursor: "pointer",
-                  border: "1px solid rgba(255,255,255,0.03)",
-                  height: isMobile ? 450 : 420, // ✅ fixed height for uniform cards
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-                onClick={() => setSelectedProject(project)}
-              >
-                {/* Image container ensures same size */}
+        <div className="proj-list reveal">
+          {initialProjects.map((proj, idx) => (
+            <div
+              className="proj"
+              key={`p-init-${idx}`}
+              onClick={() => handleProjectClick(proj)}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="proj-thumb">
                 <div
-                  style={{
-                    width: "100%",
-                    height: "55%", // fixed ratio for consistent layout
-                    overflow: "hidden",
-                    backgroundColor: "#111",
-                  }}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                    decoding="async"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
+                  className="grad"
+                  style={{ background: GRADIENTS[idx % GRADIENTS.length] }}
+                />
+                <span className="tag">{proj.type || "Web App"}</span>
+              </div>
+              <div>
+                <div className="proj-title">{proj.title}</div>
+                <p className="proj-desc">{proj.description}</p>
+                <div className="proj-stack">
+                  {(proj.technologies || []).map((tech, tIdx) => (
+                    <span key={`t-${tIdx}`}>{tech}</span>
+                  ))}
                 </div>
+              </div>
+              <div className="proj-arrow">↗</div>
+            </div>
+          ))}
 
-                {/* Text section */}
-                <div
-                  style={{
-                    padding: "1rem 1.2rem",
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        marginBottom: 10,
-                      }}
-                    >
-                      <span
-                        style={{
-                          background: "rgba(0,191,166,0.12)",
-                          color: "#00BFA6",
-                          padding: "4px 8px",
-                          borderRadius: 8,
-                          fontSize: 12,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {project.type}
-                      </span>
-                      <span style={{ color: "#9aa0a6", fontSize: 13 }}>
-                        {project.year}
-                      </span>
-                    </div>
-
-                    <h3
-                      style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}
-                    >
-                      {project.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: 14,
-                        color: "#cfcfcf",
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      {project.description.slice(0, 90)}...
-                    </p>
-                  </div>
-
-                  <span
-                    style={{
-                      marginTop: 8,
-                      fontSize: 13,
-                      color: "#00BFA6",
-                      fontWeight: 600,
-                      alignSelf: "flex-start",
-                    }}
+          {remainingProjects.length > 0 && (
+            <div
+              className={`proj-more-wrap ${isOpen ? "open" : ""}`}
+              id="moreProjects"
+            >
+              {remainingProjects.map((proj, idx) => {
+                const totalIdx = idx + 3;
+                return (
+                  <div
+                    className="proj"
+                    key={`p-more-${idx}`}
+                    onClick={() => handleProjectClick(proj)}
+                    style={{ cursor: "pointer" }}
                   >
-                    View Details →
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                    <div className="proj-thumb">
+                      <div
+                        className="grad"
+                        style={{
+                          background: GRADIENTS[totalIdx % GRADIENTS.length],
+                        }}
+                      />
+                      <span className="tag">{proj.type || "Web App"}</span>
+                    </div>
+                    <div>
+                      <div className="proj-title">{proj.title}</div>
+                      <p className="proj-desc">{proj.description}</p>
+                      <div className="proj-stack">
+                        {(proj.technologies || []).map((tech, tIdx) => (
+                          <span key={`tm-${tIdx}`}>{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="proj-arrow">↗</div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Right Button */}
-        <button
-          onClick={nextSlide}
-          style={navBtn("right")}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.12)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(255,255,255,0.06)")
-          }
-        >
-          ❯
-        </button>
-      </div>
-
-      {/* Popup Modal - Rendered via Portal to body */}
-      {selectedProject &&
-        createPortal(
-          <AnimatePresence>
-            {selectedProject && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 99999,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "rgba(0,0,0,0.85)",
-                  backdropFilter: "blur(8px)",
-                  padding: "20px",
-                  overflow: "auto",
-                }}
-                onClick={(e) => {
-                  if (e.target === e.currentTarget) {
-                    setSelectedProject(null);
-                  }
-                }}
-                aria-modal="true"
-                role="dialog"
+        <div className="work-footer">
+          {remainingProjects.length > 0 && (
+            <button
+              type="button"
+              className={`show-more-btn ${isOpen ? "open" : ""}`}
+              id="showMoreBtn"
+              onClick={toggleMore}
+            >
+              {isOpen ? "Show less " : "Show more work "}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                strokeWidth="2"
+                strokeLinecap="round"
               >
-                <motion.div
-                  onClick={(e) => e.stopPropagation()}
-                  initial={{ y: 40, opacity: 0, scale: 0.98 }}
-                  animate={{ y: 0, opacity: 1, scale: 1 }}
-                  exit={{ y: 40, opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.36, ease: "easeOut" }}
-                  style={{
-                    width: "100%",
-                    maxWidth: 920,
-                    borderRadius: 16,
-                    background:
-                      "linear-gradient(180deg, #0b0b0b 0%, #111111 100%)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                    color: "#fff",
-                    position: "relative",
-                    display: "flex",
-                    flexDirection: "column",
-                    maxHeight: "90vh",
-                    margin: "auto",
-                  }}
-                >
-                  {/* Close Button - Fixed Position */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProject(null);
-                    }}
-                    aria-label="Close"
-                    style={{
-                      position: "absolute",
-                      right: 16,
-                      top: 16,
-                      border: "none",
-                      background: "rgba(255,255,255,0.1)",
-                      color: "#fff",
-                      cursor: "pointer",
-                      padding: "10px",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      zIndex: 10,
-                      transition: "all 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.2)";
-                      e.currentTarget.style.transform = "rotate(90deg)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.1)";
-                      e.currentTarget.style.transform = "rotate(0deg)";
-                    }}
-                  >
-                    <IconClose size={18} />
-                  </button>
-
-                  {/* Scrollable Content */}
-                  <div
-                    style={{
-                      padding: "24px",
-                      overflowY: "auto",
-                      flex: 1,
-                      minHeight: 0,
-                    }}
-                  >
-                    <style>
-                      {`
-                  /*  Mobile-only styling for project title layout */
-                  @media (max-width: 768px) {
-                    .project-title-row h2 {
-                      display: flex !important;
-                      flex-wrap: wrap !important;
-                      align-items: center !important;
-                      gap: 4px !important;
-                      font-size: 18px !important;
-                    }
-
-                    /* Move the year after title (not affecting category) */
-                    .project-title-row h2 span.year {
-                      order: 2 !important; /* comes right after title */
-                      margin-left: 6px !important;
-                      color: #9aa0a6 !important;
-                      font-size: 13px !important;
-                    }
-
-                    /* Keep category badge same position (order unchanged) */
-                    .project-title-row h2 span.category {
-                      order: 3 !important;
-                    }
-                  }
-                `}
-                    </style>
-
-                    {/* Title Row */}
-                    <div
-                      className="project-title-row"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        marginBottom: 14,
-                      }}
-                    >
-                      <h2
-                        style={{
-                          margin: 0,
-                          fontSize: 22,
-                          fontWeight: 700,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 10,
-                        }}
-                      >
-                        {selectedProject.title}
-                        <span
-                          className="category"
-                          style={{
-                            background: "#005f52",
-                            color: "#dff9f2",
-                            padding: "6px 10px",
-                            borderRadius: 8,
-                            fontSize: 12,
-                          }}
-                        >
-                          {selectedProject.type ||
-                            selectedProject.category ||
-                            "Project"}
-                        </span>
-                        <span
-                          className="year"
-                          style={{ color: "#9aa0a6", fontSize: 13 }}
-                        >
-                          {selectedProject.year}
-                        </span>
-                      </h2>
-                    </div>
-
-                    {/* Description */}
-                    <div style={{ marginBottom: 18 }}>
-                      <h3
-                        style={{
-                          margin: "6px 0 8px",
-                          fontSize: 15,
-                          fontWeight: 700,
-                        }}
-                      >
-                        Description
-                      </h3>
-                      <p
-                        style={{ margin: 0, color: "#cfcfcf", lineHeight: 1.6 }}
-                      >
-                        {selectedProject.description}
-                      </p>
-                    </div>
-
-                    {/* Technologies */}
-                    {selectedProject.technologies?.length > 0 && (
-                      <div style={{ marginBottom: 18 }}>
-                        <h3
-                          style={{
-                            margin: "6px 0 8px",
-                            fontSize: 15,
-                            fontWeight: 700,
-                          }}
-                        >
-                          Technologies
-                        </h3>
-                        <div
-                          style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
-                        >
-                          {selectedProject.technologies.map((t, idx) => (
-                            <div
-                              key={idx}
-                              style={{
-                                background: "rgba(255,255,255,0.03)",
-                                border: "1px solid rgba(255,255,255,0.03)",
-                                color: "#e6e6e6",
-                                padding: "6px 10px",
-                                borderRadius: 10,
-                                fontSize: 13,
-                              }}
-                            >
-                              {t}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Screenshots */}
-                    {selectedProject.screenshots && (
-                      <div className="" style={{ marginBottom: 18 }}>
-                        {selectedProject.screenshots.length === 0 || (
-                          <h3
-                            style={{
-                              margin: "6px 0 10px",
-                              fontSize: 15,
-                              fontWeight: 700,
-                            }}
-                          >
-                            Screenshots
-                          </h3>
-                        )}
-                        <div
-                          style={{
-                            display: "grid",
-                            gridTemplateColumns:
-                              "repeat(auto-fit, minmax(200px, 1fr))",
-                            overflow: "visible",
-                            gap: 12,
-                          }}
-                        >
-                          {selectedProject.screenshots.map((src, i) => (
-                            <img
-                              key={i}
-                              src={src}
-                              alt={`screenshot-${i}`}
-                              loading="lazy"
-                              decoding="async"
-                              onMouseMove={handleImageMove}
-                              onMouseLeave={handleImageLeave}
-                              style={{
-                                width: "100%",
-                                height: 140,
-                                objectFit: "cover",
-                                borderRadius: 8,
-                                border: "1px solid rgba(255,255,255,0.03)",
-                                transition: "transform 0.3s ease",
-                              }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Actions - Always visible at bottom */}
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 12,
-                      justifyContent: "flex-start",
-                      flexWrap: "wrap",
-                      padding: "20px 24px",
-                      borderTop: "1px solid rgba(255,255,255,0.05)",
-                      background: "rgba(0,0,0,0.4)",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {selectedProject.liveLink && (
-                      <a
-                        href={
-                          selectedProject.liveLink !== "#"
-                            ? selectedProject.liveLink
-                            : undefined
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          background:
-                            selectedProject.liveLink !== "#"
-                              ? "linear-gradient(90deg,#00bfa6,#00d6a0)"
-                              : "#2a2a2a",
-                          color:
-                            selectedProject.liveLink !== "#"
-                              ? "#041412"
-                              : "#777",
-                          padding: "10px 14px",
-                          borderRadius: 8,
-                          textDecoration: "none",
-                          fontWeight: 700,
-                          boxShadow:
-                            selectedProject.liveLink !== "#"
-                              ? "0 6px 18px rgba(0,191,166,0.14)"
-                              : "none",
-                          pointerEvents:
-                            selectedProject.liveLink !== "#" ? "auto" : "none",
-                          cursor:
-                            selectedProject.liveLink !== "#"
-                              ? "pointer"
-                              : "not-allowed",
-                          transition: "0.3s",
-                        }}
-                      >
-                        <IconExternal /> View Live Project
-                      </a>
-                    )}
-
-                    {selectedProject.codeLink && (
-                      <a
-                        href={
-                          selectedProject.codeLink !== "#"
-                            ? selectedProject.codeLink
-                            : undefined
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          background: "transparent",
-                          color:
-                            selectedProject.codeLink !== "#" ? "#ddd" : "#777",
-                          padding: "10px 14px",
-                          borderRadius: 8,
-                          textDecoration: "none",
-                          border:
-                            selectedProject.codeLink !== "#"
-                              ? "1px solid rgba(255,255,255,0.06)"
-                              : "1px solid rgba(255,255,255,0.1)",
-                          fontWeight: 600,
-                          pointerEvents:
-                            selectedProject.codeLink !== "#" ? "auto" : "none",
-                          cursor:
-                            selectedProject.codeLink !== "#"
-                              ? "pointer"
-                              : "not-allowed",
-                          transition: "0.3s",
-                        }}
-                      >
-                        <IconCode /> View Code
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>,
-          document.body,
-        )}
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          )}
+          <a
+            href="https://github.com/19Dishank"
+            target="_blank"
+            rel="noreferrer"
+            className="view-all"
+          >
+            Everything else lives on GitHub →
+          </a>
+        </div>
+      </div>
     </section>
   );
 });
 
 export default ProjectsSection;
-
-// reusable navigation button style
-const navBtn = (side) => ({
-  position: "absolute",
-  [side]: "-1.5rem",
-  top: "50%",
-  transform: "translateY(-50%)",
-  zIndex: 10,
-  color: "#fff",
-  background: "rgba(255,255,255,0.06)",
-  border: "none",
-  fontSize: "1.6rem",
-  cursor: "pointer",
-  borderRadius: "50%",
-  width: "44px",
-  height: "44px",
-  backdropFilter: "blur(6px)",
-  transition: "all .18s",
-});
