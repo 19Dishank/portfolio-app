@@ -1,35 +1,45 @@
 "use client";
 
-import React, { memo } from "react";
-
-const EXPERIENCES_DATA = [
-  {
-    role: "Software Developer Intern",
-    company: " — Narola Infotech LLP",
-    startDate: "Jan 2026",
-    endDate: null,
-    description:
-      "Building production frontend features in React and Tailwind, plus backend integration on live client work.",
-  },
-];
+import React, { memo, useEffect, useState } from "react";
 
 const Experience = memo(function Experience() {
+  const [experiences, setExperiences] = useState([]);
+
+  useEffect(() => {
+    async function loadExperience() {
+      try {
+        const res = await fetch("/api/experience");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setExperiences(json.data);
+        }
+      } catch (e) {
+        // Handle error if needed
+      }
+    }
+    loadExperience();
+  }, []);
+
+  if (!experiences || experiences.length === 0) {
+    return <section id="experience" style={{ minHeight: "200px" }}></section>;
+  }
+
   return (
     <section id="experience">
       <div className="wrap">
-        <span className="eyebrow reveal">Where I&apos;ve been</span>
-        <h2 className="h2 serif reveal">
+        <span className="eyebrow reveal in">Where I&apos;ve been</span>
+        <h2 className="h2 serif reveal in">
           Still early — <em>moving with intent.</em>
         </h2>
 
-        <div className="timeline reveal">
-          {EXPERIENCES_DATA.map((exp, idx) => {
+        <div className="timeline reveal in">
+          {experiences.map((exp, idx) => {
             const timeRange = exp.startDate
               ? `${exp.startDate} — ${exp.endDate ? exp.endDate : "Present"}`
               : exp.timestamp || "Present";
 
             return (
-              <div className="timeline-item" key={`exp-${idx}`}>
+              <div className="timeline-item" key={exp._id || `exp-${idx}`}>
                 <div className="timeline-dot" />
                 <div className="timeline-header">
                   <div className="timeline-role">

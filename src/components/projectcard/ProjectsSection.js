@@ -1,20 +1,25 @@
 "use client";
 
-import React, { memo, useState } from "react";
-import { projects } from "../../constants";
-
-const GRADIENTS = [
-  "linear-gradient(135deg, #2f5d4f, #8fd8bc)",
-  "linear-gradient(135deg, #b8562f, #e2916a)",
-  "linear-gradient(135deg, #3d4a63, #7c8bab)",
-  "linear-gradient(135deg, #5b4a8c, #9d8ce0)",
-  "linear-gradient(135deg, #3a6b5c, #98e0c4)",
-  "linear-gradient(135deg, #a64e2b, #e08865)",
-  "linear-gradient(135deg, #4b5875, #8a9bbd)",
-];
+import React, { memo, useEffect, useState } from "react";
 
 const ProjectsSection = memo(function ProjectsSection() {
+  const [projectList, setProjectList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setProjectList(json.data);
+        }
+      } catch (e) {
+        // Handle error if needed
+      }
+    }
+    loadProjects();
+  }, []);
 
   const toggleMore = () => {
     setIsOpen((prev) => !prev);
@@ -27,47 +32,56 @@ const ProjectsSection = memo(function ProjectsSection() {
     }
   };
 
-  const initialProjects = (projects || []).slice(0, 3);
-  const remainingProjects = (projects || []).slice(3);
+  if (!projectList || projectList.length === 0) {
+    return <section id="work" style={{ minHeight: "300px" }}></section>;
+  }
+
+  const initialProjects = projectList.filter((p) => p.isFeatured !== false).slice(0, 3);
+  const remainingProjects = projectList.filter(
+    (p) => !initialProjects.includes(p)
+  );
 
   return (
     <section id="work">
       <div className="wrap">
-        <span className="eyebrow reveal">Selected work</span>
-        <h2 className="h2 serif reveal">
+        <span className="eyebrow reveal in">Selected work</span>
+        <h2 className="h2 serif reveal in">
           A few things <em>I&apos;ve shipped.</em>
         </h2>
-        <p className="sub reveal">
+        <p className="sub reveal in">
           The ones I&apos;d point you to first — everything else lives on GitHub.
         </p>
 
-        <div className="proj-list reveal">
-          {initialProjects.map((proj, idx) => (
-            <div
-              className="proj"
-              key={`p-init-${idx}`}
-              onClick={() => handleProjectClick(proj)}
-              style={{ cursor: "pointer" }}
-            >
-              <div className="proj-thumb">
-                <div
-                  className="grad"
-                  style={{ background: GRADIENTS[idx % GRADIENTS.length] }}
-                />
-                <span className="tag">{proj.type || "Web App"}</span>
-              </div>
-              <div>
-                <div className="proj-title">{proj.title}</div>
-                <p className="proj-desc">{proj.description}</p>
-                <div className="proj-stack">
-                  {(proj.technologies || []).map((tech, tIdx) => (
-                    <span key={`t-${tIdx}`}>{tech}</span>
-                  ))}
+        <div className="proj-list reveal in">
+          {initialProjects.map((proj, idx) => {
+            const gradStyle = proj.gradientStart && proj.gradientEnd
+              ? `linear-gradient(135deg, ${proj.gradientStart}, ${proj.gradientEnd})`
+              : "linear-gradient(135deg, #2f5d4f, #8fd8bc)";
+
+            return (
+              <div
+                className="proj"
+                key={proj._id || `p-init-${idx}`}
+                onClick={() => handleProjectClick(proj)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="proj-thumb">
+                  <div className="grad" style={{ background: gradStyle }} />
+                  <span className="tag">{proj.type || "Web App"}</span>
                 </div>
+                <div>
+                  <div className="proj-title">{proj.title}</div>
+                  <p className="proj-desc">{proj.description}</p>
+                  <div className="proj-stack">
+                    {(proj.technologies || []).map((tech, tIdx) => (
+                      <span key={`t-${tIdx}`}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="proj-arrow">↗</div>
               </div>
-              <div className="proj-arrow">↗</div>
-            </div>
-          ))}
+            );
+          })}
 
           {remainingProjects.length > 0 && (
             <div
@@ -75,21 +89,19 @@ const ProjectsSection = memo(function ProjectsSection() {
               id="moreProjects"
             >
               {remainingProjects.map((proj, idx) => {
-                const totalIdx = idx + 3;
+                const gradStyle = proj.gradientStart && proj.gradientEnd
+                  ? `linear-gradient(135deg, ${proj.gradientStart}, ${proj.gradientEnd})`
+                  : "linear-gradient(135deg, #3d4a63, #7c8bab)";
+
                 return (
                   <div
                     className="proj"
-                    key={`p-more-${idx}`}
+                    key={proj._id || `p-more-${idx}`}
                     onClick={() => handleProjectClick(proj)}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="proj-thumb">
-                      <div
-                        className="grad"
-                        style={{
-                          background: GRADIENTS[totalIdx % GRADIENTS.length],
-                        }}
-                      />
+                      <div className="grad" style={{ background: gradStyle }} />
                       <span className="tag">{proj.type || "Web App"}</span>
                     </div>
                     <div>

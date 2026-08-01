@@ -1,106 +1,79 @@
 "use client";
 
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 const ContactSection = memo(function ContactSection() {
+  const [contactData, setContactData] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = (e) => {
-    e.preventDefault();
-    navigator.clipboard.writeText("pateldishank19@gmail.com").catch(() => { });
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 1400);
+  useEffect(() => {
+    async function loadContact() {
+      try {
+        const res = await fetch("/api/contact");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setContactData(json.data);
+        }
+      } catch (e) {
+        // Handle error if needed
+      }
+    }
+    loadContact();
+  }, []);
+
+  const handleAction = (e, chan) => {
+    if (chan.actionText?.toLowerCase() === "copy" || chan.label?.toLowerCase() === "email") {
+      e.preventDefault();
+      navigator.clipboard.writeText(chan.value).catch(() => {});
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+      return;
+    }
+
+    if (chan.href && chan.href !== "#") {
+      if (chan.isExternal !== false) {
+        window.open(chan.href, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = chan.href;
+      }
+    }
   };
+
+  if (!contactData) {
+    return <section id="contact" style={{ minHeight: "200px" }}></section>;
+  }
 
   return (
     <section id="contact">
       <div className="wrap">
-        <span className="eyebrow reveal">Get in touch</span>
-        <p className="contact-lead serif reveal">
-          If you&apos;re building something and want a hand on the frontend —{" "}
-          <em>I&apos;d like to hear about it.</em>
+        <span className="eyebrow reveal in">{contactData.eyebrow}</span>
+        <p className="contact-lead serif reveal in">
+          {contactData.leadText}
         </p>
 
-        <div className="contact-channels reveal">
-          <div className="channel">
-            <span className="channel-label">EMAIL</span>
-            <a
-              href="mailto:pateldishank19@gmail.com"
-              className="channel-value"
-              style={{ textDecoration: "none" }}
-            >
-              pateldishank19@gmail.com
-            </a>
-            <button
-              type="button"
-              className="channel-action"
-              onClick={handleCopyEmail}
-            >
-              Copy
-              <span className={`copy-toast ${copied ? "show" : ""}`}>
-                Copied!
-              </span>
-            </button>
-          </div>
-
-          <div className="channel">
-            <span className="channel-label">PORTFOLIO</span>
-            <span className="channel-value">dishankpatel.in</span>
-            <a
-              href="https://dishankpatel.in"
-              target="_blank"
-              rel="noreferrer"
-              className="channel-action"
-              style={{ display: "inline-block", textDecoration: "none" }}
-            >
-              Visit
-            </a>
-          </div>
-
-          <div className="channel">
-            <span className="channel-label">GITHUB</span>
-            <span className="channel-value">19Dishank</span>
-            <a
-              href="https://github.com/19Dishank"
-              target="_blank"
-              rel="noreferrer"
-              className="channel-action"
-              style={{ display: "inline-block", textDecoration: "none" }}
-            >
-              Open
-            </a>
-          </div>
-
-          <div className="channel">
-            <span className="channel-label">LINKEDIN</span>
-            <span className="channel-value">19dishank</span>
-            <a
-              href="https://www.linkedin.com/in/19dishank/"
-              target="_blank"
-              rel="noreferrer"
-              className="channel-action"
-              style={{ display: "inline-block", textDecoration: "none" }}
-            >
-              Connect
-            </a>
-          </div>
-
-          <div className="channel">
-            <span className="channel-label">LOCATION</span>
-            <span className="channel-value">Surat, Gujarat</span>
-            <span
-              className="channel-action"
-              style={{
-                borderColor: "transparent",
-                color: "var(--text-3)",
-                cursor: "default",
-              }}
-            >
-              IST (UTC+5:30)
-            </span>
-          </div>
+        <div className="contact-channels reveal in">
+          {(contactData.channels || []).map((chan, idx) => (
+            <div className="channel" key={chan._id || `chan-${idx}`}>
+              <span className="channel-label">{chan.label}</span>
+              <span className="channel-value">{chan.value}</span>
+              <button
+                type="button"
+                className="channel-action"
+                onClick={(e) => handleAction(e, chan)}
+                style={{
+                  cursor: chan.href === "#" && chan.actionText?.toLowerCase() !== "copy" ? "default" : "pointer",
+                  borderColor: chan.href === "#" && chan.actionText?.toLowerCase() !== "copy" ? "transparent" : "var(--line-strong)",
+                }}
+              >
+                {chan.actionText || "Open"}
+                {chan.actionText?.toLowerCase() === "copy" && (
+                  <span className={`copy-toast ${copied ? "show" : ""}`}>
+                    Copied!
+                  </span>
+                )}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,50 +1,48 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 const AboutSection = memo(function AboutSection() {
+  const [aboutData, setAboutData] = useState(null);
+
+  useEffect(() => {
+    async function loadAbout() {
+      try {
+        const res = await fetch("/api/about");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setAboutData(json.data);
+        }
+      } catch (e) {
+        // Handle error if needed
+      }
+    }
+    loadAbout();
+  }, []);
+
+  if (!aboutData) {
+    return <section id="about" style={{ minHeight: "200px" }}></section>;
+  }
+
   return (
     <section id="about">
       <div className="wrap">
-        <span className="eyebrow reveal">A little about me</span>
-        <h2 className="h2 serif reveal">
-          Grounded in fundamentals, <em>particular about details.</em>
-        </h2>
+        <span className="eyebrow reveal in">{aboutData.eyebrow}</span>
+        <h2 className="h2 serif reveal in">{aboutData.heading}</h2>
         <div className="about-body" style={{ marginTop: "26px" }}>
-          <p className="reveal">
-            I got into frontend work because I liked the immediacy of it — you
-            change something, you see it, you feel whether it&apos;s right. I care
-            about{" "}
-            <span className="highlight">
-              the parts of a UI most people never consciously notice
-            </span>
-            : whether a hover state feels responsive, whether a table of numbers
-            stays readable at a glance, whether a form makes sense the first
-            time.
-          </p>
-          <p className="reveal">
-            Right now that means building an aviation weather dashboard people rely
-            on mid-shift, and a multi-tenant document platform that has to stay
-            simple even as the data underneath gets complicated.
-          </p>
+          {(aboutData.paragraphs || []).map((para, idx) => (
+            <p key={idx} className="reveal in">
+              {para}
+            </p>
+          ))}
         </div>
-        <div className="facts reveal">
-          <div className="fact">
-            <span className="fact-label">Primary stack</span>
-            <div className="fact-num serif">React</div>
-          </div>
-          <div className="fact">
-            <span className="fact-label">Based in</span>
-            <div className="fact-num serif">Surat</div>
-          </div>
-          <div className="fact">
-            <span className="fact-label">Current role</span>
-            <div className="fact-num serif">Frontend Engineer</div>
-          </div>
-          <div className="fact">
-            <span className="fact-label">Availability</span>
-            <div className="fact-num serif">Open</div>
-          </div>
+        <div className="facts reveal in">
+          {(aboutData.facts || []).map((fact, idx) => (
+            <div key={idx} className="fact">
+              <span className="fact-label">{fact.label}</span>
+              <div className="fact-num serif">{fact.num}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

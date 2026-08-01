@@ -1,44 +1,46 @@
 "use client";
 
-import React, { memo } from "react";
-import { TECH_SKILLS } from "../../constants";
+import React, { memo, useEffect, useState } from "react";
 
 const SkillsSection = memo(function SkillsSection() {
-  const skillNames =
-    TECH_SKILLS && TECH_SKILLS.length > 0
-      ? TECH_SKILLS.map((s) => s.name)
-      : [
-          "React.js",
-          "Tailwind CSS",
-          "JavaScript",
-          "TypeScript",
-          "Node.js",
-          "Express",
-          "MongoDB",
-          "NestJS",
-          "Git",
-          "REST APIs",
-          "Figma",
-          "Responsive UI",
-        ];
+  const [skillNames, setSkillNames] = useState([]);
+
+  useEffect(() => {
+    async function loadSkills() {
+      try {
+        const res = await fetch("/api/skills");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          const names = json.data.map((item) => (typeof item === "string" ? item : item.name));
+          setSkillNames(names);
+        }
+      } catch (e) {
+        // Handle error if needed
+      }
+    }
+    loadSkills();
+  }, []);
+
+  if (!skillNames || skillNames.length === 0) {
+    return <section id="skills" style={{ minHeight: "150px" }}></section>;
+  }
 
   const mid = Math.ceil(skillNames.length / 2);
   const skillsA = skillNames.slice(0, mid);
   const skillsB = skillNames.slice(mid);
 
-  // Repeat array 4 times to ensure track width is >200% screen width on all screens
   const loopA = [...skillsA, ...skillsA, ...skillsA, ...skillsA];
   const loopB = [...skillsB, ...skillsB, ...skillsB, ...skillsB];
 
   return (
     <section id="skills">
       <div className="wrap">
-        <span className="eyebrow reveal">What I reach for</span>
-        <h2 className="h2 serif reveal">
+        <span className="eyebrow reveal in">What I reach for</span>
+        <h2 className="h2 serif reveal in">
           My day-to-day <em>toolkit.</em>
         </h2>
       </div>
-      <div className="reveal">
+      <div className="reveal in">
         <div className="marquee-outer">
           <div className="marquee-track dir-left">
             {loopA.map((skill, idx) => (

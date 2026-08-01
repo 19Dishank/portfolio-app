@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import ReactGA from "react-ga4";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import Loader from "@/app/loader";
 import CardNav from "@/components/cardnav/CardNav";
 import HeroSection from "@/components/about/HeroSection";
 import AboutSection from "@/components/about/AboutSection";
@@ -78,6 +79,9 @@ export default function Home() {
 
   return (
     <div>
+      {/* Interactive Page Loader Overlay */}
+      <Loader />
+
       {/* Scroll Progress Bar */}
       <div id="progress" />
 

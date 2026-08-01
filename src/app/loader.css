@@ -1,0 +1,200 @@
+/* Loader.css
+   Relies on the CSS custom properties already defined globally per DESIGN_TOKENS.md:
+   --bg, --text, --text-2, --text-3, --line, --line-strong, --accent, --accent-rgb,
+   --accent-2, --accent-2-rgb. No new tokens introduced here.
+*/
+
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    cursor: none;
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.loader-overlay.loader-hide {
+    opacity: 0;
+    filter: blur(12px);
+    pointer-events: none;
+}
+
+/* background blobs — same treatment as the hero background */
+.loader-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.32;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-theme='light'] .loader-blob {
+    opacity: 0.14;
+}
+
+.loader-blob-green {
+    width: 520px;
+    height: 520px;
+    background: var(--accent);
+    top: -160px;
+    right: -100px;
+}
+
+.loader-blob-orange {
+    width: 420px;
+    height: 420px;
+    background: var(--accent-2);
+    bottom: -140px;
+    left: -90px;
+}
+
+/* custom cursor dot, replaces the pointer while the loader is up */
+.loader-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+@media (max-width: 768px) {
+    .loader-cursor {
+        display: none;
+    }
+}
+
+/* abstract pulsing-ring mark — generic "loading" signal, no name/logo */
+.loader-mark {
+    position: relative;
+    width: 72px;
+    height: 72px;
+}
+
+.loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    animation: loaderPulse 2.1s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.loader-ring-2 {
+    border-color: var(--accent-2);
+    animation-delay: 0.5s;
+}
+
+.loader-ring-3 {
+    animation-delay: 1s;
+}
+
+@keyframes loaderPulse {
+    0% {
+        transform: scale(0.35);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+.loader-caption {
+    margin-top: 26px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+}
+
+.loader-dots span {
+    animation: loaderDot 1.4s infinite;
+    opacity: 0;
+}
+
+.loader-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loaderDot {
+
+    0%,
+    20% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.loader-progress-wrap {
+    margin-top: 30px;
+    width: min(220px, 60vw);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.loader-progress-track {
+    flex: 1;
+    height: 2px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loader-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 2px;
+    transition: width 0.15s ease-out;
+}
+
+.loader-progress-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-3);
+    min-width: 32px;
+    text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .loader-overlay,
+    .loader-blob,
+    .loader-ring,
+    .loader-dots span {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .loader-cursor {
+        display: none;
+    }
+
+    .loader-overlay {
+        cursor: auto;
+    }
+}
