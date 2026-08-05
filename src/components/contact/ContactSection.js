@@ -2,11 +2,15 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const ContactSection = memo(function ContactSection() {
-  const [contactData, setContactData] = useState(null);
+const ContactSection = memo(function ContactSection({ data }) {
+  const [contactData, setContactData] = useState(data || null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    if (data) {
+      setContactData(data);
+      return;
+    }
     async function loadContact() {
       try {
         const res = await fetch("/api/contact");
@@ -19,7 +23,7 @@ const ContactSection = memo(function ContactSection() {
       }
     }
     loadContact();
-  }, []);
+  }, [data]);
 
   const handleAction = (e, chan) => {
     if (chan.actionText?.toLowerCase() === "copy" || chan.label?.toLowerCase() === "email") {

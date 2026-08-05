@@ -2,11 +2,15 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const ProjectsSection = memo(function ProjectsSection() {
-  const [projectList, setProjectList] = useState([]);
+const ProjectsSection = memo(function ProjectsSection({ data }) {
+  const [projectList, setProjectList] = useState(data || []);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (data) {
+      setProjectList(data);
+      return;
+    }
     async function loadProjects() {
       try {
         const res = await fetch("/api/projects");
@@ -19,7 +23,7 @@ const ProjectsSection = memo(function ProjectsSection() {
       }
     }
     loadProjects();
-  }, []);
+  }, [data]);
 
   const toggleMore = () => {
     setIsOpen((prev) => !prev);

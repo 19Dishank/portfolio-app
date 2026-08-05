@@ -2,10 +2,14 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const Experience = memo(function Experience() {
-  const [experiences, setExperiences] = useState([]);
+const Experience = memo(function Experience({ data }) {
+  const [experiences, setExperiences] = useState(data || []);
 
   useEffect(() => {
+    if (data) {
+      setExperiences(data);
+      return;
+    }
     async function loadExperience() {
       try {
         const res = await fetch("/api/experience");
@@ -18,7 +22,7 @@ const Experience = memo(function Experience() {
       }
     }
     loadExperience();
-  }, []);
+  }, [data]);
 
   if (!experiences || experiences.length === 0) {
     return <section id="experience" style={{ minHeight: "200px" }}></section>;

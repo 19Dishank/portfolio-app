@@ -2,10 +2,14 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const AboutSection = memo(function AboutSection() {
-  const [aboutData, setAboutData] = useState(null);
+const AboutSection = memo(function AboutSection({ data }) {
+  const [aboutData, setAboutData] = useState(data || null);
 
   useEffect(() => {
+    if (data) {
+      setAboutData(data);
+      return;
+    }
     async function loadAbout() {
       try {
         const res = await fetch("/api/about");
@@ -18,7 +22,7 @@ const AboutSection = memo(function AboutSection() {
       }
     }
     loadAbout();
-  }, []);
+  }, [data]);
 
   if (!aboutData) {
     return <section id="about" style={{ minHeight: "200px" }}></section>;

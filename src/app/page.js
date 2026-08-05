@@ -17,6 +17,51 @@ import Footer from "@/components/footer/Footer";
 
 export default function Home() {
   const [lenisInstance, setLenisInstance] = useState(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [allData, setAllData] = useState({
+    hero: null,
+    about: null,
+    skills: null,
+    projects: null,
+    experience: null,
+    contact: null,
+  });
+
+  useEffect(() => {
+    let completed = 0;
+    const total = 6;
+
+    const updateCount = () => {
+      completed += 1;
+      const pct = Math.round((completed / total) * 100);
+      setLoadingProgress(pct);
+      if (completed >= total) {
+        setIsDataLoaded(true);
+      }
+    };
+
+    const fetchEndpoint = async (url, key) => {
+      try {
+        const res = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
+        const json = await res.json();
+        if (json.success && json.data !== undefined) {
+          setAllData((prev) => ({ ...prev, [key]: json.data }));
+        }
+      } catch (e) {
+        console.error(`Error fetching ${url}:`, e);
+      } finally {
+        updateCount();
+      }
+    };
+
+    fetchEndpoint("/api/hero", "hero");
+    fetchEndpoint("/api/about", "about");
+    fetchEndpoint("/api/skills", "skills");
+    fetchEndpoint("/api/projects", "projects");
+    fetchEndpoint("/api/experience", "experience");
+    fetchEndpoint("/api/contact", "contact");
+  }, []);
 
   useEffect(() => {
     // Analytics initialization
@@ -80,7 +125,7 @@ export default function Home() {
   return (
     <div>
       {/* Interactive Page Loader Overlay */}
-      <Loader />
+      <Loader isLoaded={isDataLoaded} progress={loadingProgress} />
 
       {/* Scroll Progress Bar */}
       <div id="progress" />
@@ -92,25 +137,25 @@ export default function Home() {
       </div>
 
       {/* 1. Nav */}
-      <CardNav lenis={lenisInstance} />
+      <CardNav lenis={lenisInstance} resumeLink={allData.hero?.resumeLink} />
 
       {/* 2. Hero / Landing */}
-      <HeroSection lenis={lenisInstance} />
+      <HeroSection lenis={lenisInstance} data={allData.hero} />
 
       {/* 3. About */}
-      <AboutSection />
+      <AboutSection data={allData.about} />
 
       {/* 4. Skills */}
-      <SkillsSection />
+      <SkillsSection data={allData.skills} />
 
       {/* 5. Work / Projects */}
-      <ProjectsSection />
+      <ProjectsSection data={allData.projects} />
 
       {/* 6. Experience */}
-      <Experience />
+      <Experience data={allData.experience} />
 
       {/* 7. Contact */}
-      <ContactSection />
+      <ContactSection data={allData.contact} />
 
       {/* 8. Footer */}
       <Footer />

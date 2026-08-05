@@ -2,24 +2,32 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const SkillsSection = memo(function SkillsSection() {
-  const [skillNames, setSkillNames] = useState([]);
+const SkillsSection = memo(function SkillsSection({ data }) {
+  const parseSkills = (items) => {
+    if (!Array.isArray(items)) return [];
+    return items.map((item) => (typeof item === "string" ? item : item.name));
+  };
+
+  const [skillNames, setSkillNames] = useState(() => (data ? parseSkills(data) : []));
 
   useEffect(() => {
+    if (data) {
+      setSkillNames(parseSkills(data));
+      return;
+    }
     async function loadSkills() {
       try {
         const res = await fetch("/api/skills");
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
-          const names = json.data.map((item) => (typeof item === "string" ? item : item.name));
-          setSkillNames(names);
+          setSkillNames(parseSkills(json.data));
         }
       } catch (e) {
         // Handle error if needed
       }
     }
     loadSkills();
-  }, []);
+  }, [data]);
 
   if (!skillNames || skillNames.length === 0) {
     return <section id="skills" style={{ minHeight: "150px" }}></section>;

@@ -1,166 +1,183 @@
-/* Loader.css
-   Relies on the CSS custom properties already defined globally per DESIGN_TOKENS.md:
-   --bg, --text, --text-2, --text-3, --line, --line-strong, --accent, --accent-rgb,
-   --accent-2, --accent-2-rgb. No new tokens introduced here.
-*/
+/* Loader.css — v4-kit initials monogram design */
 
 .loader-overlay {
     position: fixed;
     inset: 0;
-    z-index: 999;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: var(--bg);
-    cursor: none;
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow: hidden;
+    transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .loader-overlay.loader-hide {
     opacity: 0;
-    filter: blur(12px);
+    filter: blur(16px);
+    transform: scale(1.03);
     pointer-events: none;
 }
 
-/* background blobs — same treatment as the hero background */
+/* Ambient glow blobs */
+.loader-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
 .loader-blob {
     position: absolute;
     border-radius: 50%;
     filter: blur(90px);
-    opacity: 0.32;
+    opacity: 0.35;
     transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 html[data-theme='light'] .loader-blob {
-    opacity: 0.14;
+    opacity: 0.15;
 }
 
 .loader-blob-green {
-    width: 520px;
-    height: 520px;
+    width: 540px;
+    height: 540px;
     background: var(--accent);
-    top: -160px;
-    right: -100px;
+    top: -180px;
+    right: -120px;
 }
 
 .loader-blob-orange {
-    width: 420px;
-    height: 420px;
+    width: 440px;
+    height: 440px;
     background: var(--accent-2);
-    bottom: -140px;
-    left: -90px;
+    bottom: -160px;
+    left: -100px;
 }
 
-/* custom cursor dot, replaces the pointer while the loader is up */
-.loader-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--accent);
-    pointer-events: none;
-    z-index: 1000;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-}
-
-@media (max-width: 768px) {
-    .loader-cursor {
-        display: none;
-    }
-}
-
-/* abstract pulsing-ring mark — generic "loading" signal, no name/logo */
-.loader-mark {
+/* Central Loader Container */
+.loader-container {
     position: relative;
-    width: 72px;
-    height: 72px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.loader-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent);
-    animation: loaderPulse 2.1s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-}
-
-.loader-ring-2 {
-    border-color: var(--accent-2);
-    animation-delay: 0.5s;
-}
-
-.loader-ring-3 {
-    animation-delay: 1s;
-}
-
-@keyframes loaderPulse {
-    0% {
-        transform: scale(0.35);
-        opacity: 0.9;
-    }
-
-    100% {
-        transform: scale(1.6);
-        opacity: 0;
-    }
-}
-
-.loader-caption {
-    margin-top: 26px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-3);
+/* Initials Monogram Badge */
+.loader-initials-wrap {
+    position: relative;
+    width: 108px;
+    height: 108px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: 26px;
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
 }
 
-.loader-dots span {
-    animation: loaderDot 1.4s infinite;
-    opacity: 0;
+.loader-initials {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    user-select: none;
 }
 
-.loader-dots span:nth-child(2) {
-    animation-delay: 0.2s;
+.loader-initials .first {
+    font-family: 'Inter', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.04em;
 }
 
-.loader-dots span:nth-child(3) {
-    animation-delay: 0.4s;
+.loader-initials .last {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 46px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.02em;
 }
 
-@keyframes loaderDot {
+/* Subtle glowing accent halo behind the initials box */
+.loader-initials-ring {
+    position: absolute;
+    inset: -1px;
+    border-radius: 26px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.4), transparent 60%, rgba(var(--accent-2-rgb), 0.3)) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+}
 
-    0%,
-    20% {
-        opacity: 0;
+/* Eyebrow & Live Pulse Dot */
+.loader-eyebrow {
+    margin-top: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.loader-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    position: relative;
+    display: inline-block;
+}
+
+.loader-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    animation: loaderPing 2.2s ease-out infinite;
+}
+
+@keyframes loaderPing {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.8;
     }
-
-    50% {
-        opacity: 1;
-    }
-
     100% {
+        transform: scale(2.4);
         opacity: 0;
     }
 }
 
+/* Progress track and percentage */
 .loader-progress-wrap {
-    margin-top: 30px;
+    margin-top: 28px;
     width: min(220px, 60vw);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .loader-progress-track {
     flex: 1;
     height: 2px;
-    background: var(--line);
+    background: var(--line-strong);
     border-radius: 2px;
     overflow: hidden;
 }
@@ -175,26 +192,17 @@ html[data-theme='light'] .loader-blob {
 .loader-progress-num {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11.5px;
-    color: var(--text-3);
+    font-weight: 500;
+    color: var(--accent);
     min-width: 32px;
     text-align: right;
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .loader-overlay,
     .loader-blob,
-    .loader-ring,
-    .loader-dots span {
+    .loader-dot::after {
         animation: none !important;
         transition: none !important;
-    }
-
-    .loader-cursor {
-        display: none;
-    }
-
-    .loader-overlay {
-        cursor: auto;
     }
 }
