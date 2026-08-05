@@ -2,10 +2,14 @@
 
 import React, { memo, useEffect, useState } from "react";
 
-const HeroSection = memo(function HeroSection({ lenis }) {
-  const [heroData, setHeroData] = useState(null);
+const HeroSection = memo(function HeroSection({ lenis, data }) {
+  const [heroData, setHeroData] = useState(data || null);
 
   useEffect(() => {
+    if (data) {
+      setHeroData(data);
+      return;
+    }
     async function loadHero() {
       try {
         const res = await fetch("/api/hero");
@@ -18,7 +22,7 @@ const HeroSection = memo(function HeroSection({ lenis }) {
       }
     }
     loadHero();
-  }, []);
+  }, [data]);
 
   const handleMouseMove = (e) => {
     const btn = e.currentTarget;
@@ -74,6 +78,17 @@ const HeroSection = memo(function HeroSection({ lenis }) {
           >
             See my work
           </button>
+          <a
+            href={heroData.resumeLink || "/Dishank_Patel_Resume.pdf"}
+            download="Dishank_Patel_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-line magnetic"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            Download Resume ⬇
+          </a>
           <a
             href="#contact"
             className="btn btn-line magnetic"

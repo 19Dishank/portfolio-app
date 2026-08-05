@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const CardNav = ({ lenis }) => {
+const CardNav = ({ lenis, resumeLink }) => {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState("dark");
 
@@ -61,6 +61,14 @@ const CardNav = ({ lenis }) => {
         </a>
         <a href="#contact" onClick={(e) => handleNavClick(e, "#contact")}>
           Contact
+        </a>
+        <a
+          href={resumeLink || "/Dishank_Patel_Resume.pdf"}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--accent)" }}
+        >
+          Resume ↗
         </a>
       </div>
       <button

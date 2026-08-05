@@ -10,6 +10,7 @@ const HeroSchema = new mongoose.Schema(
       default:
         "I'm a frontend developer working in React, Tailwind CSS and JavaScript — building things people actually rely on.",
     },
+    resumeLink: { type: String, default: "/Dishank_Patel_Resume.pdf" },
   },
   { timestamps: true }
 );

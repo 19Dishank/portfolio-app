@@ -8,6 +8,7 @@ export default function HeroEditorPage() {
     firstName: "",
     lastName: "",
     roleText: "",
+    resumeLink: "/Dishank_Patel_Resume.pdf",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -23,6 +24,7 @@ export default function HeroEditorPage() {
           firstName: json.data.firstName || "",
           lastName: json.data.lastName || "",
           roleText: json.data.roleText || "",
+          resumeLink: json.data.resumeLink || "/Dishank_Patel_Resume.pdf",
         });
       }
     } catch (e) {
@@ -80,7 +82,7 @@ export default function HeroEditorPage() {
           Edit Hero Section
         </h1>
         <p className="sub" style={{ fontSize: "13.5px", marginTop: "6px" }}>
-          Update the main greeting, eyebrow line, name, and tagline role text.
+          Update the main greeting, eyebrow line, name, tagline role text, and resume link.
         </p>
       </div>
 
@@ -207,6 +209,41 @@ export default function HeroEditorPage() {
               fontFamily: "inherit",
             }}
           />
+        </div>
+
+        <div>
+          <label className="mono" style={{ display: "block", fontSize: "11px", color: "var(--text-3)", marginBottom: "6px", textTransform: "uppercase" }}>
+            Resume URL / File Path
+          </label>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <input
+              type="text"
+              value={formData.resumeLink}
+              onChange={(e) => setFormData({ ...formData, resumeLink: e.target.value })}
+              placeholder="e.g. /Dishank_Patel_Resume.pdf or https://drive.google.com/..."
+              style={{
+                flex: 1,
+                padding: "11px 14px",
+                borderRadius: "8px",
+                background: "var(--surface-2)",
+                border: "1px solid var(--line-strong)",
+                color: "var(--text)",
+                fontSize: "14px",
+                outline: "none",
+              }}
+            />
+            {formData.resumeLink && (
+              <a
+                href={formData.resumeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-line"
+                style={{ fontSize: "13px", padding: "10px 16px", whiteSpace: "nowrap" }}
+              >
+                Preview ↗
+              </a>
+            )}
+          </div>
         </div>
 
         <button

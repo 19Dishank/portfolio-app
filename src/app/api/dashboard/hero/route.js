@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Hero from "@/models/Hero";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     await dbConnect();
@@ -21,7 +24,7 @@ export async function GET() {
 export async function PUT(request) {
   try {
     const body = await request.json();
-    const { eyebrow, firstName, lastName, roleText } = body;
+    const { eyebrow, firstName, lastName, roleText, resumeLink } = body;
 
     await dbConnect();
     let hero = await Hero.findOne();
@@ -33,6 +36,7 @@ export async function PUT(request) {
     hero.firstName = firstName;
     hero.lastName = lastName;
     hero.roleText = roleText;
+    if (resumeLink) hero.resumeLink = resumeLink;
 
     await hero.save();
 
